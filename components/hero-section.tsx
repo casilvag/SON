@@ -7,34 +7,35 @@ import { useState, useEffect } from "react"
 export function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  const images = [
-    "/images/slideshow-1.jpeg",
-    "/images/slideshow-2.png",
-    "/images/slideshow-3.jpeg",
-    "/images/slideshow-4.jpeg",
-  ]
+  const images: string[] = []
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))
-    }, 5000)
+    if (images.length > 0) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))
+      }, 5000)
 
-    return () => clearInterval(interval)
+      return () => clearInterval(interval)
+    }
   }, [images.length])
 
   return (
     <section id="accueil" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      <div className="absolute inset-0">
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-              index === currentImageIndex ? "opacity-100" : "opacity-0"
-            }`}
-            style={{ backgroundImage: `url(${image})` }}
-          />
-        ))}
-      </div>
+      {images.length > 0 && (
+        <div className="absolute inset-0">
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+                index === currentImageIndex ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ backgroundImage: `url(${image})` }}
+            />
+          ))}
+        </div>
+      )}
+
+      {images.length === 0 && <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" />}
 
       <div className="absolute inset-0 bg-black/20" />
 
