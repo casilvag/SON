@@ -7,7 +7,13 @@ import { useState, useEffect } from "react"
 export function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  const images: string[] = []
+  const images: string[] = [
+    "/images/slideshow-1.jpeg", // Wooden marimba
+    "/images/slideshow-2.jpeg", // Bass guitar and studio setup
+    "/images/slideshow-3.jpeg", // Complete home studio with drums
+    "/images/slideshow-4.jpeg", // Keyboard with microphone
+    "/images/slideshow-5.jpeg", // Electronic drum pads
+  ]
 
   useEffect(() => {
     if (images.length > 0) {
