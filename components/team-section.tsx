@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { GraduationCap, Award, Users } from "lucide-react"
+import Image from "next/image"
 
 export function TeamSection() {
   return (
@@ -19,8 +20,14 @@ export function TeamSection() {
           <Card className="bg-card border-border">
             <CardContent className="p-8">
               <div className="text-center mb-6">
-                <div className="w-32 h-32 bg-primary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Users className="w-16 h-16 text-primary" />
+                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20">
+                  <Image
+                    src="/images/cesar-silva.jpeg"
+                    alt="César Silva - Fondateur et Instructeur Principal"
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">César Silva</h3>
                 <p className="text-primary font-semibold">Fondateur et Instructeur Principal</p>
