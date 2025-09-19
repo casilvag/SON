@@ -16,6 +16,14 @@ export function Header() {
     { href: "#contact", label: "Contact" },
   ]
 
+  const scrollToEnrollment = () => {
+    const contactSection = document.getElementById("contact")
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" })
+    }
+    setIsMenuOpen(false) // Close mobile menu if open
+  }
+
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 py-4">
@@ -31,7 +39,9 @@ export function Header() {
             ))}
           </nav>
 
-          <Button className="hidden md:block">Inscription</Button>
+          <Button className="hidden md:block" onClick={scrollToEnrollment}>
+            Inscription
+          </Button>
 
           {/* Mobile Menu Button */}
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -53,7 +63,9 @@ export function Header() {
                   {item.label}
                 </a>
               ))}
-              <Button className="w-full mt-4">Inscription</Button>
+              <Button className="w-full mt-4" onClick={scrollToEnrollment}>
+                Inscription
+              </Button>
             </div>
           </nav>
         )}
