@@ -16,6 +16,20 @@ export function Header() {
     { href: "#contact", label: "Contact" },
   ]
 
+  const handleNavClick = (href: string, label: string) => {
+    console.log("[v0] Navigation clicked:", label, href)
+    const element = document.querySelector(href)
+    console.log("[v0] Target element found:", element)
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      })
+    }
+    setIsMenuOpen(false)
+  }
+
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 py-4">
@@ -25,14 +39,18 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="text-foreground hover:text-primary transition-colors">
+              <button
+                key={item.href}
+                onClick={() => handleNavClick(item.href, item.label)}
+                className="text-foreground hover:text-primary transition-colors cursor-pointer"
+              >
                 {item.label}
-              </a>
+              </button>
             ))}
           </nav>
 
-          <Button asChild className="hidden md:block">
-            <a href="#contact">Inscription</a>
+          <Button onClick={() => handleNavClick("#contact", "Inscription")} className="hidden md:block">
+            Inscription
           </Button>
 
           {/* Mobile Menu Button */}
@@ -46,19 +64,16 @@ export function Header() {
           <nav className="md:hidden mt-4 pb-4 border-t border-border pt-4">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.href}
-                  href={item.href}
-                  className="text-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => handleNavClick(item.href, item.label)}
+                  className="text-foreground hover:text-primary transition-colors text-left"
                 >
                   {item.label}
-                </a>
+                </button>
               ))}
-              <Button asChild className="w-full mt-4">
-                <a href="#contact" onClick={() => setIsMenuOpen(false)}>
-                  Inscription
-                </a>
+              <Button onClick={() => handleNavClick("#contact", "Inscription")} className="w-full mt-4">
+                Inscription
               </Button>
             </div>
           </nav>
