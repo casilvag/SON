@@ -1,0 +1,115 @@
+import { Card, CardContent } from "@/components/ui/card"
+import { GraduationCap, Award, Users } from "lucide-react"
+
+export function TeamSection() {
+  return (
+    <section id="equipe" className="py-20 bg-secondary/20">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
+            Notre <span className="text-primary">Équipe</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
+            Des professeurs expérimentés et passionnés, reconnus dans d'autres écoles de musique du Québec
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* César Silva */}
+          <Card className="bg-card border-border">
+            <CardContent className="p-8">
+              <div className="text-center mb-6">
+                <div className="w-32 h-32 bg-primary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <Users className="w-16 h-16 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">César Silva</h3>
+                <p className="text-primary font-semibold">Fondateur et Instructeur Principal</p>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-accent mb-2">Spécialités</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Production musicale, composition, batterie, guitare, basse, percussions latines, piano
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-accent mb-2 flex items-center">
+                    <GraduationCap className="w-4 h-4 mr-2" />
+                    Formation Académique
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    Berklee College of Music (USA), Universidad Nacional de Colombia, Université Laval (Canada)
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-accent mb-2 flex items-center">
+                    <Award className="w-4 h-4 mr-2" />
+                    Expérience
+                  </h4>
+                  <p className="text-sm text-muted-foreground">Plus de 10 ans d'enseignement, dont 2 ans au Québec</p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-accent mb-2">Approche</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Combine la maîtrise technique avec la créativité et la sensibilité musicale
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Sebastián Rey */}
+          <Card className="bg-card border-border">
+            <CardContent className="p-8">
+              <div className="text-center mb-6">
+                <div className="w-32 h-32 bg-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <Users className="w-16 h-16 text-accent" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Sebastián Rey</h3>
+                <p className="text-accent font-semibold">Instructeur</p>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-primary mb-2">Spécialités</h4>
+                  <p className="text-sm text-muted-foreground">Piano, batterie, percussions, guitare, basse</p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-primary mb-2 flex items-center">
+                    <Award className="w-4 h-4 mr-2" />
+                    Expérience
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    Reconnu pour sa polyvalence et son soutien aux étudiants de tous niveaux dans leur parcours musical
+                  </p>
+                </div>
+
+                <div className="bg-muted/50 rounded-lg p-4 mt-6">
+                  <p className="text-sm text-muted-foreground italic">
+                    "La musique est un voyage personnel unique pour chaque étudiant. Mon rôle est de les guider avec
+                    patience et passion."
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="mt-12 text-center">
+          <div className="bg-card border border-border rounded-lg p-6 max-w-4xl mx-auto">
+            <h3 className="text-xl font-bold mb-3 text-primary">Reconnaissance Professionnelle</h3>
+            <p className="text-muted-foreground">
+              Faculté reconnue dans d'autres écoles de musique du Québec, notamment Long & McQuade, Cercle de musique de
+              Cap Rouge, Sam Gagnon, et plus encore.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
