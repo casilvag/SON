@@ -8,25 +8,71 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MapPin, Phone, Mail, Clock } from "lucide-react"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label"
+import { MapPin, Phone, Mail, Clock, Upload, CheckCircle } from "lucide-react"
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    instrument: "",
+    phone: "",
+    instruments: [] as string[],
+    musicStyle: "",
     lessonType: "",
+    level: "",
+    ageGroup: "",
+    schedule: "",
+    postalCode: "",
     message: "",
+    contactMethod: "",
+    file: null as File | null,
+    consent: false,
   })
+
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
     console.log("Form submitted:", formData)
+    setIsSubmitted(true)
+    setTimeout(() => setIsSubmitted(false), 3000)
   }
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | boolean | File | null) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
+  }
+
+  const handleInstrumentChange = (instrument: string, checked: boolean) => {
+    setFormData((prev) => ({
+      ...prev,
+      instruments: checked ? [...prev.instruments, instrument] : prev.instruments.filter((i) => i !== instrument),
+    }))
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null
+    handleInputChange("file", file)
+  }
+
+  if (isSubmitted) {
+    return (
+      <section id="contact" className="py-20 bg-secondary/20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <Card className="bg-card border-border">
+              <CardContent className="p-12">
+                <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
+                <h3 className="text-2xl font-bold mb-4 text-primary">Merci pour votre inscription !</h3>
+                <p className="text-muted-foreground text-lg">
+                  Notre équipe vous contactera sous peu pour organiser votre première leçon.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+    )
   }
 
   return (
@@ -34,10 +80,10 @@ export function ContactSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            <span className="text-primary">Contact</span> & Inscription
+            <span className="text-primary">🎵 Inscrivez-vous</span> aux Cours de Musique
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
-            Prêt à commencer votre parcours musical ? Contactez-nous dès aujourd'hui
+            Remplissez ce formulaire pour vous inscrire aux cours de musique ou demander plus d'informations
           </p>
         </div>
 
@@ -121,18 +167,19 @@ export function ContactSection() {
               <h3 className="text-2xl font-bold mb-6 text-primary">Formulaire d'Inscription</h3>
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Basic Information */}
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Nom Complet</label>
+                    <Label className="block text-sm font-medium mb-2">Nom Complet *</Label>
                     <Input
                       value={formData.name}
                       onChange={(e) => handleInputChange("name", e.target.value)}
-                      placeholder="Votre nom"
+                      placeholder="Votre nom complet"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Email</label>
+                    <Label className="block text-sm font-medium mb-2">Adresse Email *</Label>
                     <Input
                       type="email"
                       value={formData.email}
@@ -143,50 +190,185 @@ export function ContactSection() {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-2">Instrument d'Intérêt</label>
-                  <Select onValueChange={(value) => handleInputChange("instrument", value)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Choisissez un instrument" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="guitare">Guitare</SelectItem>
-                      <SelectItem value="basse">Basse</SelectItem>
-                      <SelectItem value="piano">Piano</SelectItem>
-                      <SelectItem value="batterie">Batterie</SelectItem>
-                      <SelectItem value="percussions">Percussions Latines</SelectItem>
-                      <SelectItem value="production">Production Musicale</SelectItem>
-                      <SelectItem value="multiple">Plusieurs Instruments</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label className="block text-sm font-medium mb-2">Numéro de Téléphone</Label>
+                    <Input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange("phone", e.target.value)}
+                      placeholder="(418) 123-4567"
+                    />
+                  </div>
+                  <div>
+                    <Label className="block text-sm font-medium mb-2">Code Postal / Quartier</Label>
+                    <Input
+                      value={formData.postalCode}
+                      onChange={(e) => handleInputChange("postalCode", e.target.value)}
+                      placeholder="G1R 2L3"
+                    />
+                  </div>
                 </div>
 
+                {/* Instruments Selection */}
                 <div>
-                  <label className="block text-sm font-medium mb-2">Type de Cours Préféré</label>
-                  <Select onValueChange={(value) => handleInputChange("lessonType", value)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Choisissez le type de cours" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="en-personne">En Personne</SelectItem>
-                      <SelectItem value="en-ligne">En Ligne</SelectItem>
-                      <SelectItem value="hybride">Hybride</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label className="block text-sm font-medium mb-3">Instrument(s) *</Label>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {[
+                      { value: "guitare", label: "Guitare" },
+                      { value: "basse", label: "Basse" },
+                      { value: "piano", label: "Piano" },
+                      { value: "batterie", label: "Batterie" },
+                      { value: "congas", label: "Congas" },
+                      { value: "djembe", label: "Djembé" },
+                      { value: "percussions-latines", label: "Percussions Latines" },
+                    ].map((instrument) => (
+                      <div key={instrument.value} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={instrument.value}
+                          checked={formData.instruments.includes(instrument.value)}
+                          onCheckedChange={(checked) => handleInstrumentChange(instrument.value, checked as boolean)}
+                        />
+                        <Label htmlFor={instrument.value} className="text-sm">
+                          {instrument.label}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
+                {/* Music Style and Lesson Type */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label className="block text-sm font-medium mb-2">Style Musical / Genre Préféré</Label>
+                    <Select onValueChange={(value) => handleInputChange("musicStyle", value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choisissez un style" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="classique">Classique</SelectItem>
+                        <SelectItem value="jazz">Jazz</SelectItem>
+                        <SelectItem value="pop-rock">Pop/Rock</SelectItem>
+                        <SelectItem value="latin">Latin</SelectItem>
+                        <SelectItem value="autre">Autre</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label className="block text-sm font-medium mb-2">Type de Cours / Lieu *</Label>
+                    <Select onValueChange={(value) => handleInputChange("lessonType", value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choisissez le type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="en-personne">En Personne (Studio du Professeur, Québec)</SelectItem>
+                        <SelectItem value="en-ligne">En Ligne</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Level and Age Group */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label className="block text-sm font-medium mb-2">Niveau</Label>
+                    <Select onValueChange={(value) => handleInputChange("level", value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choisissez votre niveau" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="debutant">Débutant</SelectItem>
+                        <SelectItem value="intermediaire">Intermédiaire</SelectItem>
+                        <SelectItem value="avance">Avancé</SelectItem>
+                        <SelectItem value="preparatoire">Programme Préparatoire</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label className="block text-sm font-medium mb-2">Groupe d'Âge</Label>
+                    <Select onValueChange={(value) => handleInputChange("ageGroup", value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choisissez votre groupe d'âge" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="enfant">Enfant</SelectItem>
+                        <SelectItem value="adolescent">Adolescent</SelectItem>
+                        <SelectItem value="adulte">Adulte</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Schedule and Contact Method */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label className="block text-sm font-medium mb-2">Horaire Préféré / Disponibilité</Label>
+                    <Input
+                      value={formData.schedule}
+                      onChange={(e) => handleInputChange("schedule", e.target.value)}
+                      placeholder="Ex: Soir, Matin, Fins de semaine"
+                    />
+                  </div>
+                  <div>
+                    <Label className="block text-sm font-medium mb-2">Méthode de Contact Préférée</Label>
+                    <Select onValueChange={(value) => handleInputChange("contactMethod", value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choisissez une méthode" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="email">Email</SelectItem>
+                        <SelectItem value="telephone">Téléphone</SelectItem>
+                        <SelectItem value="whatsapp">WhatsApp</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Message */}
                 <div>
-                  <label className="block text-sm font-medium mb-2">Message (Optionnel)</label>
+                  <Label className="block text-sm font-medium mb-2">Commentaires / Informations Supplémentaires</Label>
                   <Textarea
                     value={formData.message}
                     onChange={(e) => handleInputChange("message", e.target.value)}
-                    placeholder="Parlez-nous de vos objectifs musicaux..."
+                    placeholder="Parlez-nous de vos objectifs musicaux, questions supplémentaires..."
                     rows={4}
                   />
                 </div>
 
+                {/* File Upload */}
+                <div>
+                  <Label className="block text-sm font-medium mb-2">Téléchargement de Fichier (Optionnel)</Label>
+                  <div className="flex items-center space-x-2">
+                    <Input
+                      type="file"
+                      accept="video/*,audio/*"
+                      onChange={handleFileChange}
+                      className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                    />
+                    <Upload className="w-5 h-5 text-muted-foreground" />
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Partagez une courte vidéo de vous jouant ou des enregistrements de pratique
+                  </p>
+                </div>
+
+                {/* Consent Checkbox */}
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="consent"
+                    checked={formData.consent}
+                    onCheckedChange={(checked) => handleInputChange("consent", checked as boolean)}
+                    required
+                  />
+                  <Label htmlFor="consent" className="text-sm text-muted-foreground">
+                    J'accepte que mes informations soient utilisées pour me contacter concernant les cours de musique et
+                    je consens au traitement de mes données personnelles conformément à la politique de confidentialité.
+                    *
+                  </Label>
+                </div>
+
                 <Button type="submit" className="w-full" size="lg">
-                  Envoyer la Demande d'Inscription
+                  Envoyer
                 </Button>
               </form>
             </CardContent>
