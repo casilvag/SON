@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { MapPin, Phone, Mail, Clock, Upload, CheckCircle } from "lucide-react"
 
@@ -17,7 +17,7 @@ export function ContactSection() {
     name: "",
     email: "",
     phone: "",
-    instruments: [] as string[],
+    instrument: "", // Changed from instruments array to single instrument string
     musicStyle: "",
     lessonType: "",
     level: "",
@@ -41,13 +41,6 @@ export function ContactSection() {
 
   const handleInputChange = (field: string, value: string | boolean | File | null) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
-  }
-
-  const handleInstrumentChange = (instrument: string, checked: boolean) => {
-    setFormData((prev) => ({
-      ...prev,
-      instruments: checked ? [...prev.instruments, instrument] : prev.instruments.filter((i) => i !== instrument),
-    }))
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +93,7 @@ export function ContactSection() {
                     <div>
                       <h4 className="font-semibold mb-1">Adresse</h4>
                       <p className="text-muted-foreground">
-                        123 Rue de la Musique
+                        125 25e rue
                         <br />
                         Québec, QC G1R 2L3
                         <br />
@@ -121,7 +114,7 @@ export function ContactSection() {
                     <Mail className="w-6 h-6 text-accent mt-1" />
                     <div>
                       <h4 className="font-semibold mb-1">Email</h4>
-                      <p className="text-muted-foreground">info@academie-son.ca</p>
+                      <p className="text-muted-foreground">casilvag10@gmail.com</p>
                     </div>
                   </div>
 
@@ -210,10 +203,13 @@ export function ContactSection() {
                   </div>
                 </div>
 
-                {/* Instruments Selection */}
                 <div>
-                  <Label className="block text-sm font-medium mb-3">Instrument(s) *</Label>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <Label className="block text-sm font-medium mb-3">Instrument *</Label>
+                  <RadioGroup
+                    value={formData.instrument}
+                    onValueChange={(value) => handleInputChange("instrument", value)}
+                    className="grid grid-cols-2 md:grid-cols-3 gap-3"
+                  >
                     {[
                       { value: "guitare", label: "Guitare" },
                       { value: "basse", label: "Basse" },
@@ -224,17 +220,13 @@ export function ContactSection() {
                       { value: "percussions-latines", label: "Percussions Latines" },
                     ].map((instrument) => (
                       <div key={instrument.value} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={instrument.value}
-                          checked={formData.instruments.includes(instrument.value)}
-                          onCheckedChange={(checked) => handleInstrumentChange(instrument.value, checked as boolean)}
-                        />
+                        <RadioGroupItem value={instrument.value} id={instrument.value} />
                         <Label htmlFor={instrument.value} className="text-sm">
                           {instrument.label}
                         </Label>
                       </div>
                     ))}
-                  </div>
+                  </RadioGroup>
                 </div>
 
                 {/* Music Style and Lesson Type */}
@@ -354,11 +346,13 @@ export function ContactSection() {
 
                 {/* Consent Checkbox */}
                 <div className="flex items-start space-x-2">
-                  <Checkbox
+                  <input
+                    type="checkbox"
                     id="consent"
                     checked={formData.consent}
-                    onCheckedChange={(checked) => handleInputChange("consent", checked as boolean)}
+                    onChange={(e) => handleInputChange("consent", e.target.checked)}
                     required
+                    className="mt-1"
                   />
                   <Label htmlFor="consent" className="text-sm text-muted-foreground">
                     J'accepte que mes informations soient utilisées pour me contacter concernant les cours de musique et
