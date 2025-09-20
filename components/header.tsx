@@ -13,7 +13,7 @@ export function Header() {
     { href: "/#services", label: "Services" },
     { href: "/#equipe", label: "Équipe" },
     { href: "/#galerie", label: "Galerie" },
-    { href: "/horarios", label: "Horarios" },
+    { href: "/horaires", label: "Horaires" },
     { href: "/#contact", label: "Contact" },
   ]
 

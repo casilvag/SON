@@ -225,7 +225,7 @@ export function FAQSection() {
                     <option value="chant">Chant</option>
                     <option value="dj">DJ</option>
                     <option value="production-musicale">Production Musicale</option>
-                    <option value="ensamble-grupal">Ensamble Grupal</option>
+                    <option value="ensemble-de-groupe">Ensemble de Groupe</option>
                   </select>
                 </div>
 

@@ -47,8 +47,8 @@ const testimonials = [
   {
     name: "Ahmed Hassan",
     age: 31,
-    course: "Ensamble Grupal",
-    text: "L'expérience d'ensamble est incroyable! Jouer avec d'autres musiciens m'a fait progresser rapidement.",
+    course: "Ensemble de Groupe",
+    text: "L'expérience d'ensemble est incroyable! Jouer avec d'autres musiciens m'a fait progresser rapidement.",
     rating: 5,
     avatar: "AH",
   },
@@ -95,7 +95,7 @@ const testimonials = [
   {
     name: "Michael O'Connor",
     age: 27,
-    course: "Ensamble Grupal",
+    course: "Ensemble de Groupe",
     text: "Les présentations semestrielles nous motivent à donner le meilleur de nous-mêmes. Une expérience enrichissante!",
     rating: 5,
     avatar: "MO",
@@ -151,7 +151,7 @@ export function TestimonialsSection() {
         <div className="absolute top-64 right-1/3 text-yellow-400 opacity-40 text-xl">♫</div>
         <div className="absolute bottom-32 left-16 text-blue-400 opacity-40 text-2xl">♪</div>
         <div className="absolute bottom-48 right-24 text-red-400 opacity-40 text-xl">♫</div>
-        <div className="absolute top-20 left-2/3 text-yellow-400 opacity-40 text-xl">♪</div>
+        <div className="absolute top-20 left-2/3 text-yellow-400 opacity-40 text-2xl">♪</div>
         <div className="absolute bottom-20 left-1/2 text-blue-400 opacity-40 text-2xl">♫</div>
         <div className="absolute top-40 right-12 text-red-400 opacity-40 text-xl">♪</div>
         <div className="absolute bottom-40 right-1/4 text-yellow-400 opacity-40 text-2xl">♫</div>

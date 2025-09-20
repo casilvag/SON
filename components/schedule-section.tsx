@@ -6,34 +6,34 @@ import { Button } from "@/components/ui/button"
 import { Clock, User, Calendar } from "lucide-react"
 
 export function ScheduleSection() {
-  const [selectedProfessor, setSelectedProfessor] = useState("todos")
+  const [selectedProfessor, setSelectedProfessor] = useState("tous")
 
   const professors = [
     {
       id: "maria",
       name: "María González",
-      specialties: ["Piano Moderno", "Canto"],
+      specialties: ["Piano Moderne", "Chant"],
       color: "bg-yellow-400",
       textColor: "text-yellow-400",
     },
     {
       id: "carlos",
       name: "Carlos Dubois",
-      specialties: ["Guitarra", "Bajo"],
+      specialties: ["Guitare", "Basse"],
       color: "bg-blue-400",
       textColor: "text-blue-400",
     },
     {
       id: "sophie",
       name: "Sophie Martin",
-      specialties: ["Percusiones", "DJ"],
+      specialties: ["Percussions", "DJ"],
       color: "bg-red-400",
       textColor: "text-red-400",
     },
     {
       id: "jean",
       name: "Jean-Pierre Roy",
-      specialties: ["Producción Musical", "Ensamble"],
+      specialties: ["Production Musicale", "Ensemble"],
       color: "bg-green-400",
       textColor: "text-green-400",
     },
@@ -54,45 +54,45 @@ export function ScheduleSection() {
     "8:00 PM",
   ]
 
-  const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
+  const days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
 
   const schedule = {
     maria: {
-      Lunes: ["10:00 AM", "2:00 PM", "4:00 PM", "6:00 PM"],
-      Martes: ["9:00 AM", "11:00 AM", "3:00 PM", "5:00 PM"],
-      Miércoles: ["10:00 AM", "1:00 PM", "4:00 PM", "7:00 PM"],
-      Jueves: ["9:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"],
-      Viernes: ["11:00 AM", "2:00 PM", "5:00 PM", "7:00 PM"],
-      Sábado: ["10:00 AM", "12:00 PM", "2:00 PM"],
+      Lundi: ["10:00 AM", "2:00 PM", "4:00 PM", "6:00 PM"],
+      Mardi: ["9:00 AM", "11:00 AM", "3:00 PM", "5:00 PM"],
+      Mercredi: ["10:00 AM", "1:00 PM", "4:00 PM", "7:00 PM"],
+      Jeudi: ["9:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"],
+      Vendredi: ["11:00 AM", "2:00 PM", "5:00 PM", "7:00 PM"],
+      Samedi: ["10:00 AM", "12:00 PM", "2:00 PM"],
     },
     carlos: {
-      Lunes: ["9:00 AM", "11:00 AM", "3:00 PM", "5:00 PM"],
-      Martes: ["10:00 AM", "1:00 PM", "4:00 PM", "6:00 PM"],
-      Miércoles: ["9:00 AM", "12:00 PM", "2:00 PM", "5:00 PM"],
-      Jueves: ["11:00 AM", "1:00 PM", "4:00 PM", "7:00 PM"],
-      Viernes: ["9:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"],
-      Sábado: ["11:00 AM", "1:00 PM", "3:00 PM"],
+      Lundi: ["9:00 AM", "11:00 AM", "3:00 PM", "5:00 PM"],
+      Mardi: ["10:00 AM", "1:00 PM", "4:00 PM", "6:00 PM"],
+      Mercredi: ["9:00 AM", "12:00 PM", "2:00 PM", "5:00 PM"],
+      Jeudi: ["11:00 AM", "1:00 PM", "4:00 PM", "7:00 PM"],
+      Vendredi: ["9:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"],
+      Samedi: ["11:00 AM", "1:00 PM", "3:00 PM"],
     },
     sophie: {
-      Lunes: ["12:00 PM", "1:00 PM", "5:00 PM", "7:00 PM"],
-      Martes: ["9:00 AM", "12:00 PM", "2:00 PM", "7:00 PM"],
-      Miércoles: ["11:00 AM", "1:00 PM", "3:00 PM", "6:00 PM"],
-      Jueves: ["10:00 AM", "2:00 PM", "5:00 PM", "8:00 PM"],
-      Viernes: ["10:00 AM", "1:00 PM", "4:00 PM", "8:00 PM"],
-      Sábado: ["9:00 AM", "11:00 AM", "4:00 PM"],
+      Lundi: ["12:00 PM", "1:00 PM", "5:00 PM", "7:00 PM"],
+      Mardi: ["9:00 AM", "12:00 PM", "2:00 PM", "7:00 PM"],
+      Mercredi: ["11:00 AM", "1:00 PM", "3:00 PM", "6:00 PM"],
+      Jeudi: ["10:00 AM", "2:00 PM", "5:00 PM", "8:00 PM"],
+      Vendredi: ["10:00 AM", "1:00 PM", "4:00 PM", "8:00 PM"],
+      Samedi: ["9:00 AM", "11:00 AM", "4:00 PM"],
     },
     jean: {
-      Lunes: ["11:00 AM", "1:00 PM", "4:00 PM", "8:00 PM"],
-      Martes: ["10:00 AM", "3:00 PM", "5:00 PM", "8:00 PM"],
-      Miércoles: ["9:00 AM", "2:00 PM", "5:00 PM", "8:00 PM"],
-      Jueves: ["12:00 PM", "3:00 PM", "6:00 PM", "8:00 PM"],
-      Viernes: ["9:00 AM", "11:00 AM", "2:00 PM", "5:00 PM"],
-      Sábado: ["12:00 PM", "2:00 PM", "4:00 PM"],
+      Lundi: ["11:00 AM", "1:00 PM", "4:00 PM", "8:00 PM"],
+      Mardi: ["10:00 AM", "3:00 PM", "5:00 PM", "8:00 PM"],
+      Mercredi: ["9:00 AM", "2:00 PM", "5:00 PM", "8:00 PM"],
+      Jeudi: ["12:00 PM", "3:00 PM", "6:00 PM", "8:00 PM"],
+      Vendredi: ["9:00 AM", "11:00 AM", "2:00 PM", "5:00 PM"],
+      Samedi: ["12:00 PM", "2:00 PM", "4:00 PM"],
     },
   }
 
   const getFilteredSchedule = () => {
-    if (selectedProfessor === "todos") {
+    if (selectedProfessor === "tous") {
       return schedule
     }
     return { [selectedProfessor]: schedule[selectedProfessor] }
@@ -125,23 +125,23 @@ export function ScheduleSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Horarios de <span className="text-yellow-400">Clases</span>
+            Horaires des <span className="text-yellow-400">Cours</span>
           </h1>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Consulta los horarios disponibles de nuestros profesores y encuentra el momento perfecto para tus clases
+            Consultez les horaires disponibles de nos professeurs et trouvez le moment parfait pour vos cours
           </p>
         </div>
 
         {/* Professor Filter */}
         <div className="mb-8">
-          <h3 className="text-xl font-semibold text-white mb-4 text-center">Filtrar por Profesor</h3>
+          <h3 className="text-xl font-semibold text-white mb-4 text-center">Filtrer par Professeur</h3>
           <div className="flex flex-wrap justify-center gap-3">
             <Button
-              variant={selectedProfessor === "todos" ? "default" : "outline"}
-              onClick={() => setSelectedProfessor("todos")}
+              variant={selectedProfessor === "tous" ? "default" : "outline"}
+              onClick={() => setSelectedProfessor("tous")}
               className="bg-gray-700 hover:bg-gray-600 text-white border-gray-600"
             >
-              Todos los Profesores
+              Tous les Professeurs
             </Button>
             {professors.map((prof) => (
               <Button
@@ -157,7 +157,7 @@ export function ScheduleSection() {
         </div>
 
         {/* Professor Cards */}
-        {selectedProfessor !== "todos" && (
+        {selectedProfessor !== "tous" && (
           <div className="mb-8">
             {professors
               .filter((p) => p.id === selectedProfessor)
@@ -170,7 +170,7 @@ export function ScheduleSection() {
                       <User className="w-8 h-8 text-black" />
                     </div>
                     <h4 className="text-xl font-semibold text-white mb-2">{prof.name}</h4>
-                    <p className="text-gray-300 text-sm">Especialidades: {prof.specialties.join(", ")}</p>
+                    <p className="text-gray-300 text-sm">Spécialités: {prof.specialties.join(", ")}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -181,7 +181,7 @@ export function ScheduleSection() {
         <div className="bg-gray-900/30 rounded-2xl p-6 border border-gray-800 overflow-x-auto">
           <div className="min-w-[800px]">
             <div className="grid grid-cols-7 gap-2 mb-4">
-              <div className="p-3 text-center font-semibold text-gray-400">Hora</div>
+              <div className="p-3 text-center font-semibold text-gray-400">Heure</div>
               {days.map((day) => (
                 <div key={day} className="p-3 text-center font-semibold text-white bg-gray-800 rounded-lg">
                   {day}
@@ -198,21 +198,21 @@ export function ScheduleSection() {
                 {days.map((day) => {
                   const prof = getProfessorByTime(day, time)
                   const isAvailable =
-                    selectedProfessor === "todos" ? prof !== null : schedule[selectedProfessor]?.[day]?.includes(time)
+                    selectedProfessor === "tous" ? prof !== null : schedule[selectedProfessor]?.[day]?.includes(time)
 
                   return (
                     <div
                       key={`${day}-${time}`}
                       className={`p-3 rounded-lg text-center text-sm transition-all ${
                         isAvailable
-                          ? selectedProfessor === "todos"
+                          ? selectedProfessor === "tous"
                             ? `${prof.color} text-black font-medium hover:scale-105 cursor-pointer`
                             : `${professors.find((p) => p.id === selectedProfessor)?.color} text-black font-medium hover:scale-105 cursor-pointer`
                           : "bg-gray-800/30 text-gray-500"
                       }`}
                     >
                       {isAvailable ? (
-                        selectedProfessor === "todos" ? (
+                        selectedProfessor === "tous" ? (
                           <div>
                             <div className="font-semibold">{prof.name.split(" ")[0]}</div>
                             <div className="text-xs opacity-80">Disponible</div>
@@ -220,11 +220,11 @@ export function ScheduleSection() {
                         ) : (
                           <div>
                             <div className="font-semibold">Disponible</div>
-                            <div className="text-xs opacity-80">Reservar</div>
+                            <div className="text-xs opacity-80">Réserver</div>
                           </div>
                         )
                       ) : (
-                        <div className="text-xs">No disponible</div>
+                        <div className="text-xs">Non disponible</div>
                       )}
                     </div>
                   )
@@ -253,19 +253,19 @@ export function ScheduleSection() {
         {/* Contact Info */}
         <div className="mt-12 text-center">
           <div className="bg-gray-900/50 rounded-lg p-6 max-w-2xl mx-auto border border-gray-800">
-            <h4 className="text-xl font-semibold text-white mb-3">¿Quieres reservar una clase?</h4>
-            <p className="text-gray-300 mb-4">Contacta con nosotros para reservar tu horario preferido</p>
+            <h4 className="text-xl font-semibold text-white mb-3">Vous voulez réserver un cours?</h4>
+            <p className="text-gray-300 mb-4">Contactez-nous pour réserver votre horaire préféré</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-yellow-400 hover:bg-yellow-500 text-black">
                 <a href="tel:4188020383" className="flex items-center">
                   <Clock className="w-4 h-4 mr-2" />
-                  Llamar: 418-802-0383
+                  Appeler: 418-802-0383
                 </a>
               </Button>
               <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent">
                 <a href="#contact" className="flex items-center">
                   <Calendar className="w-4 h-4 mr-2" />
-                  Formulario de Contacto
+                  Formulaire de Contact
                 </a>
               </Button>
             </div>
