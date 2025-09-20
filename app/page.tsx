@@ -5,10 +5,13 @@ import { ServicesSection } from "@/components/services-section"
 import { WhyChooseUsSection } from "@/components/why-choose-us-section"
 import { TeamSection } from "@/components/team-section"
 import { GallerySection } from "@/components/gallery-section"
+import { PricingSection } from "@/components/pricing-section"
+import { TestimonialsSection } from "@/components/testimonials-section"
+import { FAQSection } from "@/components/faq-section"
+import { PoliciesSection } from "@/components/policies-section"
 import { ContactInfoSection } from "@/components/contact-info-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
-import { PricingSection } from "@/components/pricing-section"
 
 export default function HomePage() {
   return (
@@ -21,6 +24,9 @@ export default function HomePage() {
       <TeamSection />
       <GallerySection />
       <PricingSection />
+      <TestimonialsSection />
+      <FAQSection />
+      <PoliciesSection />
       <ContactInfoSection />
       <ContactSection />
       <Footer />
