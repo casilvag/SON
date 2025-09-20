@@ -5,8 +5,10 @@ import { ServicesSection } from "@/components/services-section"
 import { WhyChooseUsSection } from "@/components/why-choose-us-section"
 import { TeamSection } from "@/components/team-section"
 import { GallerySection } from "@/components/gallery-section"
+import { ContactInfoSection } from "@/components/contact-info-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
+import { PricingSection } from "@/components/pricing-section"
 
 export default function HomePage() {
   return (
@@ -18,6 +20,8 @@ export default function HomePage() {
       <WhyChooseUsSection />
       <TeamSection />
       <GallerySection />
+      <PricingSection />
+      <ContactInfoSection />
       <ContactSection />
       <Footer />
     </main>

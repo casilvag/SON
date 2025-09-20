@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { Guitar, Piano, Drum, Mic, Music, Headphones } from "lucide-react"
+import { Guitar, Piano, Drum, Mic, Music, Headphones, Users } from "lucide-react"
 
 export function ServicesSection() {
   const services = [
@@ -39,21 +39,36 @@ export function ServicesSection() {
       description: "Services d'enregistrement de reprises simples aux projets originaux complets",
       color: "text-accent",
     },
+    {
+      icon: Users,
+      title: "Ensamble Grupal",
+      description: "Clases grupales con rotación de instrumentos y presentaciones formales cada 6 meses",
+      color: "text-blue-400",
+      isNew: true,
+    },
   ]
 
   return (
     <section id="services" className="py-20 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-16 text-red-400 text-xl opacity-25">♪</div>
-        <div className="absolute top-36 right-24 text-yellow-400 text-2xl opacity-30">♫</div>
-        <div className="absolute top-52 left-1/3 text-blue-400 text-lg opacity-25">♬</div>
-        <div className="absolute top-68 right-1/4 text-red-400 text-xl opacity-30">♪</div>
-        <div className="absolute top-84 left-20 text-yellow-400 text-2xl opacity-25">♫</div>
-        <div className="absolute bottom-40 right-20 text-blue-400 text-xl opacity-30">♪</div>
-        <div className="absolute bottom-56 left-1/4 text-red-400 text-lg opacity-25">♬</div>
-        <div className="absolute bottom-72 right-1/3 text-yellow-400 text-2xl opacity-30">♫</div>
-        <div className="absolute top-24 right-1/2 text-blue-400 text-xl opacity-25">♪</div>
-        <div className="absolute bottom-24 left-1/2 text-red-400 text-2xl opacity-30">♬</div>
+        <div className="absolute top-20 left-16 text-red-400 text-xl opacity-40">♪</div>
+        <div className="absolute top-36 right-24 text-yellow-400 text-2xl opacity-50">♫</div>
+        <div className="absolute top-52 left-1/3 text-blue-400 text-lg opacity-45">♬</div>
+        <div className="absolute top-68 right-1/4 text-red-400 text-xl opacity-50">♪</div>
+        <div className="absolute top-84 left-20 text-yellow-400 text-2xl opacity-40">♫</div>
+        <div className="absolute bottom-40 right-20 text-blue-400 text-xl opacity-50">♪</div>
+        <div className="absolute bottom-56 left-1/4 text-red-400 text-lg opacity-40">♬</div>
+        <div className="absolute bottom-72 right-1/3 text-yellow-400 text-2xl opacity-50">♫</div>
+        <div className="absolute top-24 right-1/2 text-blue-400 text-xl opacity-40">♪</div>
+        <div className="absolute bottom-24 left-1/2 text-red-400 text-2xl opacity-50">♬</div>
+        <div className="absolute top-44 left-1/5 text-yellow-400 text-lg opacity-45">♪</div>
+        <div className="absolute top-60 right-1/5 text-blue-400 text-2xl opacity-40">♫</div>
+        <div className="absolute top-76 left-2/3 text-red-400 text-xl opacity-50">♬</div>
+        <div className="absolute bottom-44 right-2/3 text-yellow-400 text-lg opacity-45">♪</div>
+        <div className="absolute bottom-60 left-1/6 text-blue-400 text-xl opacity-40">♫</div>
+        <div className="absolute top-32 left-3/4 text-red-400 text-lg opacity-45">♪</div>
+        <div className="absolute bottom-32 right-1/6 text-yellow-400 text-2xl opacity-50">♬</div>
+        <div className="absolute top-12 left-1/2 text-blue-400 text-xl opacity-40">♫</div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -68,13 +83,39 @@ export function ServicesSection() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <Card key={index} className="bg-card border-border hover:border-primary/50 transition-colors group">
-              <CardContent className="p-8">
+            <Card
+              key={index}
+              className={`bg-card border-border hover:border-primary/50 transition-colors group ${service.isNew ? "ring-2 ring-blue-400/30 bg-blue-950/20" : ""}`}
+            >
+              <CardContent className="p-8 relative">
+                {service.isNew && (
+                  <div className="absolute top-4 right-4 bg-blue-400 text-black text-xs font-bold px-2 py-1 rounded-full">
+                    NUEVO
+                  </div>
+                )}
                 <service.icon
                   className={`w-12 h-12 ${service.color} mb-4 group-hover:scale-110 transition-transform`}
                 />
                 <h3 className="text-xl font-bold mb-3">{service.title}</h3>
                 <p className="text-muted-foreground">{service.description}</p>
+                {service.isNew && (
+                  <div className="mt-4 pt-4 border-t border-blue-400/20">
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center text-blue-400">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                        Rotación entre instrumentos
+                      </div>
+                      <div className="flex items-center text-blue-400">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                        Presentaciones en julio y diciembre
+                      </div>
+                      <div className="flex items-center text-blue-400">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                        $25 por sesión
+                      </div>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           ))}
