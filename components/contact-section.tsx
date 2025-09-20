@@ -30,12 +30,51 @@ export function ContactSection() {
   })
 
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    setIsSubmitted(true)
-    setTimeout(() => setIsSubmitted(false), 3000)
+    setIsLoading(true)
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        console.log("Form submitted successfully:", formData)
+        setIsSubmitted(true)
+        setTimeout(() => setIsSubmitted(false), 3000)
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          instrument: "",
+          musicStyle: "",
+          lessonType: "",
+          level: "",
+          ageGroup: "",
+          schedule: "",
+          postalCode: "",
+          message: "",
+          contactMethod: "",
+          file: null,
+          consent: false,
+        })
+      } else {
+        console.error("Error submitting form")
+        alert("Erreur lors de l'envoi du formulaire. Veuillez réessayer.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("Erreur lors de l'envoi du formulaire. Veuillez réessayer.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleInputChange = (field: string, value: string | boolean | File | null) => {
@@ -354,8 +393,8 @@ export function ContactSection() {
                   </Label>
                 </div>
 
-                <Button type="submit" className="w-full" size="lg">
-                  Envoyer
+                <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
+                  {isLoading ? "Envoi en cours..." : "Envoyer"}
                 </Button>
               </form>
             </CardContent>
