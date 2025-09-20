@@ -4,8 +4,21 @@ import Image from "next/image"
 
 export function TeamSection() {
   return (
-    <section id="equipe" className="py-20 bg-secondary/20">
-      <div className="container mx-auto px-4">
+    <section id="equipe" className="py-20 bg-secondary/20 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-24 left-20 text-blue-400 text-2xl opacity-30">♪</div>
+        <div className="absolute top-40 right-16 text-yellow-400 text-xl opacity-25">♫</div>
+        <div className="absolute top-56 left-1/4 text-red-400 text-lg opacity-30">♬</div>
+        <div className="absolute top-72 right-1/3 text-blue-400 text-xl opacity-25">♪</div>
+        <div className="absolute top-88 left-16 text-yellow-400 text-2xl opacity-30">♫</div>
+        <div className="absolute bottom-36 right-24 text-red-400 text-xl opacity-25">♪</div>
+        <div className="absolute bottom-52 left-1/3 text-blue-400 text-lg opacity-30">♬</div>
+        <div className="absolute bottom-68 right-1/4 text-yellow-400 text-2xl opacity-25">♫</div>
+        <div className="absolute top-28 right-1/2 text-red-400 text-xl opacity-30">♪</div>
+        <div className="absolute bottom-28 left-1/2 text-blue-400 text-2xl opacity-25">♬</div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
             Notre <span className="text-primary">Équipe</span>
