@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { Guitar, Piano, Drum, Mic, Globe, Music, Headphones } from "lucide-react"
+import { Guitar, Piano, Drum, Mic, Music, Headphones } from "lucide-react"
 
 export function ServicesSection() {
   const services = [
@@ -28,22 +28,16 @@ export function ServicesSection() {
       color: "text-accent",
     },
     {
-      icon: Globe,
-      title: "Instructeurs Trilingues",
-      description: "Enseignement en français, anglais et espagnol",
-      color: "text-primary",
-    },
-    {
       icon: Music,
       title: "Production Musicale",
       description: "Formation spécialisée en production, composition et arrangements",
-      color: "text-accent",
+      color: "text-primary",
     },
     {
       icon: Mic,
       title: "Enregistrement Professionnel",
       description: "Services d'enregistrement de reprises simples aux projets originaux complets",
-      color: "text-primary",
+      color: "text-accent",
     },
   ]
 
