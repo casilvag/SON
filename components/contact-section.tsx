@@ -206,6 +206,7 @@ export function ContactSection() {
                       value={formData.name}
                       onChange={(e) => handleInputChange("name", e.target.value)}
                       placeholder="Votre nom complet"
+                      className="placeholder:text-muted-foreground/60"
                       required
                     />
                   </div>
@@ -216,6 +217,7 @@ export function ContactSection() {
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       placeholder="votre@email.com"
+                      className="placeholder:text-muted-foreground/60"
                       required
                     />
                   </div>
@@ -229,6 +231,7 @@ export function ContactSection() {
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
                       placeholder="(418) 123-4567"
+                      className="placeholder:text-muted-foreground/60"
                     />
                   </div>
                   <div>
@@ -237,6 +240,7 @@ export function ContactSection() {
                       value={formData.postalCode}
                       onChange={(e) => handleInputChange("postalCode", e.target.value)}
                       placeholder="G1R 2L3"
+                      className="placeholder:text-muted-foreground/60"
                     />
                   </div>
                 </div>
@@ -331,6 +335,7 @@ export function ContactSection() {
                       value={formData.schedule}
                       onChange={(e) => handleInputChange("schedule", e.target.value)}
                       placeholder="Ex: Soir, Matin, Fins de semaine"
+                      className="placeholder:text-muted-foreground/60"
                     />
                   </div>
                   <div>
@@ -355,6 +360,7 @@ export function ContactSection() {
                     value={formData.message}
                     onChange={(e) => handleInputChange("message", e.target.value)}
                     placeholder="Parlez-nous de vos objectifs musicaux, questions supplémentaires..."
+                    className="placeholder:text-muted-foreground/60"
                     rows={4}
                   />
                 </div>
