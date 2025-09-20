@@ -3,49 +3,34 @@ import nodemailer from "nodemailer"
 
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.json()
+    const body = await request.json()
+    const { nom, email, telephone, instrument, niveau, message } = body
 
-    // Create transporter using Gmail (you can change this to your preferred email service)
     const transporter = nodemailer.createTransporter({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER, // Your email
-        pass: process.env.EMAIL_PASS, // Your app password
+        user: "sonacademiemusique@gmail.com",
+        pass: "Lamusica10!",
       },
     })
 
-    // Email content
     const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: "casilvag10@gmail.com", // Your email where you want to receive the form submissions
-      subject: `Nouvelle inscription - ${formData.name}`,
+      from: "sonacademiemusique@gmail.com",
+      to: "sonacademiemusique@gmail.com",
+      subject: `Nouvelle inscription - ${nom}`,
       html: `
-        <h2>Nouvelle inscription à l'Académie de Musique SON</h2>
-        
-        <h3>Informations personnelles:</h3>
-        <p><strong>Nom:</strong> ${formData.name}</p>
-        <p><strong>Email:</strong> ${formData.email}</p>
-        <p><strong>Téléphone:</strong> ${formData.phone || "Non fourni"}</p>
-        <p><strong>Code postal:</strong> ${formData.postalCode || "Non fourni"}</p>
-        
-        <h3>Détails du cours:</h3>
-        <p><strong>Instrument:</strong> ${formData.instrument}</p>
-        <p><strong>Style musical:</strong> ${formData.musicStyle || "Non spécifié"}</p>
-        <p><strong>Type de cours:</strong> ${formData.lessonType || "Non spécifié"}</p>
-        <p><strong>Niveau:</strong> ${formData.level || "Non spécifié"}</p>
-        <p><strong>Groupe d'âge:</strong> ${formData.ageGroup || "Non spécifié"}</p>
-        <p><strong>Horaire préféré:</strong> ${formData.schedule || "Non spécifié"}</p>
-        <p><strong>Méthode de contact préférée:</strong> ${formData.contactMethod || "Non spécifiée"}</p>
-        
-        <h3>Message:</h3>
-        <p>${formData.message || "Aucun message"}</p>
-        
+        <h2>Nouvelle demande d'inscription</h2>
+        <p><strong>Nom:</strong> ${nom}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Téléphone:</strong> ${telephone}</p>
+        <p><strong>Instrument:</strong> ${instrument}</p>
+        <p><strong>Niveau:</strong> ${niveau}</p>
+        <p><strong>Message:</strong> ${message}</p>
         <hr>
-        <p><em>Formulaire soumis le ${new Date().toLocaleString("fr-CA")}</em></p>
+        <p><em>Envoyé depuis le site web de l'Académie SON</em></p>
       `,
     }
 
-    // Send email
     await transporter.sendMail(mailOptions)
 
     return NextResponse.json({ success: true, message: "Email envoyé avec succès" })
