@@ -11,8 +11,8 @@ export function ServicesSection() {
     },
     {
       icon: Piano,
-      title: "Piano",
-      description: "Apprentissage du piano classique et moderne",
+      title: "Piano Moderne",
+      description: "Cours de piano moderne pour tous niveaux et styles contemporains",
       color: "text-accent",
     },
     {
