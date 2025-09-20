@@ -75,6 +75,8 @@ export function FAQSection() {
     setIsSubmitting(true)
 
     try {
+      console.log("[v0] Submitting consultation form:", formData)
+
       const response = await fetch("/api/consultation", {
         method: "POST",
         headers: {
@@ -84,12 +86,16 @@ export function FAQSection() {
       })
 
       if (response.ok) {
+        const result = await response.json()
+        console.log("[v0] Consultation form submitted successfully:", result)
         alert("Votre demande de consultation a été envoyée avec succès!")
         setFormData({ name: "", email: "", phone: "", course: "", message: "" })
       } else {
+        console.error("[v0] Error response from consultation API:", response.status)
         alert("Une erreur est survenue. Veuillez réessayer.")
       }
     } catch (error) {
+      console.error("[v0] Network error submitting consultation form:", error)
       alert("Une erreur est survenue. Veuillez réessayer.")
     } finally {
       setIsSubmitting(false)

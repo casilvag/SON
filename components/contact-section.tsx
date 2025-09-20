@@ -37,6 +37,8 @@ export function ContactSection() {
     setIsLoading(true)
 
     try {
+      console.log("[v0] Submitting contact form:", formData)
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -46,7 +48,8 @@ export function ContactSection() {
       })
 
       if (response.ok) {
-        console.log("Form submitted successfully:", formData)
+        const result = await response.json()
+        console.log("[v0] Contact form submitted successfully:", result)
         setIsSubmitted(true)
         setTimeout(() => setIsSubmitted(false), 3000)
         setFormData({
@@ -66,11 +69,11 @@ export function ContactSection() {
           consent: false,
         })
       } else {
-        console.error("Error submitting form")
+        console.error("[v0] Error response from contact API:", response.status)
         alert("Erreur lors de l'envoi du formulaire. Veuillez réessayer.")
       }
     } catch (error) {
-      console.error("Error submitting form:", error)
+      console.error("[v0] Network error submitting contact form:", error)
       alert("Erreur lors de l'envoi du formulaire. Veuillez réessayer.")
     } finally {
       setIsLoading(false)
