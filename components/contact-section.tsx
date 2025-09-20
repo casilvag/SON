@@ -217,6 +217,7 @@ export function ContactSection() {
                       <SelectItem value="djembe">Djembé</SelectItem>
                       <SelectItem value="percussions-latines">Percussions Latines</SelectItem>
                       <SelectItem value="dj">DJ / Mixage</SelectItem>
+                      <SelectItem value="production-musicale">Production Musicale</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
