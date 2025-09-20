@@ -16,10 +16,10 @@ export function ContactInfoSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Información de <span className="text-yellow-400">Contacto</span>
+            Informations de <span className="text-yellow-400">Contact</span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Ponte en contacto con nosotros para más información sobre nuestras clases y servicios
+            Contactez-nous pour plus d'informations sur nos cours et services
           </p>
         </div>
 
@@ -31,9 +31,9 @@ export function ContactInfoSection() {
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Teléfono</h3>
+            <h3 className="text-xl font-semibold text-white mb-2">Téléphone</h3>
             <p className="text-gray-300 text-lg font-medium">418-802-0383</p>
-            <p className="text-gray-400 text-sm mt-2">Lunes a Viernes: 9:00 AM - 8:00 PM</p>
+            <p className="text-gray-400 text-sm mt-2">Lundi à Vendredi: 9h00 - 20h00</p>
           </div>
 
           {/* Address */}
@@ -47,9 +47,9 @@ export function ContactInfoSection() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Dirección</h3>
+            <h3 className="text-xl font-semibold text-white mb-2">Adresse</h3>
             <p className="text-gray-300 text-lg font-medium">125 25e rue</p>
-            <p className="text-gray-400 text-sm mt-2">Quebec, Canadá</p>
+            <p className="text-gray-400 text-sm mt-2">Québec, Canada</p>
           </div>
 
           {/* Social Media */}
@@ -63,11 +63,11 @@ export function ContactInfoSection() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Redes Sociales</h3>
-            <p className="text-gray-300 text-sm mb-3">Síguenos en nuestras redes</p>
+            <h3 className="text-xl font-semibold text-white mb-2">Réseaux Sociaux</h3>
+            <p className="text-gray-300 text-sm mb-3">Suivez-nous sur nos réseaux</p>
             <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-3">
-              <p className="text-yellow-400 text-sm font-medium">🚧 En construcción</p>
-              <p className="text-gray-400 text-xs mt-1">Próximamente disponible</p>
+              <p className="text-yellow-400 text-sm font-medium">🚧 En construction</p>
+              <p className="text-gray-400 text-xs mt-1">Bientôt disponible</p>
             </div>
           </div>
         </div>
@@ -75,15 +75,15 @@ export function ContactInfoSection() {
         {/* Additional Info */}
         <div className="mt-12 text-center">
           <div className="bg-gray-900/30 rounded-lg p-6 max-w-2xl mx-auto border border-gray-800">
-            <h4 className="text-xl font-semibold text-white mb-3">Horarios de Atención</h4>
+            <h4 className="text-xl font-semibold text-white mb-3">Heures d'Ouverture</h4>
             <div className="grid md:grid-cols-2 gap-4 text-gray-300">
               <div>
-                <p className="font-medium text-yellow-400">Lunes - Viernes</p>
-                <p>9:00 AM - 8:00 PM</p>
+                <p className="font-medium text-yellow-400">Lundi - Vendredi</p>
+                <p>9h00 - 20h00</p>
               </div>
               <div>
-                <p className="font-medium text-yellow-400">Sábados</p>
-                <p>10:00 AM - 6:00 PM</p>
+                <p className="font-medium text-yellow-400">Samedi</p>
+                <p>10h00 - 18h00</p>
               </div>
             </div>
           </div>

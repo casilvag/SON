@@ -41,8 +41,8 @@ export function ServicesSection() {
     },
     {
       icon: Users,
-      title: "Ensamble Grupal",
-      description: "Clases grupales con rotación de instrumentos y presentaciones formales cada 6 meses",
+      title: "Ensemble de Groupe",
+      description: "Cours de groupe avec rotation d'instruments et présentations formelles tous les 6 mois",
       color: "text-blue-400",
       isNew: true,
     },
@@ -90,7 +90,7 @@ export function ServicesSection() {
               <CardContent className="p-8 relative">
                 {service.isNew && (
                   <div className="absolute top-4 right-4 bg-blue-400 text-black text-xs font-bold px-2 py-1 rounded-full">
-                    NUEVO
+                    NOUVEAU
                   </div>
                 )}
                 <service.icon
@@ -103,15 +103,15 @@ export function ServicesSection() {
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center text-blue-400">
                         <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                        Rotación entre instrumentos
+                        Rotation entre instruments
                       </div>
                       <div className="flex items-center text-blue-400">
                         <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                        Presentaciones en julio y diciembre
+                        Présentations en juillet et décembre
                       </div>
                       <div className="flex items-center text-blue-400">
                         <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                        $25 por sesión
+                        $25 par séance
                       </div>
                     </div>
                   </div>

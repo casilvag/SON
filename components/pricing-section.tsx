@@ -17,11 +17,9 @@ export function PricingSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Nuestros <span className="text-yellow-400">Precios</span>
+            Nos <span className="text-yellow-400">Tarifs</span>
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Planes flexibles adaptados a tus necesidades musicales
-          </p>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">Plans flexibles adaptés à vos besoins musicaux</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
@@ -30,7 +28,7 @@ export function PricingSection() {
             <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/10 rounded-full -translate-y-16 translate-x-16"></div>
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-white">Clases Individuales</h3>
+                <h3 className="text-2xl font-bold text-white">Cours Individuels</h3>
                 <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
                   <svg className="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -46,9 +44,9 @@ export function PricingSection() {
               <div className="mb-6">
                 <div className="flex items-baseline mb-2">
                   <span className="text-4xl font-bold text-yellow-400">$40</span>
-                  <span className="text-gray-400 ml-2">/ hora</span>
+                  <span className="text-gray-400 ml-2">/ heure</span>
                 </div>
-                <p className="text-gray-300">Atención personalizada uno a uno</p>
+                <p className="text-gray-300">Attention personnalisée en tête-à-tête</p>
               </div>
 
               <div className="space-y-3 mb-8">
@@ -60,7 +58,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Piano moderno, guitarra, canto, DJ, producción
+                  Piano moderne, guitare, chant, DJ, production
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-yellow-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -70,7 +68,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Duración: 30min, 45min o 1 hora
+                  Durée: 30min, 45min ou 1 heure
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-yellow-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -80,7 +78,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Horario flexible
+                  Horaire flexible
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-yellow-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -90,7 +88,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Progreso personalizado
+                  Progrès personnalisé
                 </div>
               </div>
             </div>
@@ -101,7 +99,7 @@ export function PricingSection() {
             <div className="absolute top-0 right-0 w-32 h-32 bg-blue-400/10 rounded-full -translate-y-16 translate-x-16"></div>
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-white">Clases Grupales</h3>
+                <h3 className="text-2xl font-bold text-white">Cours de Groupe</h3>
                 <div className="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center">
                   <svg className="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
@@ -112,9 +110,9 @@ export function PricingSection() {
               <div className="mb-6">
                 <div className="flex items-baseline mb-2">
                   <span className="text-4xl font-bold text-blue-400">$25</span>
-                  <span className="text-gray-400 ml-2">/ sesión</span>
+                  <span className="text-gray-400 ml-2">/ séance</span>
                 </div>
-                <p className="text-gray-300">Aprende en grupo y comparte experiencias</p>
+                <p className="text-gray-300">Apprenez en groupe et partagez des expériences</p>
               </div>
 
               <div className="space-y-3 mb-8">
@@ -126,7 +124,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Clases de ensamble musical
+                  Cours d'ensemble musical
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -136,7 +134,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Rotación entre instrumentos
+                  Rotation entre instruments
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -146,7 +144,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Presentaciones cada 6 meses
+                  Présentations tous les 6 mois
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -156,7 +154,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Ambiente colaborativo
+                  Environnement collaboratif
                 </div>
               </div>
             </div>
@@ -165,37 +163,37 @@ export function PricingSection() {
 
         {/* Duration Options */}
         <div className="bg-gray-900/50 rounded-2xl p-8 border border-gray-800 max-w-3xl mx-auto">
-          <h3 className="text-2xl font-bold text-white text-center mb-8">Opciones de Duración</h3>
+          <h3 className="text-2xl font-bold text-white text-center mb-8">Options de Durée</h3>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
               <div className="w-12 h-12 bg-red-400 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-black font-bold text-sm">30</span>
               </div>
-              <h4 className="text-white font-semibold mb-2">30 Minutos</h4>
-              <p className="text-gray-400 text-sm">Ideal para principiantes</p>
+              <h4 className="text-white font-semibold mb-2">30 Minutes</h4>
+              <p className="text-gray-400 text-sm">Idéal pour débutants</p>
             </div>
             <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
               <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-black font-bold text-sm">45</span>
               </div>
-              <h4 className="text-white font-semibold mb-2">45 Minutos</h4>
-              <p className="text-gray-400 text-sm">Equilibrio perfecto</p>
+              <h4 className="text-white font-semibold mb-2">45 Minutes</h4>
+              <p className="text-gray-400 text-sm">Équilibre parfait</p>
             </div>
             <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
               <div className="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-black font-bold text-sm">60</span>
               </div>
-              <h4 className="text-white font-semibold mb-2">1 Hora</h4>
-              <p className="text-gray-400 text-sm">Máximo aprovechamiento</p>
+              <h4 className="text-white font-semibold mb-2">1 Heure</h4>
+              <p className="text-gray-400 text-sm">Utilisation maximale</p>
             </div>
           </div>
         </div>
 
         {/* Call to Action */}
         <div className="text-center mt-12">
-          <p className="text-gray-300 mb-6">¿Listo para comenzar tu viaje musical?</p>
+          <p className="text-gray-300 mb-6">Prêt à commencer votre voyage musical?</p>
           <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-lg transition-colors">
-            Inscríbete Ahora
+            Inscrivez-vous Maintenant
           </button>
         </div>
       </div>
