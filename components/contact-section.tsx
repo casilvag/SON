@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { MapPin, Phone, Mail, Clock, Upload, CheckCircle } from "lucide-react"
 
@@ -205,28 +204,21 @@ export function ContactSection() {
 
                 <div>
                   <Label className="block text-sm font-medium mb-3">Instrument *</Label>
-                  <RadioGroup
-                    value={formData.instrument}
-                    onValueChange={(value) => handleInputChange("instrument", value)}
-                    className="grid grid-cols-2 md:grid-cols-3 gap-3"
-                  >
-                    {[
-                      { value: "guitare", label: "Guitare" },
-                      { value: "basse", label: "Basse" },
-                      { value: "piano", label: "Piano" },
-                      { value: "batterie", label: "Batterie" },
-                      { value: "congas", label: "Congas" },
-                      { value: "djembe", label: "Djembé" },
-                      { value: "percussions-latines", label: "Percussions Latines" },
-                    ].map((instrument) => (
-                      <div key={instrument.value} className="flex items-center space-x-2">
-                        <RadioGroupItem value={instrument.value} id={instrument.value} />
-                        <Label htmlFor={instrument.value} className="text-sm">
-                          {instrument.label}
-                        </Label>
-                      </div>
-                    ))}
-                  </RadioGroup>
+                  <Select onValueChange={(value) => handleInputChange("instrument", value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choisissez un instrument" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="guitare">Guitare</SelectItem>
+                      <SelectItem value="basse">Basse</SelectItem>
+                      <SelectItem value="piano">Piano</SelectItem>
+                      <SelectItem value="batterie">Batterie</SelectItem>
+                      <SelectItem value="congas">Congas</SelectItem>
+                      <SelectItem value="djembe">Djembé</SelectItem>
+                      <SelectItem value="percussions-latines">Percussions Latines</SelectItem>
+                      <SelectItem value="dj">DJ / Mixage</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 {/* Music Style and Lesson Type */}
