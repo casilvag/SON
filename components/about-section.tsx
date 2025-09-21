@@ -1,7 +1,13 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
-import { Target, Eye, Heart } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Target, Eye, Heart, ChevronDown, ChevronUp } from "lucide-react"
+import { useState } from "react"
 
 export function AboutSection() {
+  const [isExpanded, setIsExpanded] = useState(false)
+
   return (
     <section id="apropos" className="py-20 bg-secondary/20 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -33,41 +39,52 @@ export function AboutSection() {
             Chez Son, nous visons à attirer des étudiants de tous âges et niveaux en cultivant la sensibilité musicale
             comme fondement clé.
           </p>
+
+          <Button variant="outline" onClick={() => setIsExpanded(!isExpanded)} className="mt-6 gap-2">
+            {isExpanded ? "Réduire les détails" : "En savoir plus"}
+            {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </Button>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <Card className="bg-card border-border">
-            <CardContent className="p-8 text-center">
-              <Heart className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-4">Objectif</h3>
-              <p className="text-muted-foreground">
-                Chaque étudiant vit la musique comme un langage vivant, plein d'émotion, de créativité et d'expression
-                personnelle.
-              </p>
-            </CardContent>
-          </Card>
+        <div
+          className={`transition-all duration-500 ease-in-out overflow-hidden ${
+            isExpanded ? "max-h-[1000px] opacity-100 mb-16" : "max-h-0 opacity-0 mb-0"
+          }`}
+        >
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="bg-card border-border">
+              <CardContent className="p-8 text-center">
+                <Heart className="w-12 h-12 text-primary mx-auto mb-4" />
+                <h3 className="text-2xl font-bold mb-4">Objectif</h3>
+                <p className="text-muted-foreground">
+                  Chaque étudiant vit la musique comme un langage vivant, plein d'émotion, de créativité et d'expression
+                  personnelle.
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card className="bg-card border-border">
-            <CardContent className="p-8 text-center">
-              <Target className="w-12 h-12 text-accent mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-4">Mission</h3>
-              <p className="text-muted-foreground">
-                Fournir une éducation musicale complète et flexible, permettant à chaque étudiant de progresser à son
-                rythme et d'explorer librement plusieurs instruments et styles.
-              </p>
-            </CardContent>
-          </Card>
+            <Card className="bg-card border-border">
+              <CardContent className="p-8 text-center">
+                <Target className="w-12 h-12 text-accent mx-auto mb-4" />
+                <h3 className="text-2xl font-bold mb-4">Mission</h3>
+                <p className="text-muted-foreground">
+                  Fournir une éducation musicale complète et flexible, permettant à chaque étudiant de progresser à son
+                  rythme et d'explorer librement plusieurs instruments et styles.
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card className="bg-card border-border">
-            <CardContent className="p-8 text-center">
-              <Eye className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-4">Vision</h3>
-              <p className="text-muted-foreground">
-                Être une académie de musique leader au Québec et au-delà, reconnue pour notre approche innovante
-                permettant aux étudiants de passer d'un instrument à l'autre sans limitations.
-              </p>
-            </CardContent>
-          </Card>
+            <Card className="bg-card border-border">
+              <CardContent className="p-8 text-center">
+                <Eye className="w-12 h-12 text-primary mx-auto mb-4" />
+                <h3 className="text-2xl font-bold mb-4">Vision</h3>
+                <p className="text-muted-foreground">
+                  Être une académie de musique leader au Québec et au-delà, reconnue pour notre approche innovante
+                  permettant aux étudiants de passer d'un instrument à l'autre sans limitations.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </section>
