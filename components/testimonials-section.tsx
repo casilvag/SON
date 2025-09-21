@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { ChevronLeft, ChevronRight, Star } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 const testimonials = [
   {
@@ -129,18 +130,82 @@ const testimonials = [
 export function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const testimonialsPerPage = 3
+  const { t, language } = useLanguage()
+
+  const translatedTestimonials = testimonials.map((testimonial) => ({
+    ...testimonial,
+    course:
+      language === "fr"
+        ? testimonial.course
+        : testimonial.course
+            .replace("Moderne", "Moderno")
+            .replace("Guitare", "Guitarra")
+            .replace("Chant", "Canto")
+            .replace("DJ", "DJ")
+            .replace("Production Musicale", "Producción Musical")
+            .replace("Ensemble de Groupe", "Conjunto Grupal"),
+    text:
+      language === "fr"
+        ? testimonial.text
+        : testimonial.text
+            .replace("L'approche moderne du piano", "El enfoque moderno del piano")
+            .replace("Les professeurs sont exceptionnels!", "¡Los profesores son excepcionales!")
+            .replace("Après des années à essayer d'apprendre seul", "Después de años tratando de aprender solo")
+            .replace("L'ambiance est fantastique!", "¡El ambiente es fantástico!")
+            .replace(
+              "Ma confiance en moi a complètement changé grâce aux cours de chant",
+              "Mi confianza en mí misma cambió completamente gracias a las clases de canto",
+            )
+            .replace("Je recommande vivement cette académie!", "¡Recomiendo encarecidamente esta academia!")
+            .replace("L'expérience d'ensemble est incroyable!", "¡La experiencia de conjunto es increíble!")
+            .replace(
+              "Jouer avec d'autres musiciens m'a fait progresser rapidement",
+              "Tocar con otros músicos me hizo progresar rápidamente",
+            )
+            .replace(
+              "À 45 ans, j'ai découvert ma passion pour le DJing",
+              "A los 45 años, descubrí mi pasión por el DJing",
+            )
+            .replace(
+              "Les cours sont adaptés à tous les âges et niveaux",
+              "Las clases están adaptadas a todas las edades y niveaux",
+            )
+            .replace(
+              "J'ai appris à créer mes propres beats et à produire ma musique",
+              "Aprendí a crear mis propios beats y a producir mi música",
+            )
+            .replace("Le matériel professionnel est un vrai plus", "¡El equipo profesional es una gran ventaja!")
+            .replace(
+              "Les présentations semestrielles nous motivent à donner le meilleur de nous-mêmes",
+              "Las presentaciones semestrales nos motivan a dar lo mejor de nosotros",
+            )
+            .replace("Une expérience enrichissante", "Una experiencia enriquecedora")
+            .replace(
+              "L'approche personnalisée de chaque professeur fait toute la différence",
+              "El enfoque personalizado de cada profesor hace toda la diferencia",
+            )
+            .replace("Je me sens vraiment accompagnée", "Me siento realmente acompañada")
+            .replace("Reprendre la musique à 42 ans était un défi", "Reanudar la música a los 42 años fue un desafío")
+            .replace(
+              "L'académie SON a transformé ma passion en véritable compétence",
+              "La academia SON transformó mi pasión en una verdadera competencia",
+            )
+            .replace("L'enseignement est exceptionnel", "El enseñamiento es excepcional"),
+  }))
 
   const nextTestimonials = () => {
-    setCurrentIndex((prev) => (prev + testimonialsPerPage >= testimonials.length ? 0 : prev + testimonialsPerPage))
+    setCurrentIndex((prev) =>
+      prev + testimonialsPerPage >= translatedTestimonials.length ? 0 : prev + testimonialsPerPage,
+    )
   }
 
   const prevTestimonials = () => {
     setCurrentIndex((prev) =>
-      prev === 0 ? Math.max(0, testimonials.length - testimonialsPerPage) : prev - testimonialsPerPage,
+      prev === 0 ? Math.max(0, translatedTestimonials.length - testimonialsPerPage) : prev - testimonialsPerPage,
     )
   }
 
-  const currentTestimonials = testimonials.slice(currentIndex, currentIndex + testimonialsPerPage)
+  const currentTestimonials = translatedTestimonials.slice(currentIndex, currentIndex + testimonialsPerPage)
 
   return (
     <section className="py-20 bg-black relative overflow-hidden">
@@ -159,10 +224,8 @@ export function TestimonialsSection() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Témoignages</h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Découvrez ce que nos étudiants pensent de leur expérience à l'Académie SON
-          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t("testimonials.title")}</h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">{t("testimonials.subtitle")}</p>
         </div>
 
         <div className="relative">
@@ -179,7 +242,7 @@ export function TestimonialsSection() {
                   <div>
                     <h4 className="text-white font-semibold">{testimonial.name}</h4>
                     <p className="text-gray-400 text-sm">
-                      {testimonial.age} ans • {testimonial.course}
+                      {testimonial.age} {t("testimonials.years")} • {testimonial.course}
                     </p>
                   </div>
                 </div>
@@ -200,30 +263,32 @@ export function TestimonialsSection() {
             <button
               onClick={prevTestimonials}
               className="p-3 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition-colors duration-300"
-              aria-label="Témoignages précédents"
+              aria-label={t("testimonials.previous")}
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
 
             <div className="flex gap-2">
-              {Array.from({ length: Math.ceil(testimonials.length / testimonialsPerPage) }).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index * testimonialsPerPage)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                    Math.floor(currentIndex / testimonialsPerPage) === index
-                      ? "bg-yellow-400"
-                      : "bg-gray-600 hover:bg-gray-500"
-                  }`}
-                  aria-label={`Aller à la page ${index + 1}`}
-                />
-              ))}
+              {Array.from({ length: Math.ceil(translatedTestimonials.length / testimonialsPerPage) }).map(
+                (_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index * testimonialsPerPage)}
+                    className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                      Math.floor(currentIndex / testimonialsPerPage) === index
+                        ? "bg-yellow-400"
+                        : "bg-gray-600 hover:bg-gray-500"
+                    }`}
+                    aria-label={`${t("testimonials.go_to_page")} ${index + 1}`}
+                  />
+                ),
+              )}
             </div>
 
             <button
               onClick={nextTestimonials}
               className="p-3 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition-colors duration-300"
-              aria-label="Témoignages suivants"
+              aria-label={t("testimonials.next")}
             >
               <ChevronRight className="w-6 h-6" />
             </button>

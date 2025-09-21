@@ -351,6 +351,14 @@ const translations = {
     "schedule.courses.cours_collectif": "Cours Collectif",
     "schedule.types.individuel": "Individuel",
     "schedule.types.groupe": "Groupe",
+
+    // Testimonials Section
+    "testimonials.title": "Témoignages",
+    "testimonials.subtitle": "Découvrez ce que nos étudiants pensent de leur expérience à l'Académie SON",
+    "testimonials.years": "ans",
+    "testimonials.previous": "Témoignages précédents",
+    "testimonials.next": "Témoignages suivants",
+    "testimonials.go_to_page": "Aller à la page",
   },
   es: {
     // Navigation
@@ -651,5 +659,13 @@ const translations = {
     "schedule.courses.cours_collectif": "Clase Colectiva",
     "schedule.types.individuel": "Individual",
     "schedule.types.groupe": "Grupo",
+
+    // Testimonials Section
+    "testimonials.title": "Testimonios",
+    "testimonials.subtitle": "Descubre lo que nuestros estudiantes piensan de su experiencia en la Academia SON",
+    "testimonials.years": "años",
+    "testimonials.previous": "Testimonios anteriores",
+    "testimonials.next": "Testimonios siguientes",
+    "testimonials.go_to_page": "Ir a la página",
   },
 }
