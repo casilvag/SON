@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Clock, Users, User, CheckCircle, Home } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { LanguageToggle } from "@/components/language-toggle"
 
 export default function CoursesPage() {
   const individualCourses = [
@@ -111,12 +112,15 @@ export default function CoursesPage() {
                 </div>
               </Link>
             </div>
-            <Button asChild variant="outline" size="sm">
-              <Link href="/" className="flex items-center gap-2">
-                <Home className="w-4 h-4" />
-                Retour à l'accueil
-              </Link>
-            </Button>
+            <div className="flex items-center gap-3">
+              <LanguageToggle />
+              <Button asChild variant="outline" size="sm">
+                <Link href="/" className="flex items-center gap-2">
+                  <Home className="w-4 h-4" />
+                  Retour à l'accueil
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>

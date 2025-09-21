@@ -6,6 +6,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Footer } from "@/components/footer"
 import { ScheduleSection } from "@/components/schedule-section"
+import { LanguageToggle } from "@/components/language-toggle"
 
 export default function HorairesPage() {
   return (
@@ -30,12 +31,15 @@ export default function HorairesPage() {
                 </div>
               </Link>
             </div>
-            <Button asChild variant="outline" size="sm">
-              <Link href="/" className="flex items-center gap-2">
-                <Home className="w-4 h-4" />
-                Retour à l'accueil
-              </Link>
-            </Button>
+            <div className="flex items-center gap-3">
+              <LanguageToggle />
+              <Button asChild variant="outline" size="sm">
+                <Link href="/" className="flex items-center gap-2">
+                  <Home className="w-4 h-4" />
+                  Retour à l'accueil
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
