@@ -11,7 +11,6 @@ export default function CoursesPage() {
       description: "Apprenez les techniques de base et avancées de la basse électrique avec un instructeur dédié.",
       benefits: ["Attention personnalisée", "Progression à votre rythme", "Répertoire adapté à vos goûts"],
       duration: "30-60 min",
-      price: "À partir de 45$ CAD",
       image: "/electric-bass-guitar-lesson.jpg",
     },
     {
@@ -20,7 +19,6 @@ export default function CoursesPage() {
         "Maîtrisez les rythmes et techniques de batterie dans un environnement d'apprentissage personnalisé.",
       benefits: ["Technique personnalisée", "Styles variés", "Équipement professionnel"],
       duration: "30-60 min",
-      price: "À partir de 50$ CAD",
       image: "/drum-kit-lesson.jpg",
     },
     {
@@ -28,7 +26,6 @@ export default function CoursesPage() {
       description: "Découvrez l'art du mixage et de la production musicale avec des équipements professionnels.",
       benefits: ["Équipement professionnel", "Techniques de mixage", "Production musicale"],
       duration: "45-90 min",
-      price: "À partir de 55$ CAD",
       image: "/dj-mixing-turntables.jpg",
     },
     {
@@ -36,7 +33,6 @@ export default function CoursesPage() {
       description: "Cours de guitare personnalisés pour tous niveaux, du débutant au musicien confirmé.",
       benefits: ["Méthode adaptée", "Styles multiples", "Théorie et pratique"],
       duration: "30-60 min",
-      price: "À partir de 45$ CAD",
       image: "/acoustic-guitar-lesson.jpg",
     },
     {
@@ -44,7 +40,6 @@ export default function CoursesPage() {
       description: "Explorez le piano moderne avec des techniques contemporaines et un répertoire actuel.",
       benefits: ["Répertoire moderne", "Techniques contemporaines", "Improvisation"],
       duration: "30-60 min",
-      price: "À partir de 50$ CAD",
       image: "/modern-piano-keyboard.jpg",
     },
     {
@@ -52,7 +47,6 @@ export default function CoursesPage() {
       description: "Apprenez à créer, enregistrer et produire votre propre musique avec des logiciels professionnels.",
       benefits: ["Logiciels professionnels", "Enregistrement", "Composition"],
       duration: "60-90 min",
-      price: "À partir de 60$ CAD",
       image: "/music-production-studio.png",
     },
     {
@@ -60,7 +54,6 @@ export default function CoursesPage() {
       description: "Découvrez la beauté mélodique du xylophone avec des techniques classiques et modernes.",
       benefits: ["Technique de frappe", "Lecture musicale", "Répertoire varié"],
       duration: "30-45 min",
-      price: "À partir de 40$ CAD",
       image: "/xylophone-percussion-instrument.jpg",
     },
   ]
@@ -71,7 +64,6 @@ export default function CoursesPage() {
       description: "Formez un groupe et jouez ensemble des classiques du rock dans une ambiance collaborative.",
       benefits: ["Jeu en groupe", "Répertoire rock", "Performance live"],
       duration: "90 min",
-      price: "30$ CAD par personne",
       maxStudents: "4-6 étudiants",
       image: "/rock-band-ensemble.jpg",
     },
@@ -80,7 +72,6 @@ export default function CoursesPage() {
       description: "Créez de la musique ensemble en utilisant des techniques de production moderne.",
       benefits: ["Création collaborative", "Techniques modernes", "Projet commun"],
       duration: "120 min",
-      price: "35$ CAD par personne",
       maxStudents: "3-4 étudiants",
       image: "/group-music-production-workshop.jpg",
     },
@@ -90,7 +81,6 @@ export default function CoursesPage() {
         "Explorez la richesse musicale de l'Amérique latine à travers ses rythmes traditionnels et ses instruments authentiques comme les congas, bongos, maracas et guitares.",
       benefits: ["Rythmes traditionnels", "Instruments authentiques", "Culture latino-américaine"],
       duration: "90 min",
-      price: "25$ CAD par personne",
       maxStudents: "6-8 étudiants",
       image: "/latin-folklore-instruments.jpg",
     },
@@ -166,12 +156,9 @@ export default function CoursesPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between text-sm">
-                      <div className="flex items-center gap-1 text-muted-foreground">
-                        <Clock className="w-4 h-4" />
-                        {course.duration}
-                      </div>
-                      <div className="font-semibold text-primary">{course.price}</div>
+                    <div className="flex items-center gap-1 text-muted-foreground">
+                      <Clock className="w-4 h-4" />
+                      {course.duration}
                     </div>
 
                     <div className="space-y-2">
@@ -241,16 +228,12 @@ export default function CoursesPage() {
                       </div>
                     </div>
 
-                    <div className="text-center">
-                      <div className="font-semibold text-lg text-primary">{course.price}</div>
-                    </div>
-
                     <div className="space-y-2">
                       <h4 className="font-medium text-foreground">Avantages:</h4>
                       <ul className="space-y-1">
                         {course.benefits.map((benefit, idx) => (
                           <li key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <CheckCircle className="w-3 h-3 text-primary flex-shrink-0" />
+                            <CheckCircle className="w-3 h-3 text-accent flex-shrink-0" />
                             {benefit}
                           </li>
                         ))}
@@ -321,10 +304,6 @@ export default function CoursesPage() {
                   <li className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
                     <span className="text-muted-foreground">Motivation de groupe</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="text-muted-foreground">Prix plus abordable</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
