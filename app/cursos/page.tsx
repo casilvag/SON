@@ -76,15 +76,6 @@ export default function CoursesPage() {
       image: "/rock-band-ensemble.jpg",
     },
     {
-      title: "Ensemble de Groupe - Jazz",
-      description: "Explorez l'improvisation et les standards jazz dans un cadre de groupe stimulant.",
-      benefits: ["Improvisation", "Standards jazz", "Interaction musicale"],
-      duration: "90 min",
-      price: "25€ par personne",
-      maxStudents: "4-5 étudiants",
-      image: "/jazz-ensemble-band.jpg",
-    },
-    {
       title: "Atelier de Production Collective",
       description: "Créez de la musique ensemble en utilisant des techniques de production moderne.",
       benefits: ["Création collaborative", "Techniques modernes", "Projet commun"],
@@ -94,13 +85,14 @@ export default function CoursesPage() {
       image: "/group-music-production-workshop.jpg",
     },
     {
-      title: "Orchestre de Percussions",
-      description: "Rejoignez notre orchestre de percussions et découvrez la puissance du rythme collectif.",
-      benefits: ["Rythmes collectifs", "Instruments variés", "Spectacles"],
+      title: "Folklore Colombiano",
+      description:
+        "Découvrez la richesse musicale de la Colombie à travers ses rythmes traditionnels et ses instruments authentiques.",
+      benefits: ["Rythmes traditionnels", "Instruments authentiques", "Culture colombienne"],
       duration: "90 min",
       price: "20€ par personne",
       maxStudents: "6-8 étudiants",
-      image: "/percussion-orchestra-ensemble.jpg",
+      image: "/colombian-folklore-ensemble.jpg",
     },
   ]
 
