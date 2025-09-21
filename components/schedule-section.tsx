@@ -212,6 +212,32 @@ export function ScheduleSection() {
     return dayOfWeek >= 1 && dayOfWeek <= 5
   }
 
+  const hasAtLeastTwoHoursAvailable = (date) => {
+    if (!date) return false
+
+    const dayOfWeek = date.getDay()
+    if (dayOfWeek < 1 || dayOfWeek > 5) return false // Only weekdays
+
+    const occupiedTimes = getClassesForDate(date).map((c) => c.time)
+    const availableTimes = availableTimeSlots.filter((time) => !occupiedTimes.includes(time))
+
+    // Check for at least 2 consecutive hours (4 slots of 30 minutes each)
+    let consecutiveCount = 0
+    let maxConsecutive = 0
+
+    for (let i = 0; i < availableTimeSlots.length; i++) {
+      if (availableTimes.includes(availableTimeSlots[i])) {
+        consecutiveCount++
+        maxConsecutive = Math.max(maxConsecutive, consecutiveCount)
+      } else {
+        consecutiveCount = 0
+      }
+    }
+
+    // 4 slots = 2 hours (each slot is 30 minutes)
+    return maxConsecutive >= 4
+  }
+
   const getClassesForDate = (date) => {
     if (!date) return []
     const dateKey = formatDateKey(date)
@@ -289,6 +315,7 @@ export function ScheduleSection() {
               const isToday = date.toDateString() === new Date().toDateString()
               const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString()
               const isWeekdayAvailable = isAvailableDay(date)
+              const hasTwoHoursAvailable = hasAtLeastTwoHoursAvailable(date)
 
               return (
                 <div
@@ -299,11 +326,13 @@ export function ScheduleSection() {
                       ? "bg-yellow-400 text-black"
                       : isToday
                         ? "bg-gray-700 text-white border-2 border-yellow-400"
-                        : hasClassesToday
+                        : hasClassesToday && !hasTwoHoursAvailable
                           ? "bg-red-900/50 text-red-300 hover:bg-red-800/50"
-                          : isWeekdayAvailable
-                            ? "bg-green-900/50 text-green-300 hover:bg-green-800/50"
-                            : "bg-gray-800/30 text-gray-500"
+                          : hasTwoHoursAvailable
+                            ? "bg-green-600 text-white hover:bg-green-700"
+                            : isWeekdayAvailable
+                              ? "bg-green-900/50 text-green-300 hover:bg-green-800/50"
+                              : "bg-gray-800/30 text-gray-500"
                   }`}
                 >
                   <div className="font-semibold">{date.getDate()}</div>
@@ -315,7 +344,9 @@ export function ScheduleSection() {
                       </div>
                     </div>
                   )}
-                  {!hasClassesToday && isWeekdayAvailable && <div className="text-xs mt-1 text-green-400">Libre</div>}
+                  {!hasClassesToday && isWeekdayAvailable && (
+                    <div className="text-xs mt-1 text-green-400">{hasTwoHoursAvailable ? "2h+ Libre" : "Libre"}</div>
+                  )}
                 </div>
               )
             })}
@@ -389,6 +420,10 @@ export function ScheduleSection() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
+            <div className="w-4 h-4 bg-green-600 rounded-full mr-3"></div>
+            <div className="text-white text-sm">2+ heures disponibles</div>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="w-4 h-4 bg-green-900/50 rounded-full mr-3"></div>
             <div className="text-white text-sm">Horaires disponibles</div>
           </div>
@@ -399,10 +434,6 @@ export function ScheduleSection() {
           <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="w-4 h-4 bg-gray-800/30 rounded-full mr-3"></div>
             <div className="text-white text-sm">Non disponible</div>
-          </div>
-          <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
-            <div className="w-4 h-4 bg-yellow-400 rounded-full mr-3"></div>
-            <div className="text-white text-sm">Jour sélectionné</div>
           </div>
         </div>
 
