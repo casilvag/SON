@@ -49,6 +49,21 @@ export function ScheduleSection() {
       return dates
     }
 
+    const yearStart = new Date(currentYear, 0, 1)
+    const yearEnd = new Date(currentYear, 11, 31)
+
+    // Generate all weekdays (Monday=1 to Friday=5)
+    for (let dayOfWeek = 1; dayOfWeek <= 5; dayOfWeek++) {
+      const weekdays = generateDatesForRange(yearStart, yearEnd, dayOfWeek)
+
+      weekdays.forEach((date) => {
+        const dateKey = date.toISOString().split("T")[0]
+        if (!schedule[dateKey]) {
+          schedule[dateKey] = []
+        }
+      })
+    }
+
     // Mondays in September and October - Guitar and Drums (18h-19h)
     const septemberStart = new Date(currentYear, 8, 1) // September 1st
     const octoberEnd = new Date(currentYear, 9, 31) // October 31st
@@ -92,8 +107,6 @@ export function ScheduleSection() {
     }
 
     // All Saturdays - Group class 13h-16h
-    const yearStart = new Date(currentYear, 0, 1)
-    const yearEnd = new Date(currentYear, 11, 31)
     const saturdays = generateDatesForRange(yearStart, yearEnd, 6) // Saturday = 6
 
     saturdays.forEach((date) => {
@@ -115,6 +128,16 @@ export function ScheduleSection() {
   const occupiedClasses = generateCesarSchedule()
 
   const availableTimeSlots = [
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
     "13:00",
     "13:30",
     "14:00",
@@ -184,8 +207,9 @@ export function ScheduleSection() {
 
   const isAvailableDay = (date) => {
     if (!date) return false
-    const dateKey = formatDateKey(date)
-    return occupiedClasses[dateKey] && occupiedClasses[dateKey].length > 0
+    const dayOfWeek = date.getDay()
+    // Show Monday-Friday as available days (1=Monday, 5=Friday)
+    return dayOfWeek >= 1 && dayOfWeek <= 5
   }
 
   const getClassesForDate = (date) => {
@@ -264,11 +288,12 @@ export function ScheduleSection() {
               const hasClassesToday = classes.length > 0
               const isToday = date.toDateString() === new Date().toDateString()
               const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString()
+              const isWeekdayAvailable = isAvailableDay(date)
 
               return (
                 <div
                   key={date.toDateString()}
-                  onClick={() => hasClassesToday && setSelectedDate(date)}
+                  onClick={() => isWeekdayAvailable && setSelectedDate(date)}
                   className={`p-3 rounded-lg text-center cursor-pointer transition-all min-h-[60px] flex flex-col justify-center ${
                     isSelected
                       ? "bg-yellow-400 text-black"
@@ -276,7 +301,9 @@ export function ScheduleSection() {
                         ? "bg-gray-700 text-white border-2 border-yellow-400"
                         : hasClassesToday
                           ? "bg-red-900/50 text-red-300 hover:bg-red-800/50"
-                          : "bg-gray-800/30 text-gray-500"
+                          : isWeekdayAvailable
+                            ? "bg-green-900/50 text-green-300 hover:bg-green-800/50"
+                            : "bg-gray-800/30 text-gray-500"
                   }`}
                 >
                   <div className="font-semibold">{date.getDate()}</div>
@@ -288,6 +315,7 @@ export function ScheduleSection() {
                       </div>
                     </div>
                   )}
+                  {!hasClassesToday && isWeekdayAvailable && <div className="text-xs mt-1 text-green-400">Libre</div>}
                 </div>
               )
             })}
@@ -307,7 +335,7 @@ export function ScheduleSection() {
 
             <div className="grid gap-4">
               <h4 className="text-lg font-semibold text-yellow-400">
-                Horaires {selectedDate.getDay() === 6 ? "(13h00 - 16h00)" : "(15h00 - 21h00)"}
+                Horaires {selectedDate.getDay() === 6 ? "(13h00 - 16h00)" : "(08h00 - 21h00)"}
               </h4>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -315,25 +343,10 @@ export function ScheduleSection() {
                   const occupiedClass = getClassesForDate(selectedDate).find((c) => c.time === time)
                   const dayOfWeek = selectedDate.getDay()
 
-                  // Show Saturday hours only on Saturday, regular hours on other days
                   const shouldShowSlot =
                     dayOfWeek === 6
                       ? ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00"].includes(time)
-                      : [
-                          "15:00",
-                          "15:30",
-                          "16:00",
-                          "16:30",
-                          "17:00",
-                          "17:30",
-                          "18:00",
-                          "18:30",
-                          "19:00",
-                          "19:30",
-                          "20:00",
-                          "20:30",
-                          "21:00",
-                        ].includes(time)
+                      : dayOfWeek >= 1 && dayOfWeek <= 5 // Monday to Friday
 
                   if (!shouldShowSlot) return null
 
@@ -436,7 +449,7 @@ export function ScheduleSection() {
                 key={prof.id}
                 variant={selectedProfessor === prof.id ? "default" : "outline"}
                 onClick={() => setSelectedProfessor(prof.id)}
-                className={`${selectedProfessor === prof.id ? prof.color + " text-black hover:opacity-90" : "border-gray-600 text-gray-300 hover:bg-gray-700"}`}
+                className={`${selectedProfessor === prof.id ? prof.color + " text-black hover:opacity-90" : "border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent"}`}
               >
                 {prof.name}
               </Button>
