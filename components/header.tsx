@@ -51,7 +51,7 @@ export function Header() {
           </nav>
 
           <Button asChild className="hidden md:block">
-            <a href="/#contact">Inscription</a>
+            <a href="/#inscription">Inscription</a>
           </Button>
 
           {/* Mobile Menu Button */}
@@ -75,7 +75,7 @@ export function Header() {
                 </a>
               ))}
               <Button asChild className="w-full mt-4">
-                <a href="/#contact" onClick={() => setIsMenuOpen(false)}>
+                <a href="/#inscription" onClick={() => setIsMenuOpen(false)}>
                   Inscription
                 </a>
               </Button>
