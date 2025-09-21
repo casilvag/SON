@@ -104,6 +104,91 @@ export default function CoursesPage() {
         </div>
       </nav>
 
+      {/* Featured Plan Section */}
+      <section className="py-16 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <Card className="relative overflow-hidden border-4 border-amber-400 shadow-2xl bg-gradient-to-br from-white to-amber-50 dark:from-gray-900 dark:to-amber-950/30">
+              {/* Golden frame effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 opacity-20"></div>
+
+              {/* Star badge */}
+              <div className="absolute top-4 right-4 z-10">
+                <Badge className="bg-amber-500 text-white font-bold px-3 py-1 text-sm shadow-lg">
+                  ⭐ PRODUIT VEDETTE
+                </Badge>
+              </div>
+
+              <div className="relative z-10 grid md:grid-cols-2 gap-8 p-8">
+                <div className="space-y-6">
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                      Plan Sensibilización Musical
+                    </h2>
+                    <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                      Un plan d'apprentissage musical personnalisé vers la découverte musicale de l'étudiant, où nous
+                      facilitons la possibilité de changer entre tous nos cours individuels ou bien les mélanger dans
+                      chaque classe.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Caractéristiques Uniques:</h3>
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          <strong>Flexibilité totale:</strong> Changez d'instrument à chaque cours selon vos envies
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          <strong>Guidance professionnelle:</strong> Décisions toujours guidées par nos professeurs
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          <strong>Découverte personnalisée:</strong> Basé sur votre motivation et curiosité musicale
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          <strong>Même tarif:</strong> Prix identique aux cours individuels traditionnels
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-4 h-4" />
+                      30-90 min
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <User className="w-4 h-4" />
+                      1:1 Personnalisé
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-center">
+                  <div className="aspect-square w-full max-w-sm overflow-hidden rounded-2xl shadow-xl">
+                    <img
+                      src="/musical-discovery-instruments-artistic.jpg"
+                      alt="Plan Sensibilización Musical - Découverte instrumentale"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Individual Courses Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
