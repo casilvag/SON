@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Clock, Users, User, CheckCircle, Home } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function CoursesPage() {
   const individualCourses = [
@@ -93,7 +94,23 @@ export default function CoursesPage() {
       <nav className="bg-background border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold text-foreground">Nos Cours</h1>
+            <div className="flex items-center space-x-3">
+              <Link href="/" className="flex items-center space-x-3">
+                <div className="w-8 h-8 flex-shrink-0 bg-black rounded-full p-1">
+                  <Image
+                    src="/images/logo.png"
+                    alt="Academy SON Logo"
+                    width={32}
+                    height={32}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-2xl font-bold text-primary">SON</div>
+                  <div className="text-xs text-muted-foreground font-medium">Académie de Musique</div>
+                </div>
+              </Link>
+            </div>
             <Button asChild variant="outline" size="sm">
               <Link href="/" className="flex items-center gap-2">
                 <Home className="w-4 h-4" />
