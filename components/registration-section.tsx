@@ -12,6 +12,7 @@ export function RegistrationSection() {
     age: "",
     niveau: "",
     cours: "",
+    duree: "",
     horaire: "",
     disponibilite: [] as string[],
     message: "",
@@ -53,6 +54,7 @@ export function RegistrationSection() {
 Âge: ${formData.age}
 Niveau: ${formData.niveau}
 Cours souhaité: ${formData.cours}
+Durée souhaitée: ${formData.duree}
 Horaire préféré: ${formData.horaire}
 Disponibilité: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée"}
 
@@ -69,6 +71,7 @@ Message: ${formData.message}`,
           age: "",
           niveau: "",
           cours: "",
+          duree: "",
           horaire: "",
           disponibilite: [],
           message: "",
@@ -220,6 +223,27 @@ Message: ${formData.message}`,
                     <option value="piano-moderne">Piano Moderne</option>
                     <option value="production-musicale">Production Musicale</option>
                     <option value="xilofono">Xylophone</option>
+                  </select>
+                </div>
+
+                {/* Durée souhaitée */}
+                <div>
+                  <label htmlFor="duree" className="block text-white font-medium mb-2">
+                    Durée souhaitée *
+                  </label>
+                  <select
+                    id="duree"
+                    name="duree"
+                    value={formData.duree}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                  >
+                    <option value="">Sélectionnez la durée</option>
+                    <option value="30min">30 minutes</option>
+                    <option value="45min">45 minutes</option>
+                    <option value="60min">60 minutes</option>
+                    <option value="90min">90 minutes</option>
                   </select>
                 </div>
               </div>
