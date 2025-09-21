@@ -155,7 +155,7 @@ export default function CoursesPage() {
                     </div>
 
                     <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                      <Link href="/registration">S'inscrire</Link>
+                      <Link href="/#inscription">S'inscrire</Link>
                     </Button>
                   </div>
                 </CardContent>
@@ -222,7 +222,7 @@ export default function CoursesPage() {
                     </div>
 
                     <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                      <Link href="/registration">S'inscrire</Link>
+                      <Link href="/#inscription">S'inscrire</Link>
                     </Button>
                   </div>
                 </CardContent>
@@ -263,7 +263,7 @@ export default function CoursesPage() {
                 <div className="flex items-center justify-between mb-6">
                   <h3
                     className="text-2xl font-bold text-white cursor-pointer hover:text-yellow-400 transition-colors"
-                    onClick={() => (window.location.href = "/registration")}
+                    onClick={() => (window.location.href = "/#inscription")}
                   >
                     Cours Individuels
                   </h3>
@@ -339,7 +339,7 @@ export default function CoursesPage() {
                 <div className="flex items-center justify-between mb-6">
                   <h3
                     className="text-2xl font-bold text-white cursor-pointer hover:text-blue-400 transition-colors"
-                    onClick={() => (window.location.href = "/registration")}
+                    onClick={() => (window.location.href = "/#inscription")}
                   >
                     Cours de Groupe
                   </h3>
