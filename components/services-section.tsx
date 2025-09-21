@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Guitar, Piano, Drum, Mic, Music, Headphones, Users } from "lucide-react"
+import Link from "next/link"
 
 export function ServicesSection() {
   const services = [
@@ -90,95 +91,96 @@ export function ServicesSection() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <Card
-              key={index}
-              className={`bg-card border-border hover:border-primary/50 transition-colors group relative overflow-hidden ${
-                service.isNew
-                  ? "ring-2 ring-blue-400/30 bg-blue-950/20"
-                  : service.isStar
-                    ? "ring-4 ring-yellow-400/50 bg-gradient-to-br from-yellow-400/10 to-amber-400/5 border-yellow-400/30"
-                    : ""
-              }`}
-            >
-              <div
-                className="absolute inset-0 opacity-10 bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage:
-                    service.title === "Plan Sensibilización Musical"
-                      ? `url('/musical-discovery-instruments-artistic.jpg')`
-                      : service.title === "Instruments à Cordes"
-                        ? `url('/electric-guitar-strings-close-up-artistic.jpg')`
-                        : service.title === "Piano Moderne"
-                          ? `url('/modern-piano-keys-black-and-white-artistic.jpg')`
-                          : service.title === "Percussions"
-                            ? `url('/drum-kit-cymbals-percussion-instruments-artistic.jpg')`
-                            : service.title === "Cours de DJ"
-                              ? `url('/dj-turntables-mixing-console-headphones-artistic.jpg')`
-                              : service.title === "Production Musicale"
-                                ? `url('/music-production-studio-mixing-board-artistic.jpg')`
-                                : service.title === "Enregistrement Professionnel"
-                                  ? `url('/recording-studio-microphone-professional-artistic.jpg')`
-                                  : `url('/musical-ensemble-group-instruments-artistic.jpg')`,
-                }}
-              />
-              <CardContent className="p-8 relative z-10">
-                {service.isStar && (
-                  <div className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-amber-400 text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                    ⭐ PRODUIT VEDETTE
-                  </div>
-                )}
-                {service.isNew && (
-                  <div className="absolute top-4 right-4 bg-blue-400 text-black text-xs font-bold px-2 py-1 rounded-full">
-                    NOUVEAU
-                  </div>
-                )}
-                <service.icon
-                  className={`w-12 h-12 ${service.color} mb-4 group-hover:scale-110 transition-transform`}
+            <Link key={index} href="/cursos" className="block">
+              <Card
+                className={`bg-card border-border hover:border-primary/50 transition-colors group relative overflow-hidden cursor-pointer hover:scale-105 transition-transform ${
+                  service.isNew
+                    ? "ring-2 ring-blue-400/30 bg-blue-950/20"
+                    : service.isStar
+                      ? "ring-4 ring-yellow-400/50 bg-gradient-to-br from-yellow-400/10 to-amber-400/5 border-yellow-400/30"
+                      : ""
+                }`}
+              >
+                <div
+                  className="absolute inset-0 opacity-10 bg-cover bg-center bg-no-repeat"
+                  style={{
+                    backgroundImage:
+                      service.title === "Plan Sensibilización Musical"
+                        ? `url('/musical-discovery-instruments-artistic.jpg')`
+                        : service.title === "Instruments à Cordes"
+                          ? `url('/electric-guitar-strings-close-up-artistic.jpg')`
+                          : service.title === "Piano Moderne"
+                            ? `url('/modern-piano-keys-black-and-white-artistic.jpg')`
+                            : service.title === "Percussions"
+                              ? `url('/drum-kit-cymbals-percussion-instruments-artistic.jpg')`
+                              : service.title === "Cours de DJ"
+                                ? `url('/dj-turntables-mixing-console-headphones-artistic.jpg')`
+                                : service.title === "Production Musicale"
+                                  ? `url('/music-production-studio-mixing-board-artistic.jpg')`
+                                  : service.title === "Enregistrement Professionnel"
+                                    ? `url('/recording-studio-microphone-professional-artistic.jpg')`
+                                    : `url('/musical-ensemble-group-instruments-artistic.jpg')`,
+                  }}
                 />
-                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                <p className="text-muted-foreground">{service.description}</p>
-                {service.isStar && (
-                  <div className="mt-4 pt-4 border-t border-yellow-400/20">
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center text-yellow-400">
-                        <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
-                        Changement entre tous nos cours individuels
-                      </div>
-                      <div className="flex items-center text-yellow-400">
-                        <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
-                        Mélange d'instruments dans chaque classe
-                      </div>
-                      <div className="flex items-center text-yellow-400">
-                        <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
-                        Guidé par nos professeurs expérimentés
-                      </div>
-                      <div className="flex items-center text-yellow-400">
-                        <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
-                        Même coût que les cours individuels
+                <CardContent className="p-8 relative z-10">
+                  {service.isStar && (
+                    <div className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-amber-400 text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                      ⭐ PRODUIT VEDETTE
+                    </div>
+                  )}
+                  {service.isNew && (
+                    <div className="absolute top-4 right-4 bg-blue-400 text-black text-xs font-bold px-2 py-1 rounded-full">
+                      NOUVEAU
+                    </div>
+                  )}
+                  <service.icon
+                    className={`w-12 h-12 ${service.color} mb-4 group-hover:scale-110 transition-transform`}
+                  />
+                  <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                  <p className="text-muted-foreground">{service.description}</p>
+                  {service.isStar && (
+                    <div className="mt-4 pt-4 border-t border-yellow-400/20">
+                      <div className="space-y-2 text-sm">
+                        <div className="flex items-center text-yellow-400">
+                          <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
+                          Changement entre tous nos cours individuels
+                        </div>
+                        <div className="flex items-center text-yellow-400">
+                          <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
+                          Mélange d'instruments dans chaque classe
+                        </div>
+                        <div className="flex items-center text-yellow-400">
+                          <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
+                          Guidé par nos professeurs expérimentés
+                        </div>
+                        <div className="flex items-center text-yellow-400">
+                          <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
+                          Même coût que les cours individuels
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-                {service.isNew && (
-                  <div className="mt-4 pt-4 border-t border-blue-400/20">
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center text-blue-400">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                        Rotation entre instruments
-                      </div>
-                      <div className="flex items-center text-blue-400">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                        Présentations en juillet et décembre
-                      </div>
-                      <div className="flex items-center text-blue-400">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                        $25 par séance
+                  )}
+                  {service.isNew && (
+                    <div className="mt-4 pt-4 border-t border-blue-400/20">
+                      <div className="space-y-2 text-sm">
+                        <div className="flex items-center text-blue-400">
+                          <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                          Rotation entre instruments
+                        </div>
+                        <div className="flex items-center text-blue-400">
+                          <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                          Présentations en juillet et décembre
+                        </div>
+                        <div className="flex items-center text-blue-400">
+                          <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                          $25 par séance
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+                  )}
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 
