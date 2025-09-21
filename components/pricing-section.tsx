@@ -65,7 +65,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Piano moderne, guitare, chant, DJ, production
+                  Piano moderne, guitare, basse, batterie, DJ, production, xylophone
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-yellow-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -139,7 +139,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Cours d'ensemble musical
+                  Ensemble rock, production collective, folklor y ritmos latinos
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -149,7 +149,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Rotation entre instruments
+                  Durée: 90-120 minutes selon le cours
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -159,7 +159,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Présentations tous les 6 mois
+                  Groupes de 3-8 étudiants
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
