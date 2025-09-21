@@ -105,10 +105,18 @@ export default function CoursesPage() {
       </nav>
 
       {/* Featured Plan Section */}
-      <section className="py-16 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20">
-        <div className="container mx-auto px-4">
+      <section className="py-16 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+            <source src="/children-music-class-laughing.mp4" type="video/mp4" />
+          </video>
+          {/* Dark overlay to ensure text readability */}
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
-            <Card className="relative overflow-hidden border-4 border-amber-400 shadow-2xl bg-gradient-to-br from-white to-amber-50 dark:from-gray-900 dark:to-amber-950/30">
+            <Card className="relative overflow-hidden border-4 border-amber-400 shadow-2xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm">
               {/* Golden frame effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 opacity-20"></div>
 
@@ -179,7 +187,7 @@ export default function CoursesPage() {
                     <img
                       src="/musical-discovery-instruments-artistic.jpg"
                       alt="Plan Sensibilización Musical - Découverte instrumentale"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 </div>
