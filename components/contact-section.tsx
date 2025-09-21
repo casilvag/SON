@@ -177,17 +177,21 @@ export function ContactSection() {
             <Card className="bg-card border-border">
               <CardContent className="p-8">
                 <h3 className="text-xl font-bold mb-4 text-primary">Suivez-nous</h3>
-                <div className="flex space-x-4">
-                  <Button variant="outline" size="sm">
+                <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-4 mb-4">
+                  <p className="text-yellow-400 text-sm font-medium">🚧 En construction</p>
+                  <p className="text-muted-foreground text-xs mt-1">Nos réseaux sociaux seront bientôt disponibles</p>
+                </div>
+                <div className="flex space-x-4 opacity-50">
+                  <Button variant="outline" size="sm" disabled>
                     Facebook
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" disabled>
                     Instagram
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" disabled>
                     YouTube
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" disabled>
                     TikTok
                   </Button>
                 </div>
