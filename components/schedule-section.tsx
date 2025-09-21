@@ -3,108 +3,127 @@
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Clock, User, Calendar } from "lucide-react"
+import { Clock, User, Calendar, ChevronLeft, ChevronRight, Music } from "lucide-react"
 
 export function ScheduleSection() {
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState(null)
   const [selectedProfessor, setSelectedProfessor] = useState("tous")
 
   const professors = [
     {
       id: "maria",
       name: "María González",
-      specialties: ["Piano Moderne", "Chant"],
+      specialties: ["Piano Moderne", "Guitare", "Chant"],
       color: "bg-yellow-400",
       textColor: "text-yellow-400",
     },
     {
       id: "carlos",
       name: "Carlos Dubois",
-      specialties: ["Guitare", "Basse"],
+      specialties: ["Basse Électrique", "Batterie", "Xylophone"],
       color: "bg-blue-400",
       textColor: "text-blue-400",
     },
-    {
-      id: "sophie",
-      name: "Sophie Martin",
-      specialties: ["Percussions", "DJ"],
-      color: "bg-red-400",
-      textColor: "text-red-400",
-    },
-    {
-      id: "jean",
-      name: "Jean-Pierre Roy",
-      specialties: ["Production Musicale", "Ensemble"],
-      color: "bg-green-400",
-      textColor: "text-green-400",
-    },
   ]
 
-  const timeSlots = [
-    "9:00 AM",
-    "10:00 AM",
-    "11:00 AM",
-    "12:00 PM",
-    "1:00 PM",
-    "2:00 PM",
-    "3:00 PM",
-    "4:00 PM",
-    "5:00 PM",
-    "6:00 PM",
-    "7:00 PM",
-    "8:00 PM",
+  const occupiedClasses = {
+    "2025-01-15": [
+      { time: "15:00", professor: "maria", course: "Piano Moderne", type: "Individuel" },
+      { time: "16:00", professor: "carlos", course: "Basse Électrique", type: "Individuel" },
+      { time: "17:00", professor: "maria", course: "Guitare", type: "Groupe" },
+    ],
+    "2025-01-16": [
+      { time: "15:30", professor: "carlos", course: "Batterie", type: "Individuel" },
+      { time: "18:00", professor: "maria", course: "Chant", type: "Groupe" },
+    ],
+    "2025-01-17": [
+      { time: "16:00", professor: "carlos", course: "Xylophone", type: "Individuel" },
+      { time: "19:00", professor: "maria", course: "Piano Moderne", type: "Individuel" },
+    ],
+  }
+
+  const availableTimeSlots = [
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30",
+    "19:00",
+    "19:30",
+    "20:00",
+    "20:30",
+    "21:00",
   ]
 
-  const days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
+  const monthNames = [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Août",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre",
+  ]
 
-  const schedule = {
-    maria: {
-      Lundi: ["10:00 AM", "2:00 PM", "4:00 PM", "6:00 PM"],
-      Mardi: ["9:00 AM", "11:00 AM", "3:00 PM", "5:00 PM"],
-      Mercredi: ["10:00 AM", "1:00 PM", "4:00 PM", "7:00 PM"],
-      Jeudi: ["9:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"],
-      Vendredi: ["11:00 AM", "2:00 PM", "5:00 PM", "7:00 PM"],
-      Samedi: ["10:00 AM", "12:00 PM", "2:00 PM"],
-    },
-    carlos: {
-      Lundi: ["9:00 AM", "11:00 AM", "3:00 PM", "5:00 PM"],
-      Mardi: ["10:00 AM", "1:00 PM", "4:00 PM", "6:00 PM"],
-      Mercredi: ["9:00 AM", "12:00 PM", "2:00 PM", "5:00 PM"],
-      Jeudi: ["11:00 AM", "1:00 PM", "4:00 PM", "7:00 PM"],
-      Vendredi: ["9:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"],
-      Samedi: ["11:00 AM", "1:00 PM", "3:00 PM"],
-    },
-    sophie: {
-      Lundi: ["12:00 PM", "1:00 PM", "5:00 PM", "7:00 PM"],
-      Mardi: ["9:00 AM", "12:00 PM", "2:00 PM", "7:00 PM"],
-      Mercredi: ["11:00 AM", "1:00 PM", "3:00 PM", "6:00 PM"],
-      Jeudi: ["10:00 AM", "2:00 PM", "5:00 PM", "8:00 PM"],
-      Vendredi: ["10:00 AM", "1:00 PM", "4:00 PM", "8:00 PM"],
-      Samedi: ["9:00 AM", "11:00 AM", "4:00 PM"],
-    },
-    jean: {
-      Lundi: ["11:00 AM", "1:00 PM", "4:00 PM", "8:00 PM"],
-      Mardi: ["10:00 AM", "3:00 PM", "5:00 PM", "8:00 PM"],
-      Mercredi: ["9:00 AM", "2:00 PM", "5:00 PM", "8:00 PM"],
-      Jeudi: ["12:00 PM", "3:00 PM", "6:00 PM", "8:00 PM"],
-      Vendredi: ["9:00 AM", "11:00 AM", "2:00 PM", "5:00 PM"],
-      Samedi: ["12:00 PM", "2:00 PM", "4:00 PM"],
-    },
+  const dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]
+
+  const navigateMonth = (direction) => {
+    const newDate = new Date(currentDate)
+    newDate.setMonth(currentDate.getMonth() + direction)
+    setCurrentDate(newDate)
   }
 
-  const getFilteredSchedule = () => {
-    if (selectedProfessor === "tous") {
-      return schedule
+  const getDaysInMonth = () => {
+    const year = currentDate.getFullYear()
+    const month = currentDate.getMonth()
+    const firstDay = new Date(year, month, 1)
+    const lastDay = new Date(year, month + 1, 0)
+    const daysInMonth = lastDay.getDate()
+    const startingDayOfWeek = firstDay.getDay()
+
+    const days = []
+
+    // Add empty cells for days before the first day of the month
+    for (let i = 0; i < startingDayOfWeek; i++) {
+      days.push(null)
     }
-    return { [selectedProfessor]: schedule[selectedProfessor] }
+
+    // Add all days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+      days.push(new Date(year, month, day))
+    }
+
+    return days
   }
 
-  const getProfessorByTime = (day, time) => {
-    for (const prof of professors) {
-      if (schedule[prof.id][day]?.includes(time)) {
-        return prof
-      }
-    }
-    return null
+  const formatDateKey = (date) => {
+    return date.toISOString().split("T")[0]
+  }
+
+  const isAvailableDay = (date) => {
+    if (!date) return false
+    const dayOfWeek = date.getDay()
+    // Tuesday (2), Wednesday (3), Thursday (4)
+    return dayOfWeek >= 2 && dayOfWeek <= 4
+  }
+
+  const getClassesForDate = (date) => {
+    if (!date) return []
+    const dateKey = formatDateKey(date)
+    return occupiedClasses[dateKey] || []
+  }
+
+  const hasClasses = (date) => {
+    return getClassesForDate(date).length > 0
   }
 
   return (
@@ -125,11 +144,190 @@ export function ScheduleSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Horaires des <span className="text-yellow-400">Cours</span>
+            Calendrier des <span className="text-yellow-400">Cours</span>
           </h1>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Consultez les horaires disponibles de nos professeurs et trouvez le moment parfait pour vos cours
+            Consultez notre calendrier interactif pour voir les disponibilités et les cours en cours
           </p>
+        </div>
+
+        <div className="bg-gray-900/30 rounded-2xl p-6 border border-gray-800 mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <Button
+              variant="outline"
+              onClick={() => navigateMonth(-1)}
+              className="border-gray-600 text-gray-300 hover:bg-gray-700"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </Button>
+
+            <h2 className="text-2xl font-bold text-white">
+              {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+            </h2>
+
+            <Button
+              variant="outline"
+              onClick={() => navigateMonth(1)}
+              className="border-gray-600 text-gray-300 hover:bg-gray-700"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-7 gap-2 mb-4">
+            {dayNames.map((day) => (
+              <div key={day} className="p-3 text-center font-semibold text-gray-400">
+                {day}
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-7 gap-2">
+            {getDaysInMonth().map((date, index) => {
+              if (!date) {
+                return <div key={index} className="p-3"></div>
+              }
+
+              const isAvailable = isAvailableDay(date)
+              const classes = getClassesForDate(date)
+              const isToday = date.toDateString() === new Date().toDateString()
+              const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString()
+
+              return (
+                <div
+                  key={date.toDateString()}
+                  onClick={() => isAvailable && setSelectedDate(date)}
+                  className={`p-3 rounded-lg text-center cursor-pointer transition-all min-h-[60px] flex flex-col justify-center ${
+                    isSelected
+                      ? "bg-yellow-400 text-black"
+                      : isToday
+                        ? "bg-gray-700 text-white border-2 border-yellow-400"
+                        : isAvailable
+                          ? classes.length > 0
+                            ? "bg-red-900/50 text-red-300 hover:bg-red-800/50"
+                            : "bg-green-900/50 text-green-300 hover:bg-green-800/50"
+                          : "bg-gray-800/30 text-gray-500"
+                  }`}
+                >
+                  <div className="font-semibold">{date.getDate()}</div>
+                  {isAvailable && (
+                    <div className="text-xs mt-1">
+                      {classes.length > 0 ? (
+                        <div className="flex items-center justify-center">
+                          <Music className="w-3 h-3 mr-1" />
+                          {classes.length}
+                        </div>
+                      ) : (
+                        "Libre"
+                      )}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {selectedDate && (
+          <div className="bg-gray-900/50 rounded-2xl p-6 border border-gray-800 mb-8">
+            <h3 className="text-xl font-bold text-white mb-4">
+              {selectedDate.toLocaleDateString("fr-FR", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </h3>
+
+            <div className="grid gap-4">
+              <h4 className="text-lg font-semibold text-yellow-400">Horaires (15h00 - 21h00)</h4>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+                {availableTimeSlots.map((time) => {
+                  const occupiedClass = getClassesForDate(selectedDate).find((c) => c.time === time)
+
+                  return (
+                    <div
+                      key={time}
+                      className={`p-4 rounded-lg border transition-all ${
+                        occupiedClass
+                          ? "bg-red-900/30 border-red-700"
+                          : "bg-green-900/30 border-green-700 hover:bg-green-800/30"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <Clock className="w-4 h-4 mr-2 text-gray-400" />
+                          <span className="font-medium text-white">{time}</span>
+                        </div>
+
+                        {occupiedClass ? (
+                          <div className="text-right">
+                            <div className="text-red-300 text-sm font-medium">Occupé</div>
+                            <div className="text-xs text-gray-400">
+                              {occupiedClass.course} ({occupiedClass.type})
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              Prof. {professors.find((p) => p.id === occupiedClass.professor)?.name.split(" ")[0]}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="text-green-300 text-sm font-medium">Disponible</div>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
+            <div className="w-4 h-4 bg-green-900/50 rounded-full mr-3"></div>
+            <div className="text-white text-sm">Jours disponibles</div>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
+            <div className="w-4 h-4 bg-red-900/50 rounded-full mr-3"></div>
+            <div className="text-white text-sm">Cours en cours</div>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
+            <div className="w-4 h-4 bg-gray-800/30 rounded-full mr-3"></div>
+            <div className="text-white text-sm">Non disponible</div>
+          </div>
+          <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
+            <div className="w-4 h-4 bg-yellow-400 rounded-full mr-3"></div>
+            <div className="text-white text-sm">Jour sélectionné</div>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          {professors.map((prof) => (
+            <Card key={prof.id} className="bg-gray-900/50 border-gray-800">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className={`w-12 h-12 ${prof.color} rounded-full flex items-center justify-center mr-4`}>
+                    <User className="w-6 h-6 text-black" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-white">{prof.name}</h4>
+                    <p className="text-gray-400 text-sm">Professeur de musique</p>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-gray-300 text-sm mb-2">Spécialités:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {prof.specialties.map((specialty) => (
+                      <span key={specialty} className="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded-full">
+                        {specialty}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         {/* Professor Filter */}
@@ -178,53 +376,47 @@ export function ScheduleSection() {
         )}
 
         {/* Schedule Grid */}
-        <div className="bg-gray-900/30 rounded-2xl p-6 border border-gray-800 overflow-x-auto">
+        <div className="bg-gray-900/30 rounded-2xl p-6 border border-gray-800 overflow-x-auto mb-8">
           <div className="min-w-[800px]">
             <div className="grid grid-cols-7 gap-2 mb-4">
               <div className="p-3 text-center font-semibold text-gray-400">Heure</div>
-              {days.map((day) => (
+              {dayNames.map((day) => (
                 <div key={day} className="p-3 text-center font-semibold text-white bg-gray-800 rounded-lg">
                   {day}
                 </div>
               ))}
             </div>
 
-            {timeSlots.map((time) => (
+            {availableTimeSlots.map((time) => (
               <div key={time} className="grid grid-cols-7 gap-2 mb-2">
                 <div className="p-3 text-center font-medium text-gray-300 bg-gray-800/50 rounded-lg flex items-center justify-center">
                   <Clock className="w-4 h-4 mr-2" />
                   {time}
                 </div>
-                {days.map((day) => {
-                  const prof = getProfessorByTime(day, time)
-                  const isAvailable =
-                    selectedProfessor === "tous" ? prof !== null : schedule[selectedProfessor]?.[day]?.includes(time)
+                {dayNames.map((day, index) => {
+                  const date = getDaysInMonth()[index]
+                  const isAvailable = isAvailableDay(date)
+                  const classes = getClassesForDate(date)
+                  const occupiedClass = classes.find((c) => c.time === time)
 
                   return (
                     <div
-                      key={`${day}-${time}`}
+                      key={`${date}-${time}`}
                       className={`p-3 rounded-lg text-center text-sm transition-all ${
-                        isAvailable
-                          ? selectedProfessor === "tous"
-                            ? `${prof.color} text-black font-medium hover:scale-105 cursor-pointer`
-                            : `${professors.find((p) => p.id === selectedProfessor)?.color} text-black font-medium hover:scale-105 cursor-pointer`
-                          : "bg-gray-800/30 text-gray-500"
+                        occupiedClass
+                          ? "bg-red-900/50 text-red-300 hover:scale-105 cursor-pointer"
+                          : isAvailable
+                            ? "bg-green-900/50 text-green-300 hover:scale-105 cursor-pointer"
+                            : "bg-gray-800/30 text-gray-500"
                       }`}
                     >
-                      {isAvailable ? (
-                        selectedProfessor === "tous" ? (
-                          <div>
-                            <div className="font-semibold">{prof.name.split(" ")[0]}</div>
-                            <div className="text-xs opacity-80">Disponible</div>
-                          </div>
-                        ) : (
-                          <div>
-                            <div className="font-semibold">Disponible</div>
-                            <div className="text-xs opacity-80">Réserver</div>
-                          </div>
-                        )
+                      {occupiedClass ? (
+                        <div>
+                          <div className="font-semibold">{occupiedClass.professor}</div>
+                          <div className="text-xs opacity-80">Occupé</div>
+                        </div>
                       ) : (
-                        <div className="text-xs">Non disponible</div>
+                        <div className="text-xs">Disponible</div>
                       )}
                     </div>
                   )
@@ -232,22 +424,6 @@ export function ScheduleSection() {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Legend */}
-        <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {professors.map((prof) => (
-            <div
-              key={prof.id}
-              className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800"
-            >
-              <div className={`w-4 h-4 ${prof.color} rounded-full mr-3`}></div>
-              <div>
-                <div className="text-white font-medium text-sm">{prof.name}</div>
-                <div className="text-gray-400 text-xs">{prof.specialties.join(", ")}</div>
-              </div>
-            </div>
-          ))}
         </div>
 
         {/* Contact Info */}
@@ -263,9 +439,9 @@ export function ScheduleSection() {
                 </a>
               </Button>
               <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent">
-                <a href="#contact" className="flex items-center">
+                <a href="/#inscription" className="flex items-center">
                   <Calendar className="w-4 h-4 mr-2" />
-                  Formulaire de Contact
+                  Formulaire d'Inscription
                 </a>
               </Button>
             </div>
