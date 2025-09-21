@@ -212,14 +212,14 @@ Message: ${formData.message}`,
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
                   >
                     <option value="">Sélectionnez un cours</option>
-                    <option value="bajo-electrico">Bajo Eléctrico</option>
-                    <option value="bateria">Batería</option>
+                    <option value="bajo-electrico">Basse Électrique</option>
+                    <option value="bateria">Batterie</option>
                     <option value="dj">DJ</option>
                     <option value="ensemble-de-groupe">Ensemble de Groupe</option>
                     <option value="guitare">Guitare</option>
                     <option value="piano-moderne">Piano Moderne</option>
                     <option value="production-musicale">Production Musicale</option>
-                    <option value="xilofono">Xilófono</option>
+                    <option value="xilofono">Xylophone</option>
                   </select>
                 </div>
               </div>
