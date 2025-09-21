@@ -51,6 +51,7 @@ const faqs = [
 export function FAQSection() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
   const [showFAQs, setShowFAQs] = useState(false)
+  const [showConsultation, setShowConsultation] = useState(false) // Added state for consultation section visibility
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -69,6 +70,10 @@ export function FAQSection() {
     if (!showFAQs) {
       setOpenFAQ(null) // Close any open FAQ when hiding section
     }
+  }
+
+  const toggleConsultationSection = () => {
+    setShowConsultation(!showConsultation) // Added toggle function for consultation section
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -180,107 +185,121 @@ export function FAQSection() {
 
           {/* Consultation Form */}
           <div>
-            <h3 className="text-2xl font-bold text-white mb-8 flex items-center">
-              <Send className="w-8 h-8 text-blue-400 mr-3" />
-              Demande de Consultation
-            </h3>
-            <div className="bg-gray-900 rounded-lg p-8 border border-gray-800">
-              <p className="text-gray-300 mb-6">
-                Vous avez des questions spécifiques? Demandez une consultation personnalisée avec nos experts!
-              </p>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-white font-medium mb-2">
-                    Nom complet *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                    placeholder="Votre nom complet"
-                  />
-                </div>
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-2xl font-bold text-white flex items-center">
+                <Send className="w-8 h-8 text-blue-400 mr-3" />
+                Demande de Consultation
+              </h3>
+              <button
+                onClick={toggleConsultationSection}
+                className="flex items-center space-x-2 bg-blue-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-blue-300 transition-colors duration-300"
+              >
+                <span>{showConsultation ? "Masquer le formulaire" : "Voir le formulaire"}</span>
+                {showConsultation ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+            </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-white font-medium mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                    placeholder="votre@email.com"
-                  />
-                </div>
+            <div
+              className={`transition-all duration-500 ease-in-out ${showConsultation ? "opacity-100 max-h-none" : "opacity-0 max-h-0 overflow-hidden"}`}
+            >
+              <div className="bg-gray-900 rounded-lg p-8 border border-gray-800">
+                <p className="text-gray-300 mb-6">
+                  Vous avez des questions spécifiques? Demandez une consultation personnalisée avec nos experts!
+                </p>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-white font-medium mb-2">
+                      Nom complet *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                      placeholder="Votre nom complet"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="phone" className="block text-white font-medium mb-2">
-                    Téléphone
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                    placeholder="Votre numéro de téléphone"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="email" className="block text-white font-medium mb-2">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                      placeholder="votre@email.com"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="course" className="block text-white font-medium mb-2">
-                    Cours d'intérêt
-                  </label>
-                  <select
-                    id="course"
-                    name="course"
-                    value={formData.course}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                  <div>
+                    <label htmlFor="phone" className="block text-white font-medium mb-2">
+                      Téléphone
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                      placeholder="Votre numéro de téléphone"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="course" className="block text-white font-medium mb-2">
+                      Cours d'intérêt
+                    </label>
+                    <select
+                      id="course"
+                      name="course"
+                      value={formData.course}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                    >
+                      <option value="">Sélectionnez un cours</option>
+                      <option value="piano-moderne">Piano Moderne</option>
+                      <option value="guitare">Guitare</option>
+                      <option value="chant">Chant</option>
+                      <option value="dj">DJ</option>
+                      <option value="production-musicale">Production Musicale</option>
+                      <option value="ensemble-de-groupe">Ensemble de Groupe</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-white font-medium mb-2">
+                      Message *
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={4}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300 resize-vertical"
+                      placeholder="Décrivez vos questions ou besoins spécifiques..."
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <option value="">Sélectionnez un cours</option>
-                    <option value="piano-moderne">Piano Moderne</option>
-                    <option value="guitare">Guitare</option>
-                    <option value="chant">Chant</option>
-                    <option value="dj">DJ</option>
-                    <option value="production-musicale">Production Musicale</option>
-                    <option value="ensemble-de-groupe">Ensemble de Groupe</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-white font-medium mb-2">
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={4}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300 resize-vertical"
-                    placeholder="Décrivez vos questions ou besoins spécifiques..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? "Envoi en cours..." : "Envoyer la demande"}
-                </button>
-              </form>
+                    {isSubmitting ? "Envoi en cours..." : "Envoyer la demande"}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
