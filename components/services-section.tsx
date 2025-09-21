@@ -85,9 +85,28 @@ export function ServicesSection() {
           {services.map((service, index) => (
             <Card
               key={index}
-              className={`bg-card border-border hover:border-primary/50 transition-colors group ${service.isNew ? "ring-2 ring-blue-400/30 bg-blue-950/20" : ""}`}
+              className={`bg-card border-border hover:border-primary/50 transition-colors group relative overflow-hidden ${service.isNew ? "ring-2 ring-blue-400/30 bg-blue-950/20" : ""}`}
             >
-              <CardContent className="p-8 relative">
+              <div
+                className="absolute inset-0 opacity-10 bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage:
+                    service.title === "Instruments à Cordes"
+                      ? `url('/electric-guitar-strings-close-up-artistic.jpg')`
+                      : service.title === "Piano Moderne"
+                        ? `url('/modern-piano-keys-black-and-white-artistic.jpg')`
+                        : service.title === "Percussions"
+                          ? `url('/drum-kit-cymbals-percussion-instruments-artistic.jpg')`
+                          : service.title === "Cours de DJ"
+                            ? `url('/dj-turntables-mixing-console-headphones-artistic.jpg')`
+                            : service.title === "Production Musicale"
+                              ? `url('/music-production-studio-mixing-board-artistic.jpg')`
+                              : service.title === "Enregistrement Professionnel"
+                                ? `url('/recording-studio-microphone-professional-artistic.jpg')`
+                                : `url('/musical-ensemble-group-instruments-artistic.jpg')`,
+                }}
+              />
+              <CardContent className="p-8 relative z-10">
                 {service.isNew && (
                   <div className="absolute top-4 right-4 bg-blue-400 text-black text-xs font-bold px-2 py-1 rounded-full">
                     NOUVEAU
