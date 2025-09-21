@@ -153,10 +153,6 @@ export default function CoursesPage() {
                         ))}
                       </ul>
                     </div>
-
-                    <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                      <Link href="/#inscription">S'inscrire</Link>
-                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -220,10 +216,6 @@ export default function CoursesPage() {
                         ))}
                       </ul>
                     </div>
-
-                    <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                      <Link href="/#inscription">S'inscrire</Link>
-                    </Button>
                   </div>
                 </CardContent>
               </Card>
