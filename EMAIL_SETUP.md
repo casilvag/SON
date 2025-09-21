@@ -1,40 +1,49 @@
-# Configuration Email pour Academy SON
+# Configuration Email Gmail pour Academy SON
 
 ## Variables d'environnement requises
 
-Pour que les formulaires de contact et consultation envoient les emails automatiquement, vous devez configurer la variable d'environnement suivante dans votre projet Vercel :
+Pour que les formulaires de contact et consultation envoient les emails automatiquement via Gmail, vous devez configurer les variables d'environnement suivantes dans votre projet Vercel :
 
-### RESEND_API_KEY
-Votre clé API Resend pour l'envoi d'emails
+### GMAIL_USER
+Votre adresse Gmail complète (exemple: votre-email@gmail.com)
 
-## Comment obtenir une clé API Resend :
+### GMAIL_APP_PASSWORD
+Votre mot de passe d'application Gmail (pas votre mot de passe normal)
 
-1. Allez sur [resend.com](https://resend.com) et créez un compte gratuit
-2. Vérifiez votre domaine ou utilisez le domaine de test fourni
-3. Allez dans "API Keys" dans votre dashboard
-4. Créez une nouvelle clé API avec les permissions d'envoi d'emails
-5. Copiez la clé API générée
+## Comment obtenir un mot de passe d'application Gmail :
+
+1. **Activez la vérification en 2 étapes** sur votre compte Google si ce n'est pas déjà fait
+2. Allez dans votre compte Google → Sécurité
+3. Dans "Se connecter à Google", cliquez sur "Mots de passe des applications"
+4. Sélectionnez "Autre (nom personnalisé)" et tapez "Academy SON Website"
+5. Google générera un mot de passe de 16 caractères
+6. **Copiez ce mot de passe** (vous ne pourrez plus le voir après)
 
 ## Configuration dans Vercel :
 
 1. Allez dans votre projet Vercel
 2. Settings → Environment Variables
 3. Ajoutez :
-   - `RESEND_API_KEY` = votre clé API Resend
+   - `GMAIL_USER` = votre adresse Gmail complète
+   - `GMAIL_APP_PASSWORD` = le mot de passe d'application généré
 
 ## Configuration des emails :
 
-Dans les fichiers API (`app/api/contact/route.ts` et `app/api/consultation/route.ts`), remplacez :
-- `contact@academyson.com` par votre vraie adresse email
-- `noreply@academyson.com` par votre domaine vérifié dans Resend
+Les emails seront automatiquement envoyés à votre adresse Gmail configurée dans `GMAIL_USER`. Tous les messages de contact et demandes de consultation arriveront dans votre boîte de réception Gmail.
 
 ## Test :
 
-Une fois configuré, chaque soumission des formulaires enverra automatiquement :
-1. Un email de notification à votre adresse
-2. Un email de confirmation à l'utilisateur
+Une fois configuré, chaque soumission des formulaires enverra automatiquement un email de notification à votre Gmail avec :
+- Les informations du contact (nom, email, téléphone)
+- Le message ou la question posée
+- L'horodatage de la soumission
 
-## Plan gratuit Resend :
-- 3,000 emails par mois
-- 100 emails par jour
-- Parfait pour commencer
+## Avantages de Gmail :
+- Gratuit et fiable
+- Pas de limite d'emails pour usage personnel
+- Interface familière
+- Intégration facile avec votre workflow existant
+
+## Sécurité :
+- Utilisez toujours un mot de passe d'application, jamais votre mot de passe Gmail principal
+- Le mot de passe d'application est spécifique à cette application et peut être révoqué à tout moment
