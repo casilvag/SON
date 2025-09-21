@@ -50,6 +50,7 @@ const faqs = [
 
 export function FAQSection() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
+  const [showFAQs, setShowFAQs] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -61,6 +62,13 @@ export function FAQSection() {
 
   const toggleFAQ = (index: number) => {
     setOpenFAQ(openFAQ === index ? null : index)
+  }
+
+  const toggleFAQSection = () => {
+    setShowFAQs(!showFAQs)
+    if (!showFAQs) {
+      setOpenFAQ(null) // Close any open FAQ when hiding section
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -128,31 +136,45 @@ export function FAQSection() {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* FAQ Section */}
           <div>
-            <h3 className="text-2xl font-bold text-white mb-8 flex items-center">
-              <MessageCircle className="w-8 h-8 text-yellow-400 mr-3" />
-              FAQ
-            </h3>
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <div key={index} className="bg-gray-900 rounded-lg border border-gray-800">
-                  <button
-                    onClick={() => toggleFAQ(index)}
-                    className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-800 transition-colors duration-300"
-                  >
-                    <span className="text-white font-medium pr-4">{faq.question}</span>
-                    {openFAQ === index ? (
-                      <ChevronUp className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-2xl font-bold text-white flex items-center">
+                <MessageCircle className="w-8 h-8 text-yellow-400 mr-3" />
+                FAQ
+              </h3>
+              <button
+                onClick={toggleFAQSection}
+                className="flex items-center space-x-2 bg-yellow-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-300 transition-colors duration-300"
+              >
+                <span>{showFAQs ? "Masquer les FAQ" : "Voir les FAQ"}</span>
+                {showFAQs ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+            </div>
+
+            <div
+              className={`transition-all duration-500 ease-in-out ${showFAQs ? "opacity-100 max-h-none" : "opacity-0 max-h-0 overflow-hidden"}`}
+            >
+              <div className="space-y-4">
+                {faqs.map((faq, index) => (
+                  <div key={index} className="bg-gray-900 rounded-lg border border-gray-800">
+                    <button
+                      onClick={() => toggleFAQ(index)}
+                      className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-800 transition-colors duration-300"
+                    >
+                      <span className="text-white font-medium pr-4">{faq.question}</span>
+                      {openFAQ === index ? (
+                        <ChevronUp className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                      )}
+                    </button>
+                    {openFAQ === index && (
+                      <div className="px-6 pb-6">
+                        <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
+                      </div>
                     )}
-                  </button>
-                  {openFAQ === index && (
-                    <div className="px-6 pb-6">
-                      <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
-                    </div>
-                  )}
-                </div>
-              ))}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
