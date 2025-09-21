@@ -13,6 +13,7 @@ export function RegistrationSection() {
     niveau: "",
     cours: "",
     horaire: "",
+    disponibilite: [] as string[],
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -22,6 +23,15 @@ export function RegistrationSection() {
       ...formData,
       [e.target.name]: e.target.value,
     })
+  }
+
+  const handleAvailabilityChange = (day: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      disponibilite: prev.disponibilite.includes(day)
+        ? prev.disponibilite.filter((d) => d !== day)
+        : [...prev.disponibilite, day],
+    }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,6 +54,7 @@ export function RegistrationSection() {
 Niveau: ${formData.niveau}
 Cours souhaité: ${formData.cours}
 Horaire préféré: ${formData.horaire}
+Disponibilité: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée"}
 
 Message: ${formData.message}`,
         }),
@@ -59,6 +70,7 @@ Message: ${formData.message}`,
           niveau: "",
           cours: "",
           horaire: "",
+          disponibilite: [],
           message: "",
         })
       } else {
@@ -200,12 +212,14 @@ Message: ${formData.message}`,
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
                   >
                     <option value="">Sélectionnez un cours</option>
-                    <option value="piano-moderne">Piano Moderne</option>
-                    <option value="guitare">Guitare</option>
-                    <option value="chant">Chant</option>
+                    <option value="bajo-electrico">Bajo Eléctrico</option>
+                    <option value="bateria">Batería</option>
                     <option value="dj">DJ</option>
-                    <option value="production-musicale">Production Musicale</option>
                     <option value="ensemble-de-groupe">Ensemble de Groupe</option>
+                    <option value="guitare">Guitare</option>
+                    <option value="piano-moderne">Piano Moderne</option>
+                    <option value="production-musicale">Production Musicale</option>
+                    <option value="xilofono">Xilófono</option>
                   </select>
                 </div>
               </div>
@@ -229,6 +243,33 @@ Message: ${formData.message}`,
                   <option value="weekend">Weekend</option>
                   <option value="flexible">Flexible</option>
                 </select>
+              </div>
+
+              {/* Disponibilité dans la semaine */}
+              <div>
+                <label className="block text-white font-medium mb-4">Disponibilité dans la semaine</label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {[
+                    { value: "lundi", label: "Lundi" },
+                    { value: "mardi", label: "Mardi" },
+                    { value: "mercredi", label: "Mercredi" },
+                    { value: "jeudi", label: "Jeudi" },
+                    { value: "vendredi", label: "Vendredi" },
+                    { value: "samedi", label: "Samedi" },
+                    { value: "dimanche", label: "Dimanche" },
+                    { value: "flexible", label: "Flexible" },
+                  ].map((day) => (
+                    <label key={day.value} className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.disponibilite.includes(day.value)}
+                        onChange={() => handleAvailabilityChange(day.value)}
+                        className="w-4 h-4 text-yellow-400 bg-gray-800 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2"
+                      />
+                      <span className="text-gray-300 text-sm">{day.label}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
 
               {/* Message */}
