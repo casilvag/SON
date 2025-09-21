@@ -50,10 +50,6 @@ export function Header() {
             ))}
           </nav>
 
-          <Button asChild className="hidden md:block">
-            <a href="/#inscription">Inscription</a>
-          </Button>
-
           {/* Mobile Menu Button */}
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X /> : <Menu />}
@@ -74,11 +70,6 @@ export function Header() {
                   {item.label}
                 </a>
               ))}
-              <Button asChild className="w-full mt-4">
-                <a href="/#inscription" onClick={() => setIsMenuOpen(false)}>
-                  Inscription
-                </a>
-              </Button>
             </div>
           </nav>
         )}
