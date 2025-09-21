@@ -12,6 +12,8 @@ export function Header() {
     { href: "/", label: "Accueil" },
     { href: "/#apropos", label: "À Propos" },
     { href: "/#services", label: "Services" },
+    { href: "/#cours-individuels", label: "Cours Individuels" },
+    { href: "/#cours-groupe", label: "Cours de Groupe" },
     { href: "/#equipe", label: "Équipe" },
     { href: "/#galerie", label: "Galerie" },
     { href: "/horaires", label: "Horaires" },

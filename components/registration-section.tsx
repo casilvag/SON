@@ -85,7 +85,7 @@ Message: ${formData.message}`,
   }
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
+    <section id="inscription" className="py-20 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-16 text-yellow-400 opacity-30 text-2xl">♪</div>
         <div className="absolute top-40 right-24 text-blue-400 opacity-30 text-xl">♫</div>

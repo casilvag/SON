@@ -1,6 +1,8 @@
+"use client"
+
 export function PricingSection() {
   return (
-    <section className="py-20 bg-black relative overflow-hidden">
+    <section id="cours-individuels" className="py-20 bg-black relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-16 text-yellow-400 text-2xl opacity-40 rotate-12">♪</div>
         <div className="absolute top-36 right-24 text-blue-400 text-xl opacity-45 -rotate-12">♫</div>
@@ -28,7 +30,12 @@ export function PricingSection() {
             <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/10 rounded-full -translate-y-16 translate-x-16"></div>
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-white">Cours Individuels</h3>
+                <h3
+                  className="text-2xl font-bold text-white cursor-pointer hover:text-yellow-400 transition-colors"
+                  onClick={() => (window.location.href = "/#inscription")}
+                >
+                  Cours Individuels
+                </h3>
                 <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
                   <svg className="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -95,11 +102,19 @@ export function PricingSection() {
           </div>
 
           {/* Group Classes */}
-          <div className="bg-gradient-to-br from-blue-900/50 to-gray-800 rounded-2xl p-8 border border-blue-700/50 relative overflow-hidden">
+          <div
+            id="cours-groupe"
+            className="bg-gradient-to-br from-blue-900/50 to-gray-800 rounded-2xl p-8 border border-blue-700/50 relative overflow-hidden"
+          >
             <div className="absolute top-0 right-0 w-32 h-32 bg-blue-400/10 rounded-full -translate-y-16 translate-x-16"></div>
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-white">Cours de Groupe</h3>
+                <h3
+                  className="text-2xl font-bold text-white cursor-pointer hover:text-blue-400 transition-colors"
+                  onClick={() => (window.location.href = "/#inscription")}
+                >
+                  Cours de Groupe
+                </h3>
                 <div className="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center">
                   <svg className="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
