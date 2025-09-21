@@ -49,7 +49,7 @@ export function ServicesSection() {
   ]
 
   return (
-    <section id="services" className="py-20 relative overflow-hidden">
+    <section id="services" className="pt-8 pb-20 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-16 text-red-400 text-xl opacity-40">♪</div>
         <div className="absolute top-36 right-24 text-yellow-400 text-2xl opacity-50">♫</div>

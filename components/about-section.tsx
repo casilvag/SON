@@ -9,7 +9,7 @@ export function AboutSection() {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <section id="apropos" className="py-20 bg-secondary/20 relative overflow-hidden">
+    <section id="apropos" className="pt-20 pb-8 bg-secondary/20 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-16 left-12 text-yellow-400 text-2xl opacity-50">♪</div>
         <div className="absolute top-32 right-20 text-blue-400 text-xl opacity-40">♫</div>
