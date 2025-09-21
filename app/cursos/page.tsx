@@ -79,7 +79,7 @@ export default function CoursesPage() {
       image: "/group-music-production-workshop.jpg",
     },
     {
-      title: "Folklor y Ritmos Latinos",
+      title: "Folklore et Rythmes Latinos",
       description:
         "Explorez la richesse musicale de l'Amérique latine à travers ses rythmes traditionnels et ses instruments authentiques comme les congas, bongos, maracas et guitares.",
       benefits: ["Rythmes traditionnels", "Instruments authentiques", "Culture latino-américaine"],
