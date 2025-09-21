@@ -64,27 +64,28 @@ export function ScheduleSection() {
       })
     }
 
-    // Mondays in September and October - Guitar and Drums (18h-19h)
     const septemberStart = new Date(currentYear, 8, 1) // September 1st
-    const octoberEnd = new Date(currentYear, 9, 31) // October 31st
-    const mondays = generateDatesForRange(septemberStart, octoberEnd, 1) // Monday = 1
+    const novemberEnd = new Date(currentYear, 10, 30) // November 30th
+    const mondays = generateDatesForRange(septemberStart, novemberEnd, 1) // Monday = 1
 
     mondays.forEach((date) => {
       const dateKey = date.toISOString().split("T")[0]
       schedule[dateKey] = [
-        { time: "18:00", professor: "cesar", course: "Guitare", type: "Individuel" },
+        { time: "17:00", professor: "cesar", course: "Guitare", type: "Individuel" },
+        { time: "17:30", professor: "cesar", course: "Guitare", type: "Individuel" },
+        { time: "18:00", professor: "cesar", course: "Batterie", type: "Individuel" },
         { time: "18:30", professor: "cesar", course: "Batterie", type: "Individuel" },
       ]
     })
 
     // Tuesday, Wednesday, Thursday from September 3rd to last week of November - Drums 15h-21h
     const septemberThird = new Date(currentYear, 8, 3) // September 3rd
-    const novemberEnd = new Date(currentYear, 10, 30) // November 30th
+    const novemberEnd2 = new Date(currentYear, 10, 30) // November 30th
 
     // Generate all Tuesday, Wednesday, Thursday dates
     for (let dayOfWeek = 2; dayOfWeek <= 4; dayOfWeek++) {
       // 2=Tuesday, 3=Wednesday, 4=Thursday
-      const dates = generateDatesForRange(septemberThird, novemberEnd, dayOfWeek)
+      const dates = generateDatesForRange(septemberThird, novemberEnd2, dayOfWeek)
 
       dates.forEach((date) => {
         const dateKey = date.toISOString().split("T")[0]
