@@ -56,6 +56,11 @@ const translations = {
     "nav.back_home": "Retour à l'accueil",
     "nav.inscription": "S'inscrire",
     "nav.academy": "Académie de Musique",
+    "nav.about": "À Propos",
+    "nav.services": "Services",
+    "nav.team": "Équipe",
+    "nav.gallery": "Galerie",
+    "nav.contact": "Contact",
 
     // Hero Section
     "hero.title": "SON Académie de Musique",
@@ -296,10 +301,10 @@ const translations = {
     "schedule.call": "Appeler",
     "schedule.registration_form": "Formulaire d'Inscription",
     "schedule.legend.two_hours_available": "2+ heures disponibles",
-    "schedule.legend.available_hours": "Horaires disponibles",
+    "schedule.legend.available_hours": "Horarios disponibles",
     "schedule.legend.ongoing_classes": "Cours en cours",
     "schedule.legend.not_available": "Non disponible",
-    "schedule.professors.cesar.specialty": "Tous les cours",
+    "schedule.professors.cesar.specialty": "Todos los cursos",
     "schedule.professors.sebastian.specialty1": "Batterie",
     "schedule.professors.sebastian.specialty2": "Basse",
     "schedule.courses.guitare": "Guitare",
@@ -316,6 +321,11 @@ const translations = {
     "nav.back_home": "Volver al inicio",
     "nav.inscription": "Inscribirse",
     "nav.academy": "Academia de Música",
+    "nav.about": "Acerca de",
+    "nav.services": "Servicios",
+    "nav.team": "Equipo",
+    "nav.gallery": "Galería",
+    "nav.contact": "Contacto",
 
     // Hero Section
     "hero.title": "SON Academia de Música",

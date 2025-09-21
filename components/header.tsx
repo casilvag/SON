@@ -5,18 +5,20 @@ import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import Image from "next/image"
 import { LanguageToggle } from "@/components/language-toggle"
+import { useLanguage } from "@/contexts/language-context"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { t } = useLanguage()
 
   const navItems = [
-    { href: "/", label: "Accueil" },
+    { href: "/", label: t("nav.home") },
     { href: "/#apropos", label: "À Propos" },
     { href: "/#services", label: "Services" },
-    { href: "/cursos", label: "Cours" },
+    { href: "/cursos", label: t("nav.courses") },
     { href: "/#equipe", label: "Équipe" },
     { href: "/#galerie", label: "Galerie" },
-    { href: "/horaires", label: "Horaires" },
+    { href: "/horaires", label: t("nav.schedule") },
     { href: "/#contact", label: "Contact" },
   ]
 
@@ -37,7 +39,7 @@ export function Header() {
               </div>
               <div className="flex flex-col">
                 <div className="text-2xl font-bold text-primary">SON</div>
-                <div className="text-xs text-muted-foreground font-medium">Académie de Musique</div>
+                <div className="text-xs text-muted-foreground font-medium">{t("nav.academy")}</div>
               </div>
             </a>
           </div>
@@ -55,7 +57,7 @@ export function Header() {
                 asChild
                 className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                <a href="/#inscription">S'inscrire</a>
+                <a href="/#inscription">{t("nav.inscription")}</a>
               </Button>
             </div>
           </nav>
@@ -87,7 +89,7 @@ export function Header() {
                   className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold rounded-full shadow-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <a href="/#inscription">S'inscrire</a>
+                  <a href="/#inscription">{t("nav.inscription")}</a>
                 </Button>
               </div>
             </div>
