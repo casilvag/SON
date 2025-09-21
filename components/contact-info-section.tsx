@@ -36,6 +36,19 @@ export function ContactInfoSection() {
             <p className="text-gray-400 text-sm mt-2">Lundi à Vendredi: 9h00 - 20h00</p>
           </div>
 
+          {/* Email */}
+          <div className="text-center p-6 bg-gray-900/50 rounded-lg border border-gray-800">
+            <div className="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">Email</h3>
+            <p className="text-gray-300 text-lg font-medium">casilvag10@gmail.com</p>
+            <p className="text-gray-400 text-sm mt-2">Réponse sous 24h</p>
+          </div>
+
           {/* Address */}
           <div className="text-center p-6 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -50,25 +63,6 @@ export function ContactInfoSection() {
             <h3 className="text-xl font-semibold text-white mb-2">Adresse</h3>
             <p className="text-gray-300 text-lg font-medium">125 25e rue</p>
             <p className="text-gray-400 text-sm mt-2">Québec, Canada</p>
-          </div>
-
-          {/* Social Media */}
-          <div className="text-center p-6 bg-gray-900/50 rounded-lg border border-gray-800">
-            <div className="w-16 h-16 bg-red-400 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-3.22l-1.14 1.14a.5.5 0 01-.71 0L8.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V6h8v6H9.771z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Réseaux Sociaux</h3>
-            <p className="text-gray-300 text-sm mb-3">Suivez-nous sur nos réseaux</p>
-            <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-3">
-              <p className="text-yellow-400 text-sm font-medium">🚧 En construction</p>
-              <p className="text-gray-400 text-xs mt-1">Bientôt disponible</p>
-            </div>
           </div>
         </div>
 

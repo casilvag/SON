@@ -10,7 +10,6 @@ import { TestimonialsSection } from "@/components/testimonials-section"
 import { FAQSection } from "@/components/faq-section"
 import { PoliciesSection } from "@/components/policies-section"
 import { ContactInfoSection } from "@/components/contact-info-section"
-import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 
 export default function HomePage() {
@@ -28,7 +27,6 @@ export default function HomePage() {
       <FAQSection />
       <PoliciesSection />
       <ContactInfoSection />
-      <ContactSection />
       <Footer />
     </main>
   )
