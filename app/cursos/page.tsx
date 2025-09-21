@@ -85,14 +85,14 @@ export default function CoursesPage() {
       image: "/group-music-production-workshop.jpg",
     },
     {
-      title: "Folklore Colombiano",
+      title: "Folklor y Ritmos Latinos",
       description:
-        "Découvrez la richesse musicale de la Colombie à travers ses rythmes traditionnels et ses instruments authentiques.",
-      benefits: ["Rythmes traditionnels", "Instruments authentiques", "Culture colombienne"],
+        "Explorez la richesse musicale de l'Amérique latine à travers ses rythmes traditionnels et ses instruments authentiques comme les congas, bongos, maracas et guitares.",
+      benefits: ["Rythmes traditionnels", "Instruments authentiques", "Culture latino-américaine"],
       duration: "90 min",
       price: "25$ CAD par personne",
       maxStudents: "6-8 étudiants",
-      image: "/colombian-folklore-ensemble.jpg",
+      image: "/latin-folklore-instruments.jpg",
     },
   ]
 
