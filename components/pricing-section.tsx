@@ -208,7 +208,7 @@ export function PricingSection() {
         <div className="text-center mt-12">
           <p className="text-gray-300 mb-6">Prêt à commencer votre voyage musical?</p>
           <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-lg transition-colors">
-            <a href="/#contact">Inscrivez-vous Maintenant</a>
+            <a href="/#inscription">Inscrivez-vous Maintenant</a>
           </button>
         </div>
       </div>
