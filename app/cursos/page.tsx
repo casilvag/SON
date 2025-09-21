@@ -104,27 +104,6 @@ export default function CoursesPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/10 to-accent/10 py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 text-balance">
-            Découvrez nos Cours de Musique
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-pretty">
-            Choisissez entre nos cours individuels personnalisés ou nos cours de groupe dynamiques pour développer vos
-            talents musicaux.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-              <Link href="/registration">S'inscrire Maintenant</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link href="/#contact">Nous Contacter</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* Individual Courses Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
