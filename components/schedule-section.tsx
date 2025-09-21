@@ -149,6 +149,54 @@ export function ScheduleSection() {
     "17:00",
     "17:30",
     "18:00",
+  ]
+
+  const weekendTimeSlots = [
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+  ]
+
+  const weekdayTimeSlots = [
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
     "18:30",
     "19:00",
     "19:30",
@@ -208,25 +256,26 @@ export function ScheduleSection() {
   const isAvailableDay = (date) => {
     if (!date) return false
     const dayOfWeek = date.getDay()
-    // Show Monday-Friday as available days (1=Monday, 5=Friday)
-    return dayOfWeek >= 1 && dayOfWeek <= 5
+    // Show Monday-Sunday as available days (1=Monday, 0=Sunday, 6=Saturday)
+    return dayOfWeek >= 0 && dayOfWeek <= 6
   }
 
   const hasAtLeastTwoHoursAvailable = (date) => {
     if (!date) return false
 
     const dayOfWeek = date.getDay()
-    if (dayOfWeek < 1 || dayOfWeek > 5) return false // Only weekdays
+    if (dayOfWeek < 0 || dayOfWeek > 6) return false
 
     const occupiedTimes = getClassesForDate(date).map((c) => c.time)
-    const availableTimes = availableTimeSlots.filter((time) => !occupiedTimes.includes(time))
+    const timeSlots = dayOfWeek === 0 || dayOfWeek === 6 ? weekendTimeSlots : weekdayTimeSlots
+    const availableTimes = timeSlots.filter((time) => !occupiedTimes.includes(time))
 
     // Check for at least 2 consecutive hours (4 slots of 30 minutes each)
     let consecutiveCount = 0
     let maxConsecutive = 0
 
-    for (let i = 0; i < availableTimeSlots.length; i++) {
-      if (availableTimes.includes(availableTimeSlots[i])) {
+    for (let i = 0; i < timeSlots.length; i++) {
+      if (availableTimes.includes(timeSlots[i])) {
         consecutiveCount++
         maxConsecutive = Math.max(maxConsecutive, consecutiveCount)
       } else {
@@ -364,53 +413,52 @@ export function ScheduleSection() {
 
             <div className="grid gap-4">
               <h4 className="text-lg font-semibold text-yellow-400">
-                Horaires {selectedDate.getDay() === 6 ? "(13h00 - 16h00)" : "(08h00 - 21h00)"}
+                Horaires{" "}
+                {selectedDate.getDay() === 6
+                  ? "(08h00 - 18h00)"
+                  : selectedDate.getDay() === 0
+                    ? "(08h00 - 18h00)"
+                    : "(08h00 - 21h00)"}
               </h4>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-                {availableTimeSlots.map((time) => {
-                  const occupiedClass = getClassesForDate(selectedDate).find((c) => c.time === time)
-                  const dayOfWeek = selectedDate.getDay()
+                {(selectedDate.getDay() === 0 || selectedDate.getDay() === 6 ? weekendTimeSlots : weekdayTimeSlots).map(
+                  (time) => {
+                    const occupiedClass = getClassesForDate(selectedDate).find((c) => c.time === time)
 
-                  const shouldShowSlot =
-                    dayOfWeek === 6
-                      ? ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00"].includes(time)
-                      : dayOfWeek >= 1 && dayOfWeek <= 5 // Monday to Friday
-
-                  if (!shouldShowSlot) return null
-
-                  return (
-                    <div
-                      key={time}
-                      className={`p-4 rounded-lg border transition-all ${
-                        occupiedClass
-                          ? "bg-red-900/30 border-red-700"
-                          : "bg-green-900/30 border-green-700 hover:bg-green-800/30"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                          <Clock className="w-4 h-4 mr-2 text-gray-400" />
-                          <span className="font-medium text-white">{time}</span>
-                        </div>
-
-                        {occupiedClass ? (
-                          <div className="text-right">
-                            <div className="text-red-300 text-sm font-medium">Occupé</div>
-                            <div className="text-xs text-gray-400">
-                              {occupiedClass.course} ({occupiedClass.type})
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              Prof. {professors.find((p) => p.id === occupiedClass.professor)?.name.split(" ")[0]}
-                            </div>
+                    return (
+                      <div
+                        key={time}
+                        className={`p-4 rounded-lg border transition-all ${
+                          occupiedClass
+                            ? "bg-red-900/30 border-red-700"
+                            : "bg-green-900/30 border-green-700 hover:bg-green-800/30"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <Clock className="w-4 h-4 mr-2 text-gray-400" />
+                            <span className="font-medium text-white">{time}</span>
                           </div>
-                        ) : (
-                          <div className="text-green-300 text-sm font-medium">Disponible</div>
-                        )}
+
+                          {occupiedClass ? (
+                            <div className="text-right">
+                              <div className="text-red-300 text-sm font-medium">Occupé</div>
+                              <div className="text-xs text-gray-400">
+                                {occupiedClass.course} ({occupiedClass.type})
+                              </div>
+                              <div className="text-xs text-gray-500">
+                                Prof. {professors.find((p) => p.id === occupiedClass.professor)?.name.split(" ")[0]}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="text-green-300 text-sm font-medium">Disponible</div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )
-                })}
+                    )
+                  },
+                )}
               </div>
             </div>
           </div>
