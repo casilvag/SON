@@ -388,8 +388,8 @@ export function ScheduleSection() {
                   {hasClassesToday && (
                     <div className="text-xs mt-1">
                       <div className="flex items-center justify-center">
-                        <Music className="w-3 h-3 mr-1" />
-                        {classes.length}
+                        <Music className="w-3 h-3 mr-1 text-red-400" />
+                        <span className="text-red-400">{classes.length}</span>
                       </div>
                     </div>
                   )}
