@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Clock, Users, User, CheckCircle } from "lucide-react"
+import { Clock, Users, User, CheckCircle, Home } from "lucide-react"
 import Link from "next/link"
 
 export default function CoursesPage() {
@@ -106,6 +106,20 @@ export default function CoursesPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <nav className="bg-background border-b border-border sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold text-foreground">Nos Cours</h1>
+            <Button asChild variant="outline" size="sm">
+              <Link href="/" className="flex items-center gap-2">
+                <Home className="w-4 h-4" />
+                Retour à l'accueil
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/10 to-accent/10 py-20">
         <div className="container mx-auto px-4 text-center">
