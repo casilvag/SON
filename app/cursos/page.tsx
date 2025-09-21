@@ -7,56 +7,86 @@ import { Clock, Users, User, CheckCircle, Home } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { LanguageToggle } from "@/components/language-toggle"
+import { useLanguage } from "@/contexts/language-context"
 
 export default function CoursesPage() {
+  const { t } = useLanguage()
+
   const individualCourses = [
     {
-      title: "Basse Électrique",
-      description: "Apprenez les techniques de base et avancées de la basse électrique avec un instructeur dédié.",
-      benefits: ["Attention personnalisée", "Progression à votre rythme", "Répertoire adapté à vos goûts"],
+      title: t("courses.individual.bass.title"),
+      description: t("courses.individual.bass.description"),
+      benefits: [
+        t("courses.individual.bass.benefit1"),
+        t("courses.individual.bass.benefit2"),
+        t("courses.individual.bass.benefit3"),
+      ],
       duration: "30-60 min",
       image: "/electric-bass-guitar-lesson.jpg",
     },
     {
-      title: "Batterie",
-      description:
-        "Maîtrisez les rythmes et techniques de batterie dans un environnement d'apprentissage personnalisé.",
-      benefits: ["Technique personnalisée", "Styles variés", "Équipement professionnel"],
+      title: t("courses.individual.drums.title"),
+      description: t("courses.individual.drums.description"),
+      benefits: [
+        t("courses.individual.drums.benefit1"),
+        t("courses.individual.drums.benefit2"),
+        t("courses.individual.drums.benefit3"),
+      ],
       duration: "30-60 min",
       image: "/drum-kit-lesson.jpg",
     },
     {
-      title: "DJ",
-      description: "Découvrez l'art du mixage et de la production musicale avec des équipements professionnels.",
-      benefits: ["Équipement professionnel", "Techniques de mixage", "Production musicale"],
+      title: t("courses.individual.dj.title"),
+      description: t("courses.individual.dj.description"),
+      benefits: [
+        t("courses.individual.dj.benefit1"),
+        t("courses.individual.dj.benefit2"),
+        t("courses.individual.dj.benefit3"),
+      ],
       duration: "45-90 min",
       image: "/dj-mixing-turntables.jpg",
     },
     {
-      title: "Guitare",
-      description: "Cours de guitare personnalisés pour tous niveaux, du débutant au musicien confirmé.",
-      benefits: ["Méthode adaptée", "Styles multiples", "Théorie et pratique"],
+      title: t("courses.individual.guitar.title"),
+      description: t("courses.individual.guitar.description"),
+      benefits: [
+        t("courses.individual.guitar.benefit1"),
+        t("courses.individual.guitar.benefit2"),
+        t("courses.individual.guitar.benefit3"),
+      ],
       duration: "30-60 min",
       image: "/acoustic-guitar-lesson.jpg",
     },
     {
-      title: "Piano Moderne",
-      description: "Explorez le piano moderne avec des techniques contemporaines et un répertoire actuel.",
-      benefits: ["Répertoire moderne", "Techniques contemporaines", "Improvisation"],
+      title: t("courses.individual.piano.title"),
+      description: t("courses.individual.piano.description"),
+      benefits: [
+        t("courses.individual.piano.benefit1"),
+        t("courses.individual.piano.benefit2"),
+        t("courses.individual.piano.benefit3"),
+      ],
       duration: "30-60 min",
       image: "/modern-piano-keyboard.jpg",
     },
     {
-      title: "Production Musicale",
-      description: "Apprenez à créer, enregistrer et produire votre propre musique avec des logiciels professionnels.",
-      benefits: ["Logiciels professionnels", "Enregistrement", "Composition"],
+      title: t("courses.individual.production.title"),
+      description: t("courses.individual.production.description"),
+      benefits: [
+        t("courses.individual.production.benefit1"),
+        t("courses.individual.production.benefit2"),
+        t("courses.individual.production.benefit3"),
+      ],
       duration: "60-90 min",
       image: "/music-production-studio.png",
     },
     {
-      title: "Xylophone",
-      description: "Découvrez la beauté mélodique du xylophone avec des techniques classiques et modernes.",
-      benefits: ["Technique de frappe", "Lecture musicale", "Répertoire varié"],
+      title: t("courses.individual.xylophone.title"),
+      description: t("courses.individual.xylophone.description"),
+      benefits: [
+        t("courses.individual.xylophone.benefit1"),
+        t("courses.individual.xylophone.benefit2"),
+        t("courses.individual.xylophone.benefit3"),
+      ],
       duration: "30-45 min",
       image: "/xylophone-percussion-instrument.jpg",
     },
@@ -64,28 +94,35 @@ export default function CoursesPage() {
 
   const groupCourses = [
     {
-      title: "Ensemble de Groupe - Rock",
-      description: "Formez un groupe et jouez ensemble des classiques du rock dans une ambiance collaborative.",
-      benefits: ["Jeu en groupe", "Répertoire rock", "Performance live"],
+      title: t("courses.group.rock.title"),
+      description: t("courses.group.rock.description"),
+      benefits: [t("courses.group.rock.benefit1"), t("courses.group.rock.benefit2"), t("courses.group.rock.benefit3")],
       duration: "90 min",
-      maxStudents: "4-6 étudiants",
+      maxStudents: t("courses.group.rock.students"),
       image: "/rock-band-ensemble.jpg",
     },
     {
-      title: "Atelier de Production Collective",
-      description: "Créez de la musique ensemble en utilisant des techniques de production moderne.",
-      benefits: ["Création collaborative", "Techniques modernes", "Projet commun"],
+      title: t("courses.group.production.title"),
+      description: t("courses.group.production.description"),
+      benefits: [
+        t("courses.group.production.benefit1"),
+        t("courses.group.production.benefit2"),
+        t("courses.group.production.benefit3"),
+      ],
       duration: "120 min",
-      maxStudents: "3-4 étudiants",
+      maxStudents: t("courses.group.production.students"),
       image: "/group-music-production-workshop.jpg",
     },
     {
-      title: "Folklore et Rythmes Latinos",
-      description:
-        "Explorez la richesse musicale de l'Amérique latine à travers ses rythmes traditionnels et ses instruments authentiques comme les congas, bongos, maracas et guitares.",
-      benefits: ["Rythmes traditionnels", "Instruments authentiques", "Culture latino-américaine"],
+      title: t("courses.group.folklore.title"),
+      description: t("courses.group.folklore.description"),
+      benefits: [
+        t("courses.group.folklore.benefit1"),
+        t("courses.group.folklore.benefit2"),
+        t("courses.group.folklore.benefit3"),
+      ],
       duration: "90 min",
-      maxStudents: "6-8 étudiants",
+      maxStudents: t("courses.group.folklore.students"),
       image: "/latin-folklore-instruments.jpg",
     },
   ]
@@ -108,7 +145,7 @@ export default function CoursesPage() {
                 </div>
                 <div className="flex flex-col">
                   <div className="text-2xl font-bold text-primary">SON</div>
-                  <div className="text-xs text-muted-foreground font-medium">Académie de Musique</div>
+                  <div className="text-xs text-muted-foreground font-medium">{t("nav.academy")}</div>
                 </div>
               </Link>
             </div>
@@ -117,7 +154,7 @@ export default function CoursesPage() {
               <Button asChild variant="outline" size="sm">
                 <Link href="/" className="flex items-center gap-2">
                   <Home className="w-4 h-4" />
-                  Retour à l'accueil
+                  {t("nav.back_home")}
                 </Link>
               </Button>
             </div>
@@ -144,7 +181,7 @@ export default function CoursesPage() {
               {/* Star badge */}
               <div className="absolute top-4 right-4 z-10">
                 <Badge className="bg-amber-500 text-white font-bold px-3 py-1 text-sm shadow-lg">
-                  ⭐ PRODUIT VEDETTE
+                  ⭐ {t("services.featured")}
                 </Badge>
               </div>
 
@@ -152,40 +189,40 @@ export default function CoursesPage() {
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                      Plan Sensibilización Musical
+                      {t("courses.featured.title")}
                     </h2>
                     <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                      Un plan d'apprentissage musical personnalisé vers la découverte musicale de l'étudiant, où nous
-                      facilitons la possibilité de changer entre tous nos cours individuels ou bien les mélanger dans
-                      chaque classe.
+                      {t("courses.featured.description")}
                     </p>
                   </div>
 
                   <div className="space-y-4">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Caractéristiques Uniques:</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                      {t("courses.featured.unique_features")}:
+                    </h3>
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
                         <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
                         <span className="text-gray-700 dark:text-gray-300">
-                          <strong>Flexibilité totale:</strong> Changez d'instrument à chaque cours selon vos envies
+                          <strong>{t("courses.featured.flexibility")}:</strong> {t("courses.featured.flexibility_desc")}
                         </span>
                       </li>
                       <li className="flex items-start gap-3">
                         <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
                         <span className="text-gray-700 dark:text-gray-300">
-                          <strong>Guidance professionnelle:</strong> Décisions toujours guidées par nos professeurs
+                          <strong>{t("courses.featured.guidance")}:</strong> {t("courses.featured.guidance_desc")}
                         </span>
                       </li>
                       <li className="flex items-start gap-3">
                         <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
                         <span className="text-gray-700 dark:text-gray-300">
-                          <strong>Découverte personnalisée:</strong> Basé sur votre motivation et curiosité musicale
+                          <strong>{t("courses.featured.discovery")}:</strong> {t("courses.featured.discovery_desc")}
                         </span>
                       </li>
                       <li className="flex items-start gap-3">
                         <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
                         <span className="text-gray-700 dark:text-gray-300">
-                          <strong>Même tarif:</strong> Prix identique aux cours individuels traditionnels
+                          <strong>{t("courses.featured.pricing")}:</strong> {t("courses.featured.pricing_desc")}
                         </span>
                       </li>
                     </ul>
@@ -198,7 +235,7 @@ export default function CoursesPage() {
                     </div>
                     <div className="flex items-center gap-1">
                       <User className="w-4 h-4" />
-                      1:1 Personnalisé
+                      {t("courses.featured.personalized")}
                     </div>
                   </div>
                 </div>
@@ -207,7 +244,7 @@ export default function CoursesPage() {
                   <div className="aspect-square w-full max-w-sm overflow-hidden rounded-2xl shadow-xl">
                     <img
                       src="/musical-discovery-instruments-artistic.jpg"
-                      alt="Plan Sensibilización Musical - Découverte instrumentale"
+                      alt={t("courses.featured.alt")}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
@@ -222,10 +259,9 @@ export default function CoursesPage() {
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Cours Individuels</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t("courses.individual.title")}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-              Bénéficiez d'une attention personnalisée avec nos cours individuels adaptés à votre niveau et vos
-              objectifs musicaux.
+              {t("courses.individual.subtitle")}
             </p>
           </div>
 
@@ -257,7 +293,7 @@ export default function CoursesPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <h4 className="font-medium text-foreground">Avantages:</h4>
+                      <h4 className="font-medium text-foreground">{t("courses.benefits")}:</h4>
                       <ul className="space-y-1">
                         {course.benefits.map((benefit, idx) => (
                           <li key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -279,11 +315,8 @@ export default function CoursesPage() {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Cours de Groupe</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-              Rejoignez nos cours de groupe pour une expérience musicale collaborative et enrichissante avec d'autres
-              passionnés.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t("courses.group.title")}</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">{t("courses.group.subtitle")}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -301,7 +334,7 @@ export default function CoursesPage() {
                     <CardTitle className="text-xl text-foreground">{course.title}</CardTitle>
                     <Badge variant="secondary" className="flex items-center gap-1">
                       <Users className="w-3 h-3" />
-                      Groupe
+                      {t("courses.group.badge")}
                     </Badge>
                   </div>
                   <CardDescription className="text-muted-foreground">{course.description}</CardDescription>
@@ -320,7 +353,7 @@ export default function CoursesPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <h4 className="font-medium text-foreground">Avantages:</h4>
+                      <h4 className="font-medium text-foreground">{t("courses.benefits")}:</h4>
                       <ul className="space-y-1">
                         {course.benefits.map((benefit, idx) => (
                           <li key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">

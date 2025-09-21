@@ -1,56 +1,61 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
 import { Guitar, Piano, Drum, Mic, Music, Headphones, Users } from "lucide-react"
 import Link from "next/link"
+import { useLanguage } from "@/contexts/language-context"
 
 export function ServicesSection() {
+  const { t } = useLanguage()
+
   const services = [
     {
       icon: Music,
-      title: "Plan Sensibilización Musical",
-      description: "Plan d'apprentissage musical personnalisé vers la découverte musicale de l'étudiant",
+      title: t("services.sensibilization.title"),
+      description: t("services.sensibilization.description"),
       color: "text-yellow-400",
       isStar: true,
     },
     {
       icon: Guitar,
-      title: "Instruments à Cordes",
-      description: "Cours de guitare et basse pour tous niveaux",
+      title: t("services.strings.title"),
+      description: t("services.strings.description"),
       color: "text-primary",
     },
     {
       icon: Piano,
-      title: "Piano Moderne",
-      description: "Cours de piano moderne pour tous niveaux et styles contemporains",
+      title: t("services.piano.title"),
+      description: t("services.piano.description"),
       color: "text-accent",
     },
     {
       icon: Drum,
-      title: "Percussions",
-      description: "Batterie, congas, djembé et percussions latines",
+      title: t("services.percussion.title"),
+      description: t("services.percussion.description"),
       color: "text-primary",
     },
     {
       icon: Headphones,
-      title: "Cours de DJ",
-      description: "Mixage, techniques de DJ et production électronique",
+      title: t("services.dj.title"),
+      description: t("services.dj.description"),
       color: "text-accent",
     },
     {
       icon: Music,
-      title: "Production Musicale",
-      description: "Formation spécialisée en production, composition et arrangements",
+      title: t("services.production.title"),
+      description: t("services.production.description"),
       color: "text-primary",
     },
     {
       icon: Mic,
-      title: "Enregistrement Professionnel",
-      description: "Services d'enregistrement de reprises simples aux projets originaux complets",
+      title: t("services.recording.title"),
+      description: t("services.recording.description"),
       color: "text-accent",
     },
     {
       icon: Users,
-      title: "Ensemble de Groupe",
-      description: "Cours de groupe avec rotation d'instruments et présentations formelles tous les 6 mois",
+      title: t("services.ensemble.title"),
+      description: t("services.ensemble.description"),
       color: "text-blue-400",
       isNew: true,
     },
@@ -75,18 +80,16 @@ export function ServicesSection() {
         <div className="absolute bottom-44 right-2/3 text-yellow-400 text-lg opacity-45">♪</div>
         <div className="absolute bottom-60 left-1/6 text-blue-400 text-xl opacity-40">♫</div>
         <div className="absolute top-32 left-3/4 text-red-400 text-lg opacity-45">♪</div>
-        <div className="absolute bottom-32 right-1/6 text-yellow-400 text-2xl opacity-50">♬</div>
+        <div className="absolute bottom-32 right-1/6 text-yellow-400 text-2xl opacity-40">♬</div>
         <div className="absolute top-12 left-1/2 text-blue-400 text-xl opacity-40">♫</div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            Nos <span className="text-primary">Services</span>
+            {t("services.title")} <span className="text-primary">{t("services.services")}</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
-            Une gamme complète de services musicaux adaptés à tous les niveaux et tous les âges
-          </p>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">{t("services.subtitle")}</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -105,19 +108,19 @@ export function ServicesSection() {
                   className="absolute inset-0 opacity-10 bg-cover bg-center bg-no-repeat"
                   style={{
                     backgroundImage:
-                      service.title === "Plan Sensibilización Musical"
+                      service.title === t("services.sensibilization.title")
                         ? `url('/musical-discovery-instruments-artistic.jpg')`
-                        : service.title === "Instruments à Cordes"
+                        : service.title === t("services.strings.title")
                           ? `url('/electric-guitar-strings-close-up-artistic.jpg')`
-                          : service.title === "Piano Moderne"
+                          : service.title === t("services.piano.title")
                             ? `url('/modern-piano-keys-black-and-white-artistic.jpg')`
-                            : service.title === "Percussions"
+                            : service.title === t("services.percussion.title")
                               ? `url('/drum-kit-cymbals-percussion-instruments-artistic.jpg')`
-                              : service.title === "Cours de DJ"
+                              : service.title === t("services.dj.title")
                                 ? `url('/dj-turntables-mixing-console-headphones-artistic.jpg')`
-                                : service.title === "Production Musicale"
+                                : service.title === t("services.production.title")
                                   ? `url('/music-production-studio-mixing-board-artistic.jpg')`
-                                  : service.title === "Enregistrement Professionnel"
+                                  : service.title === t("services.recording.title")
                                     ? `url('/recording-studio-microphone-professional-artistic.jpg')`
                                     : `url('/musical-ensemble-group-instruments-artistic.jpg')`,
                   }}
@@ -125,12 +128,12 @@ export function ServicesSection() {
                 <CardContent className="p-8 relative z-10">
                   {service.isStar && (
                     <div className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-amber-400 text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                      ⭐ PRODUIT VEDETTE
+                      ⭐ {t("services.featured")}
                     </div>
                   )}
                   {service.isNew && (
                     <div className="absolute top-4 right-4 bg-blue-400 text-black text-xs font-bold px-2 py-1 rounded-full">
-                      NOUVEAU
+                      {t("services.new")}
                     </div>
                   )}
                   <service.icon
@@ -143,19 +146,19 @@ export function ServicesSection() {
                       <div className="space-y-2 text-sm">
                         <div className="flex items-center text-yellow-400">
                           <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
-                          Changement entre tous nos cours individuels
+                          {t("services.sensibilization.feature1")}
                         </div>
                         <div className="flex items-center text-yellow-400">
                           <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
-                          Mélange d'instruments dans chaque classe
+                          {t("services.sensibilization.feature2")}
                         </div>
                         <div className="flex items-center text-yellow-400">
                           <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
-                          Guidé par nos professeurs expérimentés
+                          {t("services.sensibilization.feature3")}
                         </div>
                         <div className="flex items-center text-yellow-400">
                           <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
-                          Même coût que les cours individuels
+                          {t("services.sensibilization.feature4")}
                         </div>
                       </div>
                     </div>
@@ -165,15 +168,15 @@ export function ServicesSection() {
                       <div className="space-y-2 text-sm">
                         <div className="flex items-center text-blue-400">
                           <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                          Rotation entre instruments
+                          {t("services.ensemble.feature1")}
                         </div>
                         <div className="flex items-center text-blue-400">
                           <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                          Présentations en juillet et décembre
+                          {t("services.ensemble.feature2")}
                         </div>
                         <div className="flex items-center text-blue-400">
                           <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                          $25 par séance
+                          {t("services.ensemble.feature3")}
                         </div>
                       </div>
                     </div>
@@ -186,14 +189,9 @@ export function ServicesSection() {
 
         <div className="mt-16 text-center">
           <div className="bg-card border border-border rounded-lg p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4 text-primary">Approche Flexible</h3>
-            <p className="text-lg text-muted-foreground mb-4">
-              Cours flexibles : passez facilement d'un instrument à l'autre
-            </p>
-            <p className="text-muted-foreground">
-              Formation personnalisée et mentorat • Opportunités de performances live et d'enregistrement de projets
-              originaux
-            </p>
+            <h3 className="text-2xl font-bold mb-4 text-primary">{t("services.flexible.title")}</h3>
+            <p className="text-lg text-muted-foreground mb-4">{t("services.flexible.subtitle")}</p>
+            <p className="text-muted-foreground">{t("services.flexible.description")}</p>
           </div>
         </div>
       </div>

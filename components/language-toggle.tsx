@@ -1,20 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui/button"
 import { Globe } from "lucide-react"
 
-interface LanguageToggleProps {
-  onLanguageChange?: (language: "fr" | "es") => void
-}
-
-export function LanguageToggle({ onLanguageChange }: LanguageToggleProps) {
-  const [currentLanguage, setCurrentLanguage] = useState<"fr" | "es">("fr")
+export function LanguageToggle() {
+  const { language, setLanguage } = useLanguage()
 
   const toggleLanguage = () => {
-    const newLanguage = currentLanguage === "fr" ? "es" : "fr"
-    setCurrentLanguage(newLanguage)
-    onLanguageChange?.(newLanguage)
+    const newLanguage = language === "fr" ? "es" : "fr"
+    setLanguage(newLanguage)
   }
 
   return (
@@ -25,7 +20,7 @@ export function LanguageToggle({ onLanguageChange }: LanguageToggleProps) {
       className="flex items-center gap-2 hover:bg-primary hover:text-primary-foreground transition-colors bg-transparent"
     >
       <Globe className="w-4 h-4" />
-      {currentLanguage === "fr" ? "ES" : "FR"}
+      {language === "fr" ? "ES" : "FR"}
     </Button>
   )
 }

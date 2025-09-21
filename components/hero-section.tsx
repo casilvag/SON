@@ -3,8 +3,10 @@
 import { Button } from "@/components/ui/button"
 import { Play, Music } from "lucide-react"
 import { useState, useEffect } from "react"
+import { useLanguage } from "@/contexts/language-context"
 
 export function HeroSection() {
+  const { t } = useLanguage()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const images: string[] = [
@@ -56,9 +58,7 @@ export function HeroSection() {
               <span className="text-primary">SON</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-100 mb-8 text-balance">
-              Apprenez la Musique à Votre Rythme, avec Passion et Créativité
-            </p>
+            <p className="text-xl md:text-2xl text-gray-100 mb-8 text-balance">{t("hero.subtitle")}</p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button
@@ -67,7 +67,7 @@ export function HeroSection() {
                 className="text-lg px-8 py-6 bg-white/10 border-white/20 text-white hover:bg-white/20"
               >
                 <Play className="w-5 h-5 mr-2" />
-                Voir la Démo
+                {t("hero.demoButton")}
               </Button>
             </div>
           </div>

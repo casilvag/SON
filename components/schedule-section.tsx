@@ -4,8 +4,10 @@ import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Clock, User, Calendar, ChevronLeft, ChevronRight, Music } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 export function ScheduleSection() {
+  const { t, language } = useLanguage()
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedProfessor, setSelectedProfessor] = useState("tous")
@@ -14,14 +16,14 @@ export function ScheduleSection() {
     {
       id: "cesar",
       name: "Cesar Silva",
-      specialties: ["Tous les cours"],
+      specialties: [t("schedule.professors.cesar.specialty")],
       color: "bg-yellow-400",
       textColor: "text-yellow-400",
     },
     {
       id: "sebastian",
       name: "Sebastian Rey",
-      specialties: ["Batterie", "Basse"],
+      specialties: [t("schedule.professors.sebastian.specialty1"), t("schedule.professors.sebastian.specialty2")],
       color: "bg-blue-400",
       textColor: "text-blue-400",
     },
@@ -206,22 +208,41 @@ export function ScheduleSection() {
     "21:00",
   ]
 
-  const monthNames = [
-    "Janvier",
-    "Février",
-    "Mars",
-    "Avril",
-    "Mai",
-    "Juin",
-    "Juillet",
-    "Août",
-    "Septembre",
-    "Octobre",
-    "Novembre",
-    "Décembre",
-  ]
+  const monthNames =
+    language === "fr"
+      ? [
+          "Janvier",
+          "Février",
+          "Mars",
+          "Avril",
+          "Mai",
+          "Juin",
+          "Juillet",
+          "Août",
+          "Septembre",
+          "Octobre",
+          "Novembre",
+          "Décembre",
+        ]
+      : [
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agosto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Diciembre",
+        ]
 
-  const dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]
+  const dayNames =
+    language === "fr"
+      ? ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]
+      : ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]
 
   const navigateMonth = (direction) => {
     const newDate = new Date(currentDate)
@@ -316,11 +337,9 @@ export function ScheduleSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Calendrier des <span className="text-yellow-400">Cours</span>
+            {t("schedule.calendar_title")} <span className="text-yellow-400">{t("schedule.classes")}</span>
           </h1>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Consultez notre calendrier interactif pour voir les disponibilités et les cours en cours
-          </p>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">{t("schedule.calendar_subtitle")}</p>
         </div>
 
         <div className="bg-gray-900/30 rounded-2xl p-6 border border-gray-800 mb-8">
@@ -394,7 +413,9 @@ export function ScheduleSection() {
                       </div>
                     </div>
                   )}
-                  {!hasClassesToday && isWeekdayAvailable && <div className="text-xs mt-1 text-green-400">Libre</div>}
+                  {!hasClassesToday && isWeekdayAvailable && (
+                    <div className="text-xs mt-1 text-green-400">{t("schedule.free")}</div>
+                  )}
                 </div>
               )
             })}
@@ -404,7 +425,7 @@ export function ScheduleSection() {
         {selectedDate && (
           <div className="bg-gray-900/50 rounded-2xl p-6 border border-gray-800 mb-8">
             <h3 className="text-xl font-bold text-white mb-4">
-              {selectedDate.toLocaleDateString("fr-FR", {
+              {selectedDate.toLocaleDateString(language === "fr" ? "fr-FR" : "es-ES", {
                 weekday: "long",
                 year: "numeric",
                 month: "long",
@@ -414,7 +435,7 @@ export function ScheduleSection() {
 
             <div className="grid gap-4">
               <h4 className="text-lg font-semibold text-yellow-400">
-                Horaires{" "}
+                {t("schedule.hours")}{" "}
                 {selectedDate.getDay() === 6
                   ? "(08h00 - 18h00)"
                   : selectedDate.getDay() === 0
@@ -444,16 +465,18 @@ export function ScheduleSection() {
 
                           {occupiedClass ? (
                             <div className="text-right">
-                              <div className="text-red-300 text-sm font-medium">Occupé</div>
+                              <div className="text-red-300 text-sm font-medium">{t("schedule.occupied")}</div>
                               <div className="text-xs text-gray-400">
-                                {occupiedClass.course} ({occupiedClass.type})
+                                {t(`schedule.courses.${occupiedClass.course.toLowerCase().replace(/\s+/g, "_")}`)} (
+                                {t(`schedule.types.${occupiedClass.type.toLowerCase()}`)})
                               </div>
                               <div className="text-xs text-gray-500">
-                                Prof. {professors.find((p) => p.id === occupiedClass.professor)?.name.split(" ")[0]}
+                                {t("schedule.professor")}{" "}
+                                {professors.find((p) => p.id === occupiedClass.professor)?.name.split(" ")[0]}
                               </div>
                             </div>
                           ) : (
-                            <div className="text-green-300 text-sm font-medium">Disponible</div>
+                            <div className="text-green-300 text-sm font-medium">{t("schedule.available")}</div>
                           )}
                         </div>
                       </div>
@@ -468,19 +491,19 @@ export function ScheduleSection() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="w-4 h-4 bg-green-600 rounded-full mr-3"></div>
-            <div className="text-white text-sm">2+ heures disponibles</div>
+            <div className="text-white text-sm">{t("schedule.legend.two_hours_available")}</div>
           </div>
           <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="w-4 h-4 bg-green-900/50 rounded-full mr-3"></div>
-            <div className="text-white text-sm">Horaires disponibles</div>
+            <div className="text-white text-sm">{t("schedule.legend.available_hours")}</div>
           </div>
           <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="w-4 h-4 bg-red-900/50 rounded-full mr-3"></div>
-            <div className="text-white text-sm">Cours en cours</div>
+            <div className="text-white text-sm">{t("schedule.legend.ongoing_classes")}</div>
           </div>
           <div className="flex items-center justify-center p-4 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="w-4 h-4 bg-gray-800/30 rounded-full mr-3"></div>
-            <div className="text-white text-sm">Non disponible</div>
+            <div className="text-white text-sm">{t("schedule.legend.not_available")}</div>
           </div>
         </div>
 
@@ -494,11 +517,11 @@ export function ScheduleSection() {
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold text-white">{prof.name}</h4>
-                    <p className="text-gray-400 text-sm">Professeur de musique</p>
+                    <p className="text-gray-400 text-sm">{t("schedule.music_teacher")}</p>
                   </div>
                 </div>
                 <div>
-                  <p className="text-gray-300 text-sm mb-2">Spécialités:</p>
+                  <p className="text-gray-300 text-sm mb-2">{t("schedule.specialties")}:</p>
                   <div className="flex flex-wrap gap-2">
                     {prof.specialties.map((specialty) => (
                       <span key={specialty} className="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded-full">
@@ -513,14 +536,14 @@ export function ScheduleSection() {
         </div>
 
         <div className="mb-8">
-          <h3 className="text-xl font-semibold text-white mb-4 text-center">Filtrer par Professeur</h3>
+          <h3 className="text-xl font-semibold text-white mb-4 text-center">{t("schedule.filter_by_professor")}</h3>
           <div className="flex flex-wrap justify-center gap-3">
             <Button
               variant={selectedProfessor === "tous" ? "default" : "outline"}
               onClick={() => setSelectedProfessor("tous")}
               className="bg-gray-700 hover:bg-gray-600 text-white border-gray-600"
             >
-              Tous les Professeurs
+              {t("schedule.all_professors")}
             </Button>
             {professors.map((prof) => (
               <Button
@@ -537,19 +560,19 @@ export function ScheduleSection() {
 
         <div className="mt-12 text-center">
           <div className="bg-gray-900/50 rounded-lg p-6 max-w-2xl mx-auto border border-gray-800">
-            <h4 className="text-xl font-semibold text-white mb-3">Vous voulez réserver un cours?</h4>
-            <p className="text-gray-300 mb-4">Contactez-nous pour réserver votre horaire préféré</p>
+            <h4 className="text-xl font-semibold text-white mb-3">{t("schedule.want_to_book")}</h4>
+            <p className="text-gray-300 mb-4">{t("schedule.contact_us")}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-yellow-400 hover:bg-yellow-500 text-black">
                 <a href="tel:4188020383" className="flex items-center">
                   <Clock className="w-4 h-4 mr-2" />
-                  Appeler: 418-802-0383
+                  {t("schedule.call")}: 418-802-0383
                 </a>
               </Button>
               <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent">
                 <a href="/#inscription" className="flex items-center">
                   <Calendar className="w-4 h-4 mr-2" />
-                  Formulaire d'Inscription
+                  {t("schedule.registration_form")}
                 </a>
               </Button>
             </div>

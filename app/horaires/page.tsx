@@ -7,8 +7,11 @@ import Image from "next/image"
 import { Footer } from "@/components/footer"
 import { ScheduleSection } from "@/components/schedule-section"
 import { LanguageToggle } from "@/components/language-toggle"
+import { useLanguage } from "@/contexts/language-context"
 
 export default function HorairesPage() {
+  const { t } = useLanguage()
+
   return (
     <div className="min-h-screen bg-background">
       <nav className="bg-background border-b border-border sticky top-0 z-50">
@@ -27,7 +30,7 @@ export default function HorairesPage() {
                 </div>
                 <div className="flex flex-col">
                   <div className="text-2xl font-bold text-primary">SON</div>
-                  <div className="text-xs text-muted-foreground font-medium">Académie de Musique</div>
+                  <div className="text-xs text-muted-foreground font-medium">{t("nav.academy")}</div>
                 </div>
               </Link>
             </div>
@@ -36,7 +39,7 @@ export default function HorairesPage() {
               <Button asChild variant="outline" size="sm">
                 <Link href="/" className="flex items-center gap-2">
                   <Home className="w-4 h-4" />
-                  Retour à l'accueil
+                  {t("nav.back_home")}
                 </Link>
               </Button>
             </div>
@@ -47,7 +50,7 @@ export default function HorairesPage() {
       <div className="pt-4">
         <section className="bg-background border-b border-border py-4">
           <div className="container mx-auto px-4">
-            <h1 className="text-2xl font-bold text-foreground">Nos Horaires</h1>
+            <h1 className="text-2xl font-bold text-foreground">{t("schedule.title")}</h1>
           </div>
         </section>
 
