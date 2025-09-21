@@ -344,9 +344,7 @@ export function ScheduleSection() {
                       </div>
                     </div>
                   )}
-                  {!hasClassesToday && isWeekdayAvailable && (
-                    <div className="text-xs mt-1 text-green-400">{hasTwoHoursAvailable ? "2h+ Libre" : "Libre"}</div>
-                  )}
+                  {!hasClassesToday && isWeekdayAvailable && <div className="text-xs mt-1 text-green-400">Libre</div>}
                 </div>
               )
             })}
