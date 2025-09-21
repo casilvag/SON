@@ -14,14 +14,14 @@ export function ScheduleSection() {
     {
       id: "cesar",
       name: "Cesar Silva",
-      specialties: ["Guitare", "Batterie"],
+      specialties: ["Tous les cours"],
       color: "bg-yellow-400",
       textColor: "text-yellow-400",
     },
     {
-      id: "profesor2",
-      name: "Professeur 2",
-      specialties: ["À définir"],
+      id: "sebastian",
+      name: "Sebastian Rey",
+      specialties: ["Batterie", "Basse"],
       color: "bg-blue-400",
       textColor: "text-blue-400",
     },

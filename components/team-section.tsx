@@ -58,7 +58,8 @@ export function TeamSection() {
                 <div>
                   <h4 className="font-semibold text-accent mb-2">Spécialités</h4>
                   <p className="text-sm text-muted-foreground">
-                    Production musicale, composition, batterie, guitare, basse, percussions latines, piano
+                    Tous les cours - Guitare, Piano, Batterie, Basse Électrique, Chant, DJ, Production Musicale,
+                    Xylophone
                   </p>
                 </div>
 
@@ -104,7 +105,7 @@ export function TeamSection() {
               <div className="space-y-4">
                 <div>
                   <h4 className="font-semibold text-primary mb-2">Spécialités</h4>
-                  <p className="text-sm text-muted-foreground">Piano, batterie, percussions, guitare, basse</p>
+                  <p className="text-sm text-muted-foreground">Batterie, Basse Électrique</p>
                 </div>
 
                 <div>
