@@ -68,13 +68,20 @@ const translations = {
     "hero.demoButton": "Voir la Démo",
 
     // About Section
-    "about.title": "À Propos de Nous",
-    "about.subtitle": "Votre parcours musical commence ici",
+    "about.title": "À Propos de",
     "about.description":
-      "SON Académie de Musique est dédiée à nourrir le talent musical de chaque étudiant. Avec plus de 15 ans d'expérience, nous offrons un enseignement de qualité dans un environnement bienveillant et stimulant.",
-    "about.experience": "Années d'expérience",
-    "about.students": "Étudiants satisfaits",
-    "about.instruments": "Instruments enseignés",
+      "Chez Son, nous visons à attirer des étudiants de tous âges et niveaux en cultivant la sensibilité musicale comme fondement clé.",
+    "about.reduce_details": "Réduire les détails",
+    "about.learn_more": "En savoir plus",
+    "about.objective.title": "Objectif",
+    "about.objective.description":
+      "Chaque étudiant vit la musique comme un langage vivant, plein d'émotion, de créativité et d'expression personnelle.",
+    "about.mission.title": "Mission",
+    "about.mission.description":
+      "Fournir une éducation musicale complète et flexible, permettant à chaque étudiant de progresser à son rythme et d'explorer librement plusieurs instruments et styles.",
+    "about.vision.title": "Vision",
+    "about.vision.description":
+      "Être une académie de musique leader au Québec et au-delà, reconnue pour notre approche innovante permettant aux étudiants de passer d'un instrument à l'autre sans limitations.",
 
     // Services Section
     "services.title": "Nos",
@@ -167,7 +174,39 @@ const translations = {
     "footer.hours.saturday": "Sam: 9h00 - 18h00",
     "footer.hours.sunday": "Dim: Fermé",
     "footer.follow": "Suivez-nous",
-    "footer.rights": "© 2024 SON Académie de Musique. Tous droits réservés.",
+    "footer.description":
+      "Académie de musique à Québec offrant une approche flexible et créative pour apprendre la musique à votre rythme.",
+    "footer.rights": "© 2024 Académie Son. Tous droits réservés.",
+    "footer.navigation": "Navigation",
+    "footer.instruments": "Instruments",
+    "footer.guitar": "Guitare",
+    "footer.bass": "Basse",
+    "footer.piano": "Piano",
+    "footer.drums": "Batterie",
+    "footer.latin_percussion": "Percussions Latines",
+    "footer.created_with_passion": "Créé avec passion pour la musique • Québec, Canada",
+
+    // Why Choose Us
+    "why_choose.title": "Pourquoi Choisir",
+    "why_choose.academy": "SON Académie",
+    "why_choose.subtitle": "Découvrez ce qui fait de notre académie un lieu unique pour votre parcours musical",
+    "why_choose.trilingual.title": "Instructeurs Trilingues",
+    "why_choose.trilingual.description":
+      "Enseignement en français, anglais et espagnol pour une expérience d'apprentissage inclusive",
+    "why_choose.personalized.title": "Approche Personnalisée",
+    "why_choose.personalized.description":
+      "Chaque étudiant bénéficie d'un programme adapté à son niveau et ses objectifs musicaux",
+    "why_choose.experienced.title": "Instructeurs Expérimentés",
+    "why_choose.experienced.description":
+      "Notre équipe de professionnels passionnés vous guide vers l'excellence musicale",
+    "why_choose.flexible.title": "Horaires Flexibles",
+    "why_choose.flexible.description": "Cours disponibles en semaine et weekend pour s'adapter à votre emploi du temps",
+    "why_choose.welcoming.title": "Environnement Bienveillant",
+    "why_choose.welcoming.description":
+      "Une atmosphère chaleureuse et encourageante pour développer votre passion musicale",
+    "why_choose.performances.title": "Performances Live",
+    "why_choose.performances.description":
+      "Opportunités régulières de se produire en concert et d'enregistrer vos créations",
 
     // Courses Page
     "courses.title": "Nos Cours",
@@ -306,7 +345,7 @@ const translations = {
     "schedule.legend.not_available": "Non disponible",
     "schedule.professors.cesar.specialty": "Todos los cursos",
     "schedule.professors.sebastian.specialty1": "Batterie",
-    "schedule.professors.sebastian.specialty2": "Basse",
+    "schedule.professors.sebastian.specialty2": "Bajo",
     "schedule.courses.guitare": "Guitare",
     "schedule.courses.batterie": "Batterie",
     "schedule.courses.cours_collectif": "Cours Collectif",
@@ -333,13 +372,20 @@ const translations = {
     "hero.demoButton": "Ver Demo",
 
     // About Section
-    "about.title": "Acerca de Nosotros",
-    "about.subtitle": "Tu viaje musical comienza aquí",
+    "about.title": "Acerca de",
     "about.description":
-      "SON Academia de Música se dedica a nutrir el talento musical de cada estudiante. Con más de 15 años de experiencia, ofrecemos enseñanza de calidad en un ambiente acogedor y estimulante.",
-    "about.experience": "Años de experiencia",
-    "about.students": "Estudiantes satisfechos",
-    "about.instruments": "Instrumentos enseñados",
+      "En Son, buscamos atraer estudiantes de todas las edades y niveles cultivando la sensibilidad musical como fundamento clave.",
+    "about.reduce_details": "Reducir detalles",
+    "about.learn_more": "Saber más",
+    "about.objective.title": "Objetivo",
+    "about.objective.description":
+      "Cada estudiante vive la música como un lenguaje vivo, lleno de emoción, creatividad y expresión personal.",
+    "about.mission.title": "Misión",
+    "about.mission.description":
+      "Proporcionar una educación musical completa y flexible, permitiendo a cada estudiante progresar a su ritmo y explorar libremente varios instrumentos y estilos.",
+    "about.vision.title": "Visión",
+    "about.vision.description":
+      "Ser una academia de música líder en Quebec y más allá, reconocida por nuestro enfoque innovador que permite a los estudiantes cambiar de un instrumento a otro sin limitaciones.",
 
     // Services Section
     "services.title": "Nuestros",
@@ -433,7 +479,38 @@ const translations = {
     "footer.hours.saturday": "Sáb: 9:00 - 18:00",
     "footer.hours.sunday": "Dom: Cerrado",
     "footer.follow": "Síguenos",
-    "footer.rights": "© 2024 SON Academia de Música. Todos los derechos reservados.",
+    "footer.description":
+      "Academia de música en Quebec que ofrece un enfoque flexible y creativo para aprender música a tu ritmo.",
+    "footer.rights": "© 2024 Academia Son. Todos los derechos reservados.",
+    "footer.navigation": "Navegación",
+    "footer.instruments": "Instrumentos",
+    "footer.guitar": "Guitarra",
+    "footer.bass": "Bajo",
+    "footer.piano": "Piano",
+    "footer.drums": "Batería",
+    "footer.latin_percussion": "Percusiones Latinas",
+    "footer.created_with_passion": "Creado con pasión por la música • Quebec, Canadá",
+
+    // Why Choose Us
+    "why_choose.title": "Por Qué Elegir",
+    "why_choose.academy": "SON Academia",
+    "why_choose.subtitle": "Descubre lo que hace de nuestra academia un lugar único para tu viaje musical",
+    "why_choose.trilingual.title": "Instructores Trilingües",
+    "why_choose.trilingual.description":
+      "Enseñanza en francés, inglés y español para una experiencia de aprendizaje inclusiva",
+    "why_choose.personalized.title": "Enfoque Personalizado",
+    "why_choose.personalized.description":
+      "Cada estudiante se beneficia de un programa adaptado a su nivel y objetivos musicales",
+    "why_choose.experienced.title": "Instructores Experimentados",
+    "why_choose.experienced.description":
+      "Nuestro equipo de profesionales apasionados te guía hacia la excelencia musical",
+    "why_choose.flexible.title": "Horarios Flexibles",
+    "why_choose.flexible.description": "Clases disponibles entre semana y fines de semana para adaptarse a tu horario",
+    "why_choose.welcoming.title": "Ambiente Acogedor",
+    "why_choose.welcoming.description": "Una atmósfera cálida y alentadora para desarrollar tu pasión musical",
+    "why_choose.performances.title": "Presentaciones en Vivo",
+    "why_choose.performances.description":
+      "Oportunidades regulares de presentarse en concierto y grabar tus creaciones",
 
     // Courses Page
     "courses.title": "Nuestros Cursos",

@@ -1,42 +1,47 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
 import { Globe, Users, Award, Clock, Heart, Star } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 export function WhyChooseUsSection() {
+  const { t } = useLanguage()
+
   const features = [
     {
       icon: Globe,
-      title: "Instructeurs Trilingues",
-      description: "Enseignement en français, anglais et espagnol pour une expérience d'apprentissage inclusive",
+      title: t("why_choose.trilingual.title"),
+      description: t("why_choose.trilingual.description"),
       color: "text-primary",
     },
     {
       icon: Users,
-      title: "Approche Personnalisée",
-      description: "Chaque étudiant bénéficie d'un programme adapté à son niveau et ses objectifs musicaux",
+      title: t("why_choose.personalized.title"),
+      description: t("why_choose.personalized.description"),
       color: "text-accent",
     },
     {
       icon: Award,
-      title: "Instructeurs Expérimentés",
-      description: "Notre équipe de professionnels passionnés vous guide vers l'excellence musicale",
+      title: t("why_choose.experienced.title"),
+      description: t("why_choose.experienced.description"),
       color: "text-primary",
     },
     {
       icon: Clock,
-      title: "Horaires Flexibles",
-      description: "Cours disponibles en semaine et weekend pour s'adapter à votre emploi du temps",
+      title: t("why_choose.flexible.title"),
+      description: t("why_choose.flexible.description"),
       color: "text-accent",
     },
     {
       icon: Heart,
-      title: "Environnement Bienveillant",
-      description: "Une atmosphère chaleureuse et encourageante pour développer votre passion musicale",
+      title: t("why_choose.welcoming.title"),
+      description: t("why_choose.welcoming.description"),
       color: "text-primary",
     },
     {
       icon: Star,
-      title: "Performances Live",
-      description: "Opportunités régulières de se produire en concert et d'enregistrer vos créations",
+      title: t("why_choose.performances.title"),
+      description: t("why_choose.performances.description"),
       color: "text-accent",
     },
   ]
@@ -46,11 +51,9 @@ export function WhyChooseUsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            Pourquoi Choisir <span className="text-primary">SON Académie</span> ?
+            {t("why_choose.title")} <span className="text-primary">{t("why_choose.academy")}</span> ?
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
-            Découvrez ce qui fait de notre académie un lieu unique pour votre parcours musical
-          </p>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">{t("why_choose.subtitle")}</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
