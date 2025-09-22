@@ -53,10 +53,10 @@ export function RegistrationSection() {
       }
 
       const emailData = {
-        nom: formData.nom.trim(),
-        email: formData.email.trim(),
-        telephone: formData.telephone.trim(),
-        message: `INSCRIPCIÓN - Nueva solicitud de inscripción:
+        campo1: formData.nom.trim(),
+        campo2: formData.email.trim(),
+        campo3: formData.telephone.trim(),
+        campo4: `INSCRIPCIÓN - Nueva solicitud de inscripción:
         
 Edad: ${formData.age || "No especificada"}
 Nivel: ${formData.niveau || "No especificado"}
@@ -68,7 +68,7 @@ Disponibilidad: ${formData.disponibilite.length > 0 ? formData.disponibilite.joi
 Mensaje adicional: ${formData.message || "Ninguno"}`,
       }
 
-      console.log("[v0] Enviando inscripción con datos validados")
+      console.log("[v0] Enviando inscripción con campos genéricos")
 
       const result = await sendEmail(emailData)
 
