@@ -47,7 +47,6 @@ export function RegistrationSection() {
     setSubmitMessage("")
 
     try {
-      console.log("[v0] Enviando formulario de inscripción...")
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -57,21 +56,20 @@ export function RegistrationSection() {
           nom: formData.nom,
           email: formData.email,
           telephone: formData.telephone,
-          message: `INSCRIPTION - Nouvelle demande d'inscription:
+          message: `INSCRIPCIÓN - Nueva solicitud de inscripción:
           
-Âge: ${formData.age}
-Niveau: ${formData.niveau}
-Cours souhaité: ${formData.cours}
-Durée souhaitée: ${formData.duree}
-Horaire préféré: ${formData.horaire}
-Disponibilité: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée"}
+Edad: ${formData.age}
+Nivel: ${formData.niveau}
+Curso deseado: ${formData.cours}
+Duración deseada: ${formData.duree}
+Horario preferido: ${formData.horaire}
+Disponibilidad: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "No especificada"}
 
-Message: ${formData.message}`,
+Mensaje: ${formData.message}`,
         }),
       })
 
       const result = await response.json()
-      console.log("[v0] Respuesta del servidor:", result)
 
       if (response.ok) {
         setSubmitStatus("success")
@@ -95,10 +93,8 @@ Message: ${formData.message}`,
       } else {
         setSubmitStatus("error")
         setSubmitMessage(result.message || "Error al enviar la solicitud. Por favor, inténtalo de nuevo.")
-        console.error("[v0] Error del servidor:", result)
       }
     } catch (error) {
-      console.error("[v0] Error al enviar formulario:", error)
       setSubmitStatus("error")
       setSubmitMessage("Error de conexión. Verifica tu internet e inténtalo de nuevo.")
     } finally {

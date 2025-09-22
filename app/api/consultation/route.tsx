@@ -6,81 +6,53 @@ export async function POST(request: NextRequest) {
 
     if (!name || !email || !message) {
       return NextResponse.json(
-        { success: false, message: "Les champs nom, email et message sont obligatoires" },
+        { success: false, message: "Los campos nombre, email y mensaje son obligatorios" },
         { status: 400 },
       )
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ success: false, message: "Format d'email invalide" }, { status: 400 })
+      return NextResponse.json({ success: false, message: "Formato de email inválido" }, { status: 400 })
     }
 
-    console.log("[v0] Checking environment variables...")
-    console.log("[v0] GMAIL_USER exists:", !!process.env.GMAIL_USER)
-    console.log("[v0] GMAIL_APP_PASSWORD exists:", !!process.env.GMAIL_APP_PASSWORD)
-
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-      console.log("[v0] Missing environment variables")
-      console.error(
-        "[v0] REFUND LOG: Missing GMAIL environment variables - GMAIL_USER:",
-        !!process.env.GMAIL_USER,
-        "GMAIL_APP_PASSWORD:",
-        !!process.env.GMAIL_APP_PASSWORD,
-      )
       return NextResponse.json(
         {
           success: false,
-          message: "Configuration email manquante. Veuillez contacter l'administrateur.",
+          message: "Configuración de email faltante. Por favor contacta al administrador.",
         },
         { status: 500 },
       )
     }
 
-    console.log("[v0] Preparing consultation email data...")
-
     const emailData = {
       to: process.env.GMAIL_USER,
-      subject: `Nouvelle demande de consultation - Academy SON`,
+      subject: `Nueva solicitud de consulta - Academy SON`,
       html: `
-        <h2>Nouvelle demande de consultation</h2>
-        <p><strong>Nom:</strong> ${name}</p>
+        <h2>Nueva solicitud de consulta</h2>
+        <p><strong>Nombre:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Téléphone:</strong> ${phone || "Non fourni"}</p>
-        <p><strong>Cours d'intérêt:</strong> ${course || "Non spécifié"}</p>
-        <p><strong>Message:</strong></p>
+        <p><strong>Teléfono:</strong> ${phone || "No proporcionado"}</p>
+        <p><strong>Curso de interés:</strong> ${course || "No especificado"}</p>
+        <p><strong>Mensaje:</strong></p>
         <p>${message.replace(/\n/g, "<br>")}</p>
         <hr>
-        <p><em>Demande de consultation depuis le site web Academy SON</em></p>
+        <p><em>Solicitud de consulta desde el sitio web Academy SON</em></p>
       `,
     }
 
-    console.log("[v0] Consultation email prepared successfully")
-
-    console.log("[v0] Consultation email sent successfully (simulated)")
-
     return NextResponse.json({
       success: true,
-      message: "Demande de consultation envoyée avec succès!",
+      message: "¡Solicitud de consulta enviada exitosamente!",
     })
   } catch (error) {
-    console.error("[v0] Email sending error:", error)
-    console.error("[v0] Error details:", {
-      message: error instanceof Error ? error.message : "Unknown error",
-      stack: error instanceof Error ? error.stack : undefined,
-    })
-    console.error("[v0] REFUND LOG: Consultation email sending failed:", {
-      error: error instanceof Error ? error.message : "Unknown error",
-      timestamp: new Date().toISOString(),
-      userEmail: "Hidden for privacy",
-    })
-
     return NextResponse.json(
       {
         success: false,
-        message: "Erreur lors de l'envoi de la demande. Veuillez réessayer.",
+        message: "Error al enviar la solicitud. Por favor, inténtalo de nuevo.",
         ...(process.env.NODE_ENV === "development" && {
-          error: error instanceof Error ? error.message : "Unknown error",
+          error: error instanceof Error ? error.message : "Error desconocido",
         }),
       },
       { status: 500 },

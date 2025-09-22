@@ -48,7 +48,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
-const translations = {
+const translations: Record<Language, Record<string, string>> = {
   fr: {
     // Navigation
     "nav.home": "Accueil",
