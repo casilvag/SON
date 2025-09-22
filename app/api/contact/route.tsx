@@ -17,7 +17,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: "Format d'email invalide" }, { status: 400 })
     }
 
+    console.log("[v0] Checking environment variables...")
+    console.log("[v0] GMAIL_USER exists:", !!process.env.GMAIL_USER)
+    console.log("[v0] GMAIL_APP_PASSWORD exists:", !!process.env.GMAIL_APP_PASSWORD)
+
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+      console.log("[v0] Missing environment variables")
       return NextResponse.json(
         {
           success: false,
@@ -27,13 +32,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const transporter = nodemailer.createTransport({
+    console.log("[v0] Creating nodemailer transporter...")
+    const transporter = nodemailer.createTransporter({
       service: "gmail",
       auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_APP_PASSWORD,
       },
     })
+
+    console.log("[v0] Testing transporter connection...")
+    await transporter.verify()
+    console.log("[v0] Transporter verified successfully")
 
     const mailOptions = {
       from: process.env.GMAIL_USER,
@@ -51,17 +61,28 @@ export async function POST(request: NextRequest) {
       `,
     }
 
+    console.log("[v0] Sending email...")
     await transporter.sendMail(mailOptions)
+    console.log("[v0] Email sent successfully")
 
     return NextResponse.json({
       success: true,
       message: "Message envoyé avec succès!",
     })
   } catch (error) {
+    console.error("[v0] Email sending error:", error)
+    console.error("[v0] Error details:", {
+      message: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined,
+    })
+
     return NextResponse.json(
       {
         success: false,
         message: "Erreur lors de l'envoi du message. Veuillez réessayer.",
+        ...(process.env.NODE_ENV === "development" && {
+          error: error instanceof Error ? error.message : "Unknown error",
+        }),
       },
       { status: 500 },
     )
