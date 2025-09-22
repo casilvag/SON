@@ -400,6 +400,36 @@ const translations = {
     "policies.contactUs": "Nous contacter",
     "policies.lastUpdate": "Dernière mise à jour des politiques: Décembre 2024",
     "policies.availableInFrench": "Tous les documents sont disponibles en français",
+
+    // Team Section
+    "team.title": "Notre",
+    "team.team": "Équipe",
+    "team.subtitle": "Des professeurs expérimentés et passionnés, reconnus dans d'autres écoles de musique du Québec",
+    "team.cesar.name": "César Silva",
+    "team.cesar.role": "Fondateur et Instructeur Principal",
+    "team.cesar.alt": "César Silva - Fondateur et Instructeur Principal",
+    "team.cesar.specialties": "Spécialités",
+    "team.cesar.specialties_desc":
+      "Tous les cours - Guitare, Piano, Batterie, Basse Électrique, Chant, DJ, Production Musicale, Xylophone",
+    "team.cesar.education": "Formation Académique",
+    "team.cesar.education_desc":
+      "Berklee College of Music (USA), Universidad Nacional de Colombia, Université Laval (Canada)",
+    "team.cesar.experience": "Expérience",
+    "team.cesar.experience_desc": "Plus de 10 ans d'enseignement, dont 2 ans au Québec",
+    "team.cesar.approach": "Approche",
+    "team.cesar.approach_desc": "Combine la maîtrise technique avec la créativité et la sensibilité musicale",
+    "team.sebastian.name": "Sebastián Rey",
+    "team.sebastian.role": "Instructeur",
+    "team.sebastian.specialties": "Spécialités",
+    "team.sebastian.specialties_desc": "Batterie, Basse Électrique",
+    "team.sebastian.experience": "Expérience",
+    "team.sebastian.experience_desc":
+      "Reconnu pour sa polyvalence et son soutien aux étudiants de tous niveaux dans leur parcours musical",
+    "team.sebastian.quote":
+      '"La musique est un voyage personnel unique pour chaque étudiant. Mon rôle est de les guider avec patience et passion."',
+    "team.recognition.title": "Reconnaissance Professionnelle",
+    "team.recognition.desc":
+      "Faculté reconnue dans d'autres écoles de musique du Québec, notamment Long & McQuade, Cercle de musique de Cap Rouge, Sam Gagnon, et plus encore.",
   },
   es: {
     // Navigation
@@ -749,5 +779,35 @@ const translations = {
     "policies.contactUs": "Contáctanos",
     "policies.lastUpdate": "Última actualización de políticas: Diciembre 2024",
     "policies.availableInFrench": "Todos los documentos están disponibles en francés",
+
+    // Team Section
+    "team.title": "Nuestro",
+    "team.team": "Equipo",
+    "team.subtitle": "Profesores experimentados y apasionados, reconocidos en otras escuelas de música de Quebec",
+    "team.cesar.name": "César Silva",
+    "team.cesar.role": "Fundador e Instructor Principal",
+    "team.cesar.alt": "César Silva - Fundador e Instructor Principal",
+    "team.cesar.specialties": "Especialidades",
+    "team.cesar.specialties_desc":
+      "Todos los cursos - Guitarra, Piano, Batería, Bajo Eléctrico, Canto, DJ, Producción Musical, Xilófono",
+    "team.cesar.education": "Formación Académica",
+    "team.cesar.education_desc":
+      "Berklee College of Music (USA), Universidad Nacional de Colombia, Université Laval (Canadá)",
+    "team.cesar.experience": "Experiencia",
+    "team.cesar.experience_desc": "Más de 10 años de enseñanza, incluyendo 2 años en Quebec",
+    "team.cesar.approach": "Enfoque",
+    "team.cesar.approach_desc": "Combina el dominio técnico con la creatividad y la sensibilidad musical",
+    "team.sebastian.name": "Sebastián Rey",
+    "team.sebastian.role": "Instructor",
+    "team.sebastian.specialties": "Especialidades",
+    "team.sebastian.specialties_desc": "Batería, Bajo Eléctrico",
+    "team.sebastian.experience": "Experiencia",
+    "team.sebastian.experience_desc":
+      "Reconocido por su versatilidad y apoyo a estudiantes de todos los niveles en su viaje musical",
+    "team.sebastian.quote":
+      '"La música es un viaje personal único para cada estudiante. Mi papel es guiarlos con paciencia y pasión."',
+    "team.recognition.title": "Reconocimiento Profesional",
+    "team.recognition.desc":
+      "Facultad reconocida en otras escuelas de música de Quebec, incluyendo Long & McQuade, Cercle de música de Cap Rouge, Sam Gagnon, y más.",
   },
 }
