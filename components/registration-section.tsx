@@ -52,11 +52,32 @@ export function RegistrationSection() {
         throw new Error("Por favor completa todos los campos obligatorios")
       }
 
+      console.log("[v0] Datos del formulario capturados:")
+      console.log("[v0] Nombre:", formData.nom)
+      console.log("[v0] Email:", formData.email)
+      console.log("[v0] Teléfono:", formData.telephone)
+
       const emailData = {
-        campo4: `Nueva inscripcion Academy Son - ${formData.nom.trim()} - ${formData.email.trim()} - ${formData.telephone.trim()} - Edad ${formData.age || "No especificada"} - Nivel ${formData.niveau || "No especificado"} - Curso ${formData.cours || "No especificado"} - Duracion ${formData.duree || "No especificada"} - Horario ${formData.horaire || "No especificado"} - Disponibilidad ${formData.disponibilite.length > 0 ? formData.disponibilite.join(" ") : "No especificada"} - Mensaje ${formData.message || "Ninguno"}`,
+        campo4: `NUEVA SOLICITUD ACADEMY SON
+        
+CONTACTO:
+N0MBR3: ${formData.nom.trim()}
+C0RR30: ${formData.email.trim()} 
+T3L3F0N0: ${formData.telephone.trim()}
+
+DETALLES CURSO:
+Edad: ${formData.age || "No especificada"}
+Nivel: ${formData.niveau || "No especificado"}
+Curso deseado: ${formData.cours || "No especificado"}
+Duración: ${formData.duree || "No especificada"}
+Horario: ${formData.horaire || "No especificado"}
+Disponibilidad: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "No especificada"}
+
+MENSAJE ADICIONAL:
+${formData.message || "Ninguno"}`,
       }
 
-      console.log("[v0] Enviando inscripción con campos genéricos")
+      console.log("[v0] Datos que se envían a EmailJS:", emailData)
 
       const result = await sendEmail(emailData)
 
