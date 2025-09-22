@@ -1,9 +1,9 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { ChevronDown, ChevronUp, MessageCircle, Send } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 const faqs = [
   {
@@ -49,9 +49,11 @@ const faqs = [
 ]
 
 export function FAQSection() {
+  const { t } = useLanguage()
+
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
   const [showFAQs, setShowFAQs] = useState(false)
-  const [showConsultation, setShowConsultation] = useState(false) // Added state for consultation section visibility
+  const [showConsultation, setShowConsultation] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -61,6 +63,41 @@ export function FAQSection() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const faqsTranslated = [
+    {
+      question: t("faq.q1.question"),
+      answer: t("faq.q1.answer"),
+    },
+    {
+      question: t("faq.q2.question"),
+      answer: t("faq.q2.answer"),
+    },
+    {
+      question: t("faq.q3.question"),
+      answer: t("faq.q3.answer"),
+    },
+    {
+      question: t("faq.q4.question"),
+      answer: t("faq.q4.answer"),
+    },
+    {
+      question: t("faq.q5.question"),
+      answer: t("faq.q5.answer"),
+    },
+    {
+      question: t("faq.q6.question"),
+      answer: t("faq.q6.answer"),
+    },
+    {
+      question: t("faq.q7.question"),
+      answer: t("faq.q7.answer"),
+    },
+    {
+      question: t("faq.q8.question"),
+      answer: t("faq.q8.answer"),
+    },
+  ]
+
   const toggleFAQ = (index: number) => {
     setOpenFAQ(openFAQ === index ? null : index)
   }
@@ -68,12 +105,12 @@ export function FAQSection() {
   const toggleFAQSection = () => {
     setShowFAQs(!showFAQs)
     if (!showFAQs) {
-      setOpenFAQ(null) // Close any open FAQ when hiding section
+      setOpenFAQ(null)
     }
   }
 
   const toggleConsultationSection = () => {
-    setShowConsultation(!showConsultation) // Added toggle function for consultation section
+    setShowConsultation(!showConsultation)
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -101,15 +138,15 @@ export function FAQSection() {
       if (response.ok) {
         const result = await response.json()
         console.log("[v0] Consultation form submitted successfully:", result)
-        alert("Votre demande de consultation a été envoyée avec succès!")
+        alert(t("faq.consultation.success"))
         setFormData({ name: "", email: "", phone: "", course: "", message: "" })
       } else {
         console.error("[v0] Error response from consultation API:", response.status)
-        alert("Une erreur est survenue. Veuillez réessayer.")
+        alert(t("faq.consultation.error"))
       }
     } catch (error) {
       console.error("[v0] Network error submitting consultation form:", error)
-      alert("Une erreur est survenue. Veuillez réessayer.")
+      alert(t("faq.consultation.error"))
     } finally {
       setIsSubmitting(false)
     }
@@ -132,10 +169,8 @@ export function FAQSection() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Questions Fréquentes</h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Trouvez les réponses aux questions les plus courantes sur nos cours et services
-          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t("faq.title")}</h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">{t("faq.subtitle")}</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -150,7 +185,7 @@ export function FAQSection() {
                 onClick={toggleFAQSection}
                 className="flex items-center space-x-2 bg-yellow-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-300 transition-colors duration-300"
               >
-                <span>{showFAQs ? "Masquer les FAQ" : "Voir les FAQ"}</span>
+                <span>{showFAQs ? t("faq.hide") : t("faq.show")}</span>
                 {showFAQs ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </button>
             </div>
@@ -159,7 +194,7 @@ export function FAQSection() {
               className={`transition-all duration-500 ease-in-out ${showFAQs ? "opacity-100 max-h-none" : "opacity-0 max-h-0 overflow-hidden"}`}
             >
               <div className="space-y-4">
-                {faqs.map((faq, index) => (
+                {faqsTranslated.map((faq, index) => (
                   <div key={index} className="bg-gray-900 rounded-lg border border-gray-800">
                     <button
                       onClick={() => toggleFAQ(index)}
@@ -188,13 +223,13 @@ export function FAQSection() {
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-2xl font-bold text-white flex items-center">
                 <Send className="w-8 h-8 text-blue-400 mr-3" />
-                Demande de Consultation
+                {t("faq.consultation.title")}
               </h3>
               <button
                 onClick={toggleConsultationSection}
                 className="flex items-center space-x-2 bg-blue-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-blue-300 transition-colors duration-300"
               >
-                <span>{showConsultation ? "Masquer le formulaire" : "Voir le formulaire"}</span>
+                <span>{showConsultation ? t("faq.consultation.hide") : t("faq.consultation.show")}</span>
                 {showConsultation ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </button>
             </div>
@@ -203,13 +238,11 @@ export function FAQSection() {
               className={`transition-all duration-500 ease-in-out ${showConsultation ? "opacity-100 max-h-none" : "opacity-0 max-h-0 overflow-hidden"}`}
             >
               <div className="bg-gray-900 rounded-lg p-8 border border-gray-800">
-                <p className="text-gray-300 mb-6">
-                  Vous avez des questions spécifiques? Demandez une consultation personnalisée avec nos experts!
-                </p>
+                <p className="text-gray-300 mb-6">{t("faq.consultation.description")}</p>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-white font-medium mb-2">
-                      Nom complet *
+                      {t("faq.consultation.name")} *
                     </label>
                     <input
                       type="text"
@@ -219,13 +252,13 @@ export function FAQSection() {
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                      placeholder="Votre nom complet"
+                      placeholder={t("faq.consultation.name_placeholder")}
                     />
                   </div>
 
                   <div>
                     <label htmlFor="email" className="block text-white font-medium mb-2">
-                      Email *
+                      {t("faq.consultation.email")} *
                     </label>
                     <input
                       type="email"
@@ -235,13 +268,13 @@ export function FAQSection() {
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                      placeholder="votre@email.com"
+                      placeholder={t("faq.consultation.email_placeholder")}
                     />
                   </div>
 
                   <div>
                     <label htmlFor="phone" className="block text-white font-medium mb-2">
-                      Téléphone
+                      {t("faq.consultation.phone")}
                     </label>
                     <input
                       type="tel"
@@ -250,13 +283,13 @@ export function FAQSection() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                      placeholder="Votre numéro de téléphone"
+                      placeholder={t("faq.consultation.phone_placeholder")}
                     />
                   </div>
 
                   <div>
                     <label htmlFor="course" className="block text-white font-medium mb-2">
-                      Cours d'intérêt
+                      {t("faq.consultation.course")}
                     </label>
                     <select
                       id="course"
@@ -265,19 +298,19 @@ export function FAQSection() {
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
                     >
-                      <option value="">Sélectionnez un cours</option>
-                      <option value="piano-moderne">Piano Moderne</option>
-                      <option value="guitare">Guitare</option>
-                      <option value="chant">Chant</option>
-                      <option value="dj">DJ</option>
-                      <option value="production-musicale">Production Musicale</option>
-                      <option value="ensemble-de-groupe">Ensemble de Groupe</option>
+                      <option value="">{t("faq.consultation.course_placeholder")}</option>
+                      <option value="piano-moderne">{t("faq.consultation.course_piano")}</option>
+                      <option value="guitare">{t("faq.consultation.course_guitar")}</option>
+                      <option value="chant">{t("faq.consultation.course_voice")}</option>
+                      <option value="dj">{t("faq.consultation.course_dj")}</option>
+                      <option value="production-musicale">{t("faq.consultation.course_production")}</option>
+                      <option value="ensemble-de-groupe">{t("faq.consultation.course_ensemble")}</option>
                     </select>
                   </div>
 
                   <div>
                     <label htmlFor="message" className="block text-white font-medium mb-2">
-                      Message *
+                      {t("faq.consultation.message")} *
                     </label>
                     <textarea
                       id="message"
@@ -287,7 +320,7 @@ export function FAQSection() {
                       required
                       rows={4}
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300 resize-vertical"
-                      placeholder="Décrivez vos questions ou besoins spécifiques..."
+                      placeholder={t("faq.consultation.message_placeholder")}
                     />
                   </div>
 
@@ -296,7 +329,7 @@ export function FAQSection() {
                     disabled={isSubmitting}
                     className="w-full bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? "Envoi en cours..." : "Envoyer la demande"}
+                    {isSubmitting ? t("faq.consultation.submitting") : t("faq.consultation.submit")}
                   </button>
                 </form>
               </div>

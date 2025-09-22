@@ -477,6 +477,63 @@ const translations = {
     "team.recognition.title": "Reconnaissance Professionnelle",
     "team.recognition.desc":
       "Faculté reconnue dans d'autres écoles de musique du Québec, notamment Long & McQuade, Cercle de musique de Cap Rouge, Sam Gagnon, et plus encore.",
+
+    // FAQ Section
+    "faq.title": "Questions Fréquentes",
+    "faq.subtitle": "Trouvez les réponses aux questions les plus courantes sur nos cours et services",
+    "faq.show": "Voir les FAQ",
+    "faq.hide": "Masquer les FAQ",
+    "faq.consultation.title": "Demande de Consultation",
+    "faq.consultation.show": "Voir le formulaire",
+    "faq.consultation.hide": "Masquer le formulaire",
+    "faq.consultation.description":
+      "Vous avez des questions spécifiques? Demandez une consultation personnalisée avec nos experts!",
+    "faq.consultation.name": "Nom complet",
+    "faq.consultation.name_placeholder": "Votre nom complet",
+    "faq.consultation.email": "Email",
+    "faq.consultation.email_placeholder": "votre@email.com",
+    "faq.consultation.phone": "Téléphone",
+    "faq.consultation.phone_placeholder": "Votre numéro de téléphone",
+    "faq.consultation.course": "Cours d'intérêt",
+    "faq.consultation.course_placeholder": "Sélectionnez un cours",
+    "faq.consultation.course_piano": "Piano Moderne",
+    "faq.consultation.course_guitar": "Guitare",
+    "faq.consultation.course_voice": "Chant",
+    "faq.consultation.course_dj": "DJ",
+    "faq.consultation.course_production": "Production Musicale",
+    "faq.consultation.course_ensemble": "Ensemble de Groupe",
+    "faq.consultation.message": "Message",
+    "faq.consultation.message_placeholder": "Décrivez vos questions ou besoins spécifiques...",
+    "faq.consultation.submit": "Envoyer la demande",
+    "faq.consultation.submitting": "Envoi en cours...",
+    "faq.consultation.success": "Votre demande de consultation a été envoyée avec succès!",
+    "faq.consultation.error": "Une erreur est survenue. Veuillez réessayer.",
+
+    // FAQ Questions and Answers
+    "faq.q1.question": "Quels sont les prérequis pour commencer les cours?",
+    "faq.q1.answer":
+      "Aucun prérequis n'est nécessaire! Nos cours s'adaptent à tous les niveaux, du débutant complet au musicien expérimenté. Nos professeurs trilingues évaluent votre niveau lors de la première séance pour personnaliser l'enseignement.",
+    "faq.q2.question": "Combien de temps faut-il pour voir des progrès?",
+    "faq.q2.answer":
+      "Les premiers progrès sont généralement visibles dès les 2-3 premières semaines. Cependant, cela dépend de votre pratique personnelle et de la fréquence des cours. Nos étudiants rapportent des améliorations significatives après 2-3 mois de cours réguliers.",
+    "faq.q3.question": "Puis-je changer d'instrument ou de cours en cours de route?",
+    "faq.q3.answer":
+      "Absolument! Nous encourageons l'exploration musicale. Vous pouvez changer d'instrument ou ajouter des cours supplémentaires à tout moment. Nos forfaits flexibles s'adaptent à vos besoins évolutifs.",
+    "faq.q4.question": "Comment fonctionnent les cours d'ensamble grupal?",
+    "faq.q4.answer":
+      "Les cours d'ensamble permettent de jouer avec d'autres musiciens en rotation d'instruments. Chaque session coûte 25$ et culmine avec des présentations formelles tous les 6 mois. C'est une excellente façon d'apprendre la collaboration musicale!",
+    "faq.q5.question": "Quels équipements sont fournis par l'académie?",
+    "faq.q5.answer":
+      "Nous fournissons tous les instruments et équipements professionnels nécessaires pendant les cours. Pour la production musicale et le DJ, nous avons des studios entièrement équipés avec du matériel de pointe.",
+    "faq.q6.question": "Proposez-vous des cours en ligne?",
+    "faq.q6.answer":
+      "Actuellement, nous nous concentrons sur les cours en présentiel pour offrir la meilleure expérience d'apprentissage. Cependant, nous développons des options hybrides pour certains cours théoriques.",
+    "faq.q7.question": "Comment puis-je annuler ou reporter un cours?",
+    "faq.q7.answer":
+      "Vous pouvez annuler ou reporter un cours jusqu'à 24h à l'avance sans frais. Pour les politiques détaillées, consultez notre document de politiques disponible en téléchargement sur le site.",
+    "faq.q8.question": "Y a-t-il des spectacles ou des événements pour les étudiants?",
+    "faq.q8.answer":
+      "Oui! Nous organisons des présentations semestrielles pour les cours d'ensamble, des récitals pour les étudiants individuels, et des événements communautaires réguliers pour célébrer les progrès de nos musiciens.",
   },
   es: {
     // Navigation
@@ -902,5 +959,62 @@ const translations = {
     "team.recognition.title": "Reconocimiento Profesional",
     "team.recognition.desc":
       "Facultad reconocida en otras escuelas de música de Quebec, incluyendo Long & McQuade, Cercle de música de Cap Rouge, Sam Gagnon, y más.",
+
+    // FAQ Section
+    "faq.title": "Preguntas Frecuentes",
+    "faq.subtitle": "Encuentra las respuestas a las preguntas más comunes sobre nuestros cursos y servicios",
+    "faq.show": "Ver FAQ",
+    "faq.hide": "Ocultar FAQ",
+    "faq.consultation.title": "Solicitud de Consulta",
+    "faq.consultation.show": "Ver formulario",
+    "faq.consultation.hide": "Ocultar formulario",
+    "faq.consultation.description":
+      "¿Tienes preguntas específicas? ¡Solicita una consulta personalizada con nuestros expertos!",
+    "faq.consultation.name": "Nombre completo",
+    "faq.consultation.name_placeholder": "Tu nombre completo",
+    "faq.consultation.email": "Email",
+    "faq.consultation.email_placeholder": "tu@email.com",
+    "faq.consultation.phone": "Teléfono",
+    "faq.consultation.phone_placeholder": "Tu número de teléfono",
+    "faq.consultation.course": "Curso de interés",
+    "faq.consultation.course_placeholder": "Selecciona un curso",
+    "faq.consultation.course_piano": "Piano Moderno",
+    "faq.consultation.course_guitar": "Guitarra",
+    "faq.consultation.course_voice": "Canto",
+    "faq.consultation.course_dj": "DJ",
+    "faq.consultation.course_production": "Producción Musical",
+    "faq.consultation.course_ensemble": "Conjunto Grupal",
+    "faq.consultation.message": "Mensaje",
+    "faq.consultation.message_placeholder": "Describe tus preguntas o necesidades específicas...",
+    "faq.consultation.submit": "Enviar solicitud",
+    "faq.consultation.submitting": "Enviando...",
+    "faq.consultation.success": "¡Tu solicitud de consulta ha sido enviada con éxito!",
+    "faq.consultation.error": "Ha ocurrido un error. Por favor, inténtalo de nuevo.",
+
+    // FAQ Questions and Answers
+    "faq.q1.question": "¿Cuáles son los requisitos previos para comenzar las clases?",
+    "faq.q1.answer":
+      "¡No se necesitan requisitos previos! Nuestras clases se adaptan a todos los niveles, desde principiante completo hasta músico experimentado. Nuestros profesores trilingües evalúan tu nivel en la primera sesión para personalizar la enseñanza.",
+    "faq.q2.question": "¿Cuánto tiempo se necesita para ver progreso?",
+    "faq.q2.answer":
+      "Los primeros progresos generalmente son visibles desde las primeras 2-3 semanas. Sin embargo, esto depende de tu práctica personal y la frecuencia de las clases. Nuestros estudiantes reportan mejoras significativas después de 2-3 meses de clases regulares.",
+    "faq.q3.question": "¿Puedo cambiar de instrumento o curso durante el proceso?",
+    "faq.q3.answer":
+      "¡Absolutamente! Fomentamos la exploración musical. Puedes cambiar de instrumento o agregar cursos adicionales en cualquier momento. Nuestros paquetes flexibles se adaptan a tus necesidades evolutivas.",
+    "faq.q4.question": "¿Cómo funcionan las clases de conjunto grupal?",
+    "faq.q4.answer":
+      "Las clases de conjunto permiten tocar con otros músicos en rotación de instrumentos. Cada sesión cuesta $25 y culmina con presentaciones formales cada 6 meses. ¡Es una excelente manera de aprender colaboración musical!",
+    "faq.q5.question": "¿Qué equipos proporciona la academia?",
+    "faq.q5.answer":
+      "Proporcionamos todos los instrumentos y equipos profesionales necesarios durante las clases. Para producción musical y DJ, tenemos estudios completamente equipados con material de vanguardia.",
+    "faq.q6.question": "¿Ofrecen clases en línea?",
+    "faq.q6.answer":
+      "Actualmente, nos enfocamos en clases presenciales para ofrecer la mejor experiencia de aprendizaje. Sin embargo, estamos desarrollando opciones híbridas para algunos cursos teóricos.",
+    "faq.q7.question": "¿Cómo puedo cancelar o posponer una clase?",
+    "faq.q7.answer":
+      "Puedes cancelar o posponer una clase hasta 24h antes sin costo. Para políticas detalladas, consulta nuestro documento de políticas disponible para descarga en el sitio.",
+    "faq.q8.question": "¿Hay espectáculos o eventos para los estudiantes?",
+    "faq.q8.answer":
+      "¡Sí! Organizamos presentaciones semestrales para las clases de conjunto, recitales para estudiantes individuales, y eventos comunitarios regulares para celebrar el progreso de nuestros músicos.",
   },
 }
