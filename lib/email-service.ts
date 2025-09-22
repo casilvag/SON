@@ -56,16 +56,13 @@ export const sendContactEmail = async (data: {
 }
 
 export const sendEmail = async (data: {
-  campo1: string // cambiado de nom a campo1
-  campo2: string // cambiado de email a campo2
-  campo3: string // cambiado de telephone a campo3
-  campo4: string // cambiado de message a campo4
+  campo4: string // Solo necesitamos campo4 que contiene toda la información
 }) => {
   const mappedData = {
-    nom: data.campo1,
-    email: data.campo2,
-    telephone: data.campo3,
-    message: data.campo4,
+    nom: "Inscripción SON académie", // Nombre genérico
+    email: "inscripcion@sonacademie.com", // Email genérico
+    telephone: "N/A", // Teléfono genérico
+    message: data.campo4, // Toda la información va en el mensaje
   }
   return await sendContactEmail(mappedData)
 }
