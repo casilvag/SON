@@ -41,7 +41,8 @@ export async function POST(request: NextRequest) {
         allTestsPassed = false
       }
     } catch (error) {
-      results.push(`❌ Error en contacto: ${error.message}`)
+      const errorMessage = error instanceof Error ? error.message : "Error desconocido"
+      results.push(`❌ Error en contacto: ${errorMessage}`)
       allTestsPassed = false
     }
 
@@ -65,7 +66,8 @@ export async function POST(request: NextRequest) {
         allTestsPassed = false
       }
     } catch (error) {
-      results.push(`❌ Error en consulta: ${error.message}`)
+      const errorMessage = error instanceof Error ? error.message : "Error desconocido"
+      results.push(`❌ Error en consulta: ${errorMessage}`)
       allTestsPassed = false
     }
 
@@ -75,10 +77,11 @@ export async function POST(request: NextRequest) {
       message: allTestsPassed ? "Todas las pruebas exitosas" : "Algunas pruebas fallaron",
     })
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Error desconocido"
     return NextResponse.json(
       {
         success: false,
-        results: [`❌ Error crítico: ${error.message}`],
+        results: [`❌ Error crítico: ${errorMessage}`],
         message: "Error en sistema de pruebas",
       },
       { status: 500 },
