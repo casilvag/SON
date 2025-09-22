@@ -26,7 +26,7 @@ export const sendContactEmail = async (data: {
     return { success: true, result }
   } catch (error) {
     console.error("[v0] EmailJS error:", error)
-    return { success: false, error }
+    return { success: false, error: error instanceof Error ? error.message : "Error desconocido" }
   }
 }
 
@@ -58,6 +58,15 @@ export const sendConsultationEmail = async (data: {
     return { success: true, result }
   } catch (error) {
     console.error("[v0] EmailJS consultation error:", error)
-    return { success: false, error }
+    return { success: false, error: error instanceof Error ? error.message : "Error desconocido" }
   }
+}
+
+export const sendEmail = async (data: {
+  nom: string
+  email: string
+  telephone: string
+  message: string
+}) => {
+  return await sendContactEmail(data)
 }

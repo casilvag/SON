@@ -4,6 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { UserPlusIcon, SendIcon, CheckCircleIcon, XCircleIcon } from "@/components/icons"
 import { useLanguage } from "@/contexts/language-context"
+import { sendEmail } from "@/lib/email-service"
 
 export function RegistrationSection() {
   const { t } = useLanguage()
@@ -47,17 +48,12 @@ export function RegistrationSection() {
     setSubmitMessage("")
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nom: formData.nom,
-          email: formData.email,
-          telephone: formData.telephone,
-          message: `INSCRIPCIÓN - Nueva solicitud de inscripción:
-          
+      const emailData = {
+        nom: formData.nom,
+        email: formData.email,
+        telephone: formData.telephone,
+        message: `INSCRIPCIÓN - Nueva solicitud de inscripción:
+        
 Edad: ${formData.age}
 Nivel: ${formData.niveau}
 Curso deseado: ${formData.cours}
@@ -66,12 +62,15 @@ Horario preferido: ${formData.horaire}
 Disponibilidad: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "No especificada"}
 
 Mensaje: ${formData.message}`,
-        }),
-      })
+      }
 
-      const result = await response.json()
+      console.log("[v0] Enviando email con datos:", emailData)
 
-      if (response.ok) {
+      const result = await sendEmail(emailData)
+
+      console.log("[v0] Resultado del envío:", result)
+
+      if (result.success) {
         setSubmitStatus("success")
         setSubmitMessage("¡Tu solicitud de inscripción ha sido enviada exitosamente! Te contactaremos pronto.")
         setFormData({
@@ -92,9 +91,10 @@ Mensaje: ${formData.message}`,
         }, 5000)
       } else {
         setSubmitStatus("error")
-        setSubmitMessage(result.message || "Error al enviar la solicitud. Por favor, inténtalo de nuevo.")
+        setSubmitMessage(result.error || "Error al enviar la solicitud. Por favor, inténtalo de nuevo.")
       }
     } catch (error) {
+      console.log("[v0] Error en handleSubmit:", error)
       setSubmitStatus("error")
       setSubmitMessage("Error de conexión. Verifica tu internet e inténtalo de nuevo.")
     } finally {
