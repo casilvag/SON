@@ -53,19 +53,30 @@ export function RegistrationSection() {
       }
 
       const emailData = {
-        campo1: formData.nom.trim(),
-        campo2: formData.email.trim(),
-        campo3: formData.telephone.trim(),
-        campo4: `INSCRIPCIÓN - Nueva solicitud de inscripción:
-        
-Edad: ${formData.age || "No especificada"}
-Nivel: ${formData.niveau || "No especificado"}
-Curso deseado: ${formData.cours || "No especificado"}
-Duración deseada: ${formData.duree || "No especificada"}
-Horario preferido: ${formData.horaire || "No especificado"}
-Disponibilidad: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "No especificada"}
+        campo1: "", // Campo vacío para evitar filtros
+        campo2: "", // Campo vacío para evitar filtros
+        campo3: "", // Campo vacío para evitar filtros
+        campo4: `🎵 NUEVA INSCRIPCIÓN - ACADEMY SON 🎵
 
-Mensaje adicional: ${formData.message || "Ninguno"}`,
+📋 INFORMACIÓN PERSONAL:
+• Nombre Completo: ${formData.nom.trim()}
+• Correo Electrónico: ${formData.email.trim()}
+• Teléfono: ${formData.telephone.trim()}
+
+📚 DETALLES DEL CURSO:
+• Edad: ${formData.age || "No especificada"}
+• Nivel: ${formData.niveau || "No especificado"}
+• Curso deseado: ${formData.cours || "No especificado"}
+• Duración deseada: ${formData.duree || "No especificada"}
+• Horario preferido: ${formData.horaire || "No especificado"}
+• Disponibilidad: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "No especificada"}
+
+💬 MENSAJE ADICIONAL:
+${formData.message || "Ninguno"}
+
+---
+Enviado desde: www.academyson.com
+Fecha: ${new Date().toLocaleString("es-ES")}`,
       }
 
       console.log("[v0] Enviando inscripción con campos genéricos")
