@@ -22,15 +22,16 @@ const badgeVariants = cva(
   },
 )
 
-function Badge({
-  className,
-  variant,
-  asChild = false,
-  ...props
-}: React.ComponentProps<"span"> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "span"
+interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badgeVariants> {
+  asChild?: boolean
+}
 
-  return <Comp data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
+function Badge({ className, variant, asChild = false, ...props }: BadgeProps) {
+  if (asChild) {
+    return <Slot data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
+  }
+
+  return <span data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
 }
 
 export { Badge, badgeVariants }
