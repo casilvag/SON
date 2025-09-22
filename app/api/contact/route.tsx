@@ -18,7 +18,6 @@ export async function POST(request: NextRequest) {
     }
 
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-      console.error("Variables d'environnement manquantes: GMAIL_USER ou GMAIL_APP_PASSWORD")
       return NextResponse.json(
         {
           success: false,
@@ -59,7 +58,6 @@ export async function POST(request: NextRequest) {
       message: "Message envoyé avec succès!",
     })
   } catch (error) {
-    console.error("Erreur lors de l'envoi de l'email:", error)
     return NextResponse.json(
       {
         success: false,

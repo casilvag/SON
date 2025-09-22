@@ -83,7 +83,6 @@ Message: ${formData.message}`,
         alert(t("registration.error_message"))
       }
     } catch (error) {
-      console.error("Erreur lors de l'envoi:", error)
       alert(t("registration.error_message"))
     } finally {
       setIsSubmitting(false)
