@@ -1,8 +1,7 @@
 "use client"
 
-import { Music, Settings } from "lucide-react"
+import { Music } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
-import Link from "next/link"
 
 export function Footer() {
   const { t } = useLanguage()
@@ -65,15 +64,6 @@ export function Footer() {
 
         <div className="border-t border-border mt-8 pt-8 text-center">
           <p className="text-sm text-muted-foreground">{t("footer.created_with_passion")}</p>
-          <div className="mt-2">
-            <Link
-              href="/setup"
-              className="inline-flex items-center text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors"
-            >
-              <Settings className="w-3 h-3 mr-1" />
-              Configuración
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

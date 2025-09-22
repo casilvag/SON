@@ -1,22 +1,19 @@
 import emailjs from "@emailjs/browser"
 
+const EMAIL_CONFIG = {
+  serviceId: "default_service",
+  contactTemplateId: "template_contact",
+  consultationTemplateId: "template_consultation",
+  publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+}
+
 const validateEmailJSConfig = () => {
-  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-  if (!publicKey) {
+  if (!EMAIL_CONFIG.publicKey) {
     throw new Error(
       "EmailJS public key no configurada. Verifica NEXT_PUBLIC_EMAILJS_PUBLIC_KEY en las variables de entorno.",
     )
   }
-  return publicKey
-}
-
-const getEmailJSConfig = () => {
-  return {
-    serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "default_service",
-    contactTemplateId: process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID || "template_contact",
-    consultationTemplateId: process.env.NEXT_PUBLIC_EMAILJS_CONSULTATION_TEMPLATE_ID || "template_consultation",
-    publicKey: validateEmailJSConfig(),
-  }
+  return EMAIL_CONFIG.publicKey
 }
 
 export const sendContactEmail = async (data: {
@@ -26,7 +23,7 @@ export const sendContactEmail = async (data: {
   message?: string
 }) => {
   try {
-    const config = getEmailJSConfig()
+    validateEmailJSConfig()
 
     const templateParams = {
       to_email: "info@academyson.com",
@@ -38,12 +35,17 @@ export const sendContactEmail = async (data: {
     }
 
     console.log("[v0] Enviando email con EmailJS:", {
-      service: config.serviceId,
-      template: config.contactTemplateId,
+      service: EMAIL_CONFIG.serviceId,
+      template: EMAIL_CONFIG.contactTemplateId,
       publicKey: "configurada ✓",
     })
 
-    const result = await emailjs.send(config.serviceId, config.contactTemplateId, templateParams, config.publicKey)
+    const result = await emailjs.send(
+      EMAIL_CONFIG.serviceId,
+      EMAIL_CONFIG.contactTemplateId,
+      templateParams,
+      EMAIL_CONFIG.publicKey,
+    )
 
     console.log("[v0] EmailJS resultado exitoso:", result)
     return { success: true, result }
@@ -74,7 +76,7 @@ export const sendConsultationEmail = async (data: {
   message: string
 }) => {
   try {
-    const config = getEmailJSConfig()
+    validateEmailJSConfig()
 
     const templateParams = {
       to_email: "info@academyson.com",
@@ -87,12 +89,17 @@ export const sendConsultationEmail = async (data: {
     }
 
     console.log("[v0] Enviando consulta con EmailJS:", {
-      service: config.serviceId,
-      template: config.consultationTemplateId,
+      service: EMAIL_CONFIG.serviceId,
+      template: EMAIL_CONFIG.consultationTemplateId,
       publicKey: "configurada ✓",
     })
 
-    const result = await emailjs.send(config.serviceId, config.consultationTemplateId, templateParams, config.publicKey)
+    const result = await emailjs.send(
+      EMAIL_CONFIG.serviceId,
+      EMAIL_CONFIG.consultationTemplateId,
+      templateParams,
+      EMAIL_CONFIG.publicKey,
+    )
 
     console.log("[v0] Consulta enviada exitosamente:", result)
     return { success: true, result }
