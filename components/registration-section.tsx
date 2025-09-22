@@ -359,9 +359,9 @@ export function RegistrationSection() {
                   required
                 />
                 <label htmlFor="acceptPrivacy" className="text-gray-300 text-sm">
-                  <span className="text-yellow-400">*</span> Acepto el envío de mi información personal (nombre, email,
-                  teléfono) para procesar mi solicitud de inscripción. Esta información será utilizada únicamente para
-                  contactarme sobre los cursos de Academy Son.
+                  <span className="text-yellow-400">*</span> J'accepte l'envoi de mes informations personnelles (nom,
+                  email, téléphone) pour traiter ma demande d'inscription. Ces informations seront utilisées uniquement
+                  pour me contacter concernant les cours d'Academy Son.
                 </label>
               </div>
 
