@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Inscripción - SON académie</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6; 
+            color: #333; 
+            max-width: 650px; 
+            margin: 0 auto; 
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+        .header { 
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white; 
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        .header .subtitle {
+            margin: 8px 0 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .content { 
+            padding: 30px;
+        }
+        .info-section {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #fbbf24;
+        }
+        .info-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .personal-info .info-title::before { content: "👤"; margin-right: 10px; }
+        .course-info .info-title::before { content: "🎵"; margin-right: 10px; }
+        .message-info .info-title::before { content: "💬"; margin-right: 10px; }
+        
+        .field-row {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .field-label {
+            font-weight: 600;
+            color: #1a1a1a;
+            min-width: 120px;
+            margin-right: 15px;
+        }
+        .field-value {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            flex: 1;
+            font-family: 'Courier New', monospace;
+        }
+        .message-content {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f8f8;
+            color: #666;
+            font-size: 14px;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+    </style>
+    <script>
+        function parseMessage() {
+            const messageElement = document.getElementById('raw-message');
+            const message = messageElement.textContent;
+            
+            const parts = message.split(' - ');
+            
+            if (parts.length >= 4) {
+                document.getElementById('nom-value').textContent = parts[1] || 'Non spécifié';
+                document.getElementById('email-value').textContent = parts[2] || 'Non spécifié';
+                document.getElementById('telephone-value').textContent = parts[3] || 'Non spécifié';
+                
+                // Parse course details from remaining parts
+                const courseDetails = parts.slice(4).join(' - ');
+                const courseInfo = courseDetails.split(' - ');
+                
+                courseInfo.forEach(info => {
+                    if (info.includes('Edad')) {
+                        document.getElementById('age-value').textContent = info.replace('Edad ', '') || 'Non spécifié';
+                    } else if (info.includes('Nivel')) {
+                        document.getElementById('niveau-value').textContent = info.replace('Nivel ', '') || 'Non spécifié';
+                    } else if (info.includes('Curso')) {
+                        document.getElementById('cours-value').textContent = info.replace('Curso ', '') || 'Non spécifié';
+                    } else if (info.includes('Duracion')) {
+                        document.getElementById('duree-value').textContent = info.replace('Duracion ', '') || 'Non spécifié';
+                    } else if (info.includes('Horario')) {
+                        document.getElementById('horaire-value').textContent = info.replace('Horario ', '') || 'Non spécifié';
+                    } else if (info.includes('Disponible')) {
+                        document.getElementById('disponibilite-value').textContent = info.replace('Disponible ', '') || 'Non spécifié';
+                    } else if (info.includes('Mensaje')) {
+                        document.getElementById('message-content').textContent = info.replace('Mensaje ', '') || 'Aucun message';
+                    }
+                });
+            }
+            
+            // Hide raw message after parsing
+            messageElement.style.display = 'none';
+        }
+        
+        window.onload = parseMessage;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SON académie</h1>
+            <div class="subtitle">Nouvelle demande d'inscription</div>
+        </div>
+        
+        <div class="content">
+            <!-- Added structured sections for personal info, course details, and message -->
+            <div class="info-section personal-info">
+                <div class="info-title">Informations personnelles</div>
+                <div class="field-row">
+                    <div class="field-label">Nom complet:</div>
+                    <div class="field-value" id="nom-value">Chargement...</div>
+                </div>
+                <div class="field-row">
+                    <div class="field-label">Email:</div>
+                    <div class="field-value" id="email-value">Chargement...</div>
+                </div>
+                <div class="field-row">
+                    <div class="field-label">Téléphone:</div>
+                    <div class="field-value" id="telephone-value">Chargement...</div>
+                </div>
+            </div>
+
+            <div class="info-section course-info">
+                <div class="info-title">Détails du cours</div>
+                <div class="field-row">
+                    <div class="field-label">Âge:</div>
+                    <div class="field-value" id="age-value">Chargement...</div>
+                </div>
+                <div class="field-row">
+                    <div class="field-label">Niveau:</div>
+                    <div class="field-value" id="niveau-value">Chargement...</div>
+                </div>
+                <div class="field-row">
+                    <div class="field-label">Cours désiré:</div>
+                    <div class="field-value" id="cours-value">Chargement...</div>
+                </div>
+                <div class="field-row">
+                    <div class="field-label">Durée:</div>
+                    <div class="field-value" id="duree-value">Chargement...</div>
+                </div>
+                <div class="field-row">
+                    <div class="field-label">Horaire:</div>
+                    <div class="field-value" id="horaire-value">Chargement...</div>
+                </div>
+                <div class="field-row">
+                    <div class="field-label">Disponibilité:</div>
+                    <div class="field-value" id="disponibilite-value">Chargement...</div>
+                </div>
+            </div>
+
+            <div class="info-section message-info">
+                <div class="info-title">Message additionnel</div>
+                <div class="message-content" id="message-content">Chargement...</div>
+            </div>
+            
+            <!-- Hidden raw message that gets parsed by JavaScript -->
+            <div id="raw-message" style="display: none;">{{message}}</div>
+        </div>
+        
+        <div class="footer">
+            <p>Email généré automatiquement par le système d'inscription de <span class="highlight">SON académie</span></p>
+            <p>Pour répondre à cette demande, contactez directement le candidat via les informations fournies ci-dessus.</p>
+        </div>
+    </div>
+</body>
+</html>
