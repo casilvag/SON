@@ -137,7 +137,7 @@ export default function CoursesPage() {
                 <div className="w-8 h-8 flex-shrink-0 bg-black rounded-full p-1">
                   <Image
                     src="/images/logo.png"
-                    alt="Academy SON Logo"
+                    alt="SON académie Logo"
                     width={32}
                     height={32}
                     className="w-full h-full object-contain"

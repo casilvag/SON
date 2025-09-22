@@ -62,7 +62,7 @@ export function RegistrationSection() {
       console.log("[v0] Email capturado:", `"${formData.email}"`, "Longitud:", formData.email.length)
       console.log("[v0] Teléfono capturado:", `"${formData.telephone}"`, "Longitud:", formData.telephone.length)
 
-      const mensajeCompleto = `INSCRIPCION ACADEMY SON - ${formData.nom} - ${formData.email} - ${formData.telephone} - Edad ${formData.age} - Nivel ${formData.niveau} - Curso ${formData.cours} - Duracion ${formData.duree} - Horario ${formData.horaire} - Disponible ${formData.disponibilite.join(" ")} - Mensaje ${formData.message}`
+      const mensajeCompleto = `INSCRIPCION SON ACADEMIE - ${formData.nom} - ${formData.email} - ${formData.telephone} - Edad ${formData.age} - Nivel ${formData.niveau} - Curso ${formData.cours} - Duracion ${formData.duree} - Horario ${formData.horaire} - Disponible ${formData.disponibilite.join(" ")} - Mensaje ${formData.message}`
 
       const emailData = {
         campo4: mensajeCompleto,
@@ -361,7 +361,7 @@ export function RegistrationSection() {
                 <label htmlFor="acceptPrivacy" className="text-gray-300 text-sm">
                   <span className="text-yellow-400">*</span> J'accepte l'envoi de mes informations personnelles (nom,
                   email, téléphone) pour traiter ma demande d'inscription. Ces informations seront utilisées uniquement
-                  pour me contacter concernant les cours d'Academy Son.
+                  pour me contacter concernant les cours de SON académie.
                 </label>
               </div>
 
