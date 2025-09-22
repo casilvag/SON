@@ -65,7 +65,7 @@ export function RegistrationSection() {
       const mensajeCompleto = `INSCRIPCION SON ACADEMIE - ${formData.nom} - ${formData.email} - ${formData.telephone} - Edad ${formData.age} - Nivel ${formData.niveau} - Curso ${formData.cours} - Duracion ${formData.duree} - Horario ${formData.horaire} - Disponible ${formData.disponibilite.join(" ")} - Mensaje ${formData.message}`
 
       const emailData = {
-        campo4: mensajeCompleto,
+        message: mensajeCompleto,
       }
 
       console.log("[v0] Mensaje completo que se envía:", mensajeCompleto)

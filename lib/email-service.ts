@@ -56,7 +56,7 @@ export const sendContactEmail = async (data: {
 }
 
 export const sendEmail = async (data: {
-  campo4: string // Solo necesitamos campo4 que contiene toda la información
+  message: string // Cambiado de campo4 a message para coincidir con el formulario
 }) => {
   console.log("[v0] sendEmail recibió:", data)
 
@@ -64,7 +64,7 @@ export const sendEmail = async (data: {
     from_name: "Nueva Inscripción",
     from_email: "noreply@sonacademie.com",
     phone: "Ver mensaje",
-    message: data.campo4,
+    message: data.message, // Usando data.message en lugar de data.campo4
   }
 
   console.log("[v0] Datos mapeados para EmailJS:", mappedData)
