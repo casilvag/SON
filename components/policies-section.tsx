@@ -1,43 +1,44 @@
 "use client"
 
 import { Download, FileText, Shield, CreditCard, Calendar, Users } from "lucide-react"
-
-const policies = [
-  {
-    title: "Politiques Générales",
-    description: "Règlements généraux de l'académie, code de conduite et procédures",
-    icon: Shield,
-    filename: "politiques-generales.pdf",
-    size: "245 KB",
-  },
-  {
-    title: "Politiques de Paiement",
-    description: "Méthodes de paiement acceptées, échéances et conditions financières",
-    icon: CreditCard,
-    filename: "politiques-paiement.pdf",
-    size: "189 KB",
-  },
-  {
-    title: "Politiques d'Annulation",
-    description: "Conditions d'annulation, de report et de remboursement des cours",
-    icon: Calendar,
-    filename: "politiques-annulation.pdf",
-    size: "156 KB",
-  },
-  {
-    title: "Politiques d'Ensamble",
-    description: "Règlements spécifiques aux cours de groupe et présentations",
-    icon: Users,
-    filename: "politiques-ensamble.pdf",
-    size: "203 KB",
-  },
-]
+import { useLanguage } from "@/contexts/language-context"
 
 export function PoliciesSection() {
+  const { t } = useLanguage()
+
+  const policies = [
+    {
+      title: t("policies.generalPolicies"),
+      description: t("policies.generalPoliciesDesc"),
+      icon: Shield,
+      filename: "politiques-generales.pdf",
+      size: "245 KB",
+    },
+    {
+      title: t("policies.paymentPolicies"),
+      description: t("policies.paymentPoliciesDesc"),
+      icon: CreditCard,
+      filename: "politiques-paiement.pdf",
+      size: "189 KB",
+    },
+    {
+      title: t("policies.cancellationPolicies"),
+      description: t("policies.cancellationPoliciesDesc"),
+      icon: Calendar,
+      filename: "politiques-annulation.pdf",
+      size: "156 KB",
+    },
+    {
+      title: t("policies.ensemblePolicies"),
+      description: t("policies.ensemblePoliciesDesc"),
+      icon: Users,
+      filename: "politiques-ensamble.pdf",
+      size: "203 KB",
+    },
+  ]
+
   const handleDownload = (filename: string) => {
-    // In a real implementation, this would download the actual PDF file
-    // For now, we'll show an alert indicating the download would start
-    alert(`Téléchargement de ${filename} commencé. (Fichier de démonstration)`)
+    alert(`${t("policies.downloadStarted")} ${filename} ${t("policies.demoFile")}`)
   }
 
   return (
@@ -57,10 +58,8 @@ export function PoliciesSection() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Politiques et Documents</h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Téléchargez nos politiques officielles et documents importants pour une expérience transparente
-          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t("policies.title")}</h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">{t("policies.subtitle")}</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
@@ -100,23 +99,20 @@ export function PoliciesSection() {
 
         <div className="bg-gray-900 rounded-lg p-8 border border-gray-800">
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-white mb-4">Besoin d'aide avec nos politiques?</h3>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Si vous avez des questions concernant nos politiques ou si vous avez besoin de clarifications, n'hésitez
-              pas à nous contacter directement.
-            </p>
+            <h3 className="text-2xl font-bold text-white mb-4">{t("policies.needHelp")}</h3>
+            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">{t("policies.needHelpDesc")}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:4188020383"
                 className="bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300"
               >
-                Appeler: 4188020383
+                {t("policies.call")}: 4188020383
               </a>
               <a
                 href="#contact"
                 className="bg-transparent border-2 border-yellow-400 text-yellow-400 font-bold py-3 px-6 rounded-lg hover:bg-yellow-400 hover:text-black transition-all duration-300"
               >
-                Nous contacter
+                {t("policies.contactUs")}
               </a>
             </div>
           </div>
@@ -124,7 +120,7 @@ export function PoliciesSection() {
 
         <div className="mt-8 text-center">
           <p className="text-gray-500 text-sm">
-            Dernière mise à jour des politiques: Décembre 2024 • Tous les documents sont disponibles en français
+            {t("policies.lastUpdate")} • {t("policies.availableInFrench")}
           </p>
         </div>
       </div>

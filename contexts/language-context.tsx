@@ -359,6 +359,47 @@ const translations = {
     "testimonials.previous": "Témoignages précédents",
     "testimonials.next": "Témoignages suivants",
     "testimonials.go_to_page": "Aller à la page",
+
+    // Gallery Section
+    "gallery.title": "Galerie",
+    "gallery.media": "Médias",
+    "gallery.subtitle": "Découvrez l'atmosphère unique de notre académie à travers nos photos et vidéos",
+    "gallery.groupClasses": "Cours de Groupe",
+    "gallery.collaborativeLearning": "Sessions d'apprentissage collaboratif",
+    "gallery.studentPerformances": "Performances Étudiantes",
+    "gallery.recitalsShows": "Récitals et spectacles",
+    "gallery.recordingStudio": "Studio d'Enregistrement",
+    "gallery.behindScenes": "Coulisses des sessions",
+    "gallery.liveEvents": "Événements Live",
+    "gallery.workshopsPerformances": "Ateliers et performances",
+    "gallery.livePerformancesTitle": "Performances Live",
+    "gallery.livePerformancesDesc":
+      "Nos étudiants ont l'opportunité de se produire sur scène lors de nos événements réguliers et récitals.",
+    "gallery.recordingStudioTitle": "Studio d'Enregistrement",
+    "gallery.recordingStudioDesc":
+      "Équipement professionnel pour enregistrer vos créations, des reprises simples aux projets originaux complets.",
+
+    // Policies Section
+    "policies.title": "Politiques et Documents",
+    "policies.subtitle":
+      "Téléchargez nos politiques officielles et documents importants pour une expérience transparente",
+    "policies.generalPolicies": "Politiques Générales",
+    "policies.generalPoliciesDesc": "Règlements généraux de l'académie, code de conduite et procédures",
+    "policies.paymentPolicies": "Politiques de Paiement",
+    "policies.paymentPoliciesDesc": "Méthodes de paiement acceptées, échéances et conditions financières",
+    "policies.cancellationPolicies": "Politiques d'Annulation",
+    "policies.cancellationPoliciesDesc": "Conditions d'annulation, de report et de remboursement des cours",
+    "policies.ensemblePolicies": "Politiques d'Ensamble",
+    "policies.ensemblePoliciesDesc": "Règlements spécifiques aux cours de groupe et présentations",
+    "policies.downloadStarted": "Téléchargement de",
+    "policies.demoFile": "commencé. (Fichier de démonstration)",
+    "policies.needHelp": "Besoin d'aide avec nos politiques?",
+    "policies.needHelpDesc":
+      "Si vous avez des questions concernant nos politiques ou si vous avez besoin de clarifications, n'hésitez pas à nous contacter directement.",
+    "policies.call": "Appeler",
+    "policies.contactUs": "Nous contacter",
+    "policies.lastUpdate": "Dernière mise à jour des politiques: Décembre 2024",
+    "policies.availableInFrench": "Tous les documents sont disponibles en français",
   },
   es: {
     // Navigation
@@ -518,7 +559,7 @@ const translations = {
     "why_choose.welcoming.description": "Una atmósfera cálida y alentadora para desarrollar tu pasión musical",
     "why_choose.performances.title": "Presentaciones en Vivo",
     "why_choose.performances.description":
-      "Oportunidades regulares de presentarse en concierto y grabar tus creaciones",
+      "Oportunidades regulares de presentarse en el escenario durante nuestros eventos regulares y recitales.",
 
     // Courses Page
     "courses.title": "Nuestros Cursos",
@@ -667,5 +708,46 @@ const translations = {
     "testimonials.previous": "Testimonios anteriores",
     "testimonials.next": "Testimonios siguientes",
     "testimonials.go_to_page": "Ir a la página",
+
+    // Gallery Section
+    "gallery.title": "Galería",
+    "gallery.media": "Medios",
+    "gallery.subtitle": "Descubre la atmósfera única de nuestra academia a través de nuestras fotos y videos",
+    "gallery.groupClasses": "Clases Grupales",
+    "gallery.collaborativeLearning": "Sesiones de aprendizaje colaborativo",
+    "gallery.studentPerformances": "Presentaciones Estudiantiles",
+    "gallery.recitalsShows": "Recitales y espectáculos",
+    "gallery.recordingStudio": "Estudio de Grabación",
+    "gallery.behindScenes": "Detrás de escena de las sesiones",
+    "gallery.liveEvents": "Eventos en Vivo",
+    "gallery.workshopsPerformances": "Talleres y presentaciones",
+    "gallery.livePerformancesTitle": "Presentaciones en Vivo",
+    "gallery.livePerformancesDesc":
+      "Nuestros estudiantes tienen la oportunidad de presentarse en el escenario durante nuestros eventos regulares y recitales.",
+    "gallery.recordingStudioTitle": "Estudio de Grabación",
+    "gallery.recordingStudioDesc":
+      "Equipo profesional para grabar tus creaciones, desde covers simples hasta proyectos originales completos.",
+
+    // Policies Section
+    "policies.title": "Políticas y Documentos",
+    "policies.subtitle":
+      "Descarga nuestras políticas oficiales y documentos importantes para una experiencia transparente",
+    "policies.generalPolicies": "Políticas Generales",
+    "policies.generalPoliciesDesc": "Reglamentos generales de la academia, código de conducta y procedimientos",
+    "policies.paymentPolicies": "Políticas de Pago",
+    "policies.paymentPoliciesDesc": "Métodos de pago aceptados, fechas límite y condiciones financieras",
+    "policies.cancellationPolicies": "Políticas de Cancelación",
+    "policies.cancellationPoliciesDesc": "Condiciones de cancelación, aplazamiento y reembolso de clases",
+    "policies.ensemblePolicies": "Políticas de Conjunto",
+    "policies.ensemblePoliciesDesc": "Reglamentos específicos para clases grupales y presentaciones",
+    "policies.downloadStarted": "Descarga de",
+    "policies.demoFile": "iniciada. (Archivo de demostración)",
+    "policies.needHelp": "¿Necesitas ayuda con nuestras políticas?",
+    "policies.needHelpDesc":
+      "Si tienes preguntas sobre nuestras políticas o necesitas aclaraciones, no dudes en contactarnos directamente.",
+    "policies.call": "Llamar",
+    "policies.contactUs": "Contáctanos",
+    "policies.lastUpdate": "Última actualización de políticas: Diciembre 2024",
+    "policies.availableInFrench": "Todos los documentos están disponibles en francés",
   },
 }
