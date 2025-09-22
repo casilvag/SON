@@ -5,6 +5,23 @@ export async function POST(request: NextRequest) {
   try {
     const { nom, email, telephone, message } = await request.json()
 
+    if (!nom || !email || !telephone) {
+      return NextResponse.json(
+        { success: false, message: "Tous les champs obligatoires doivent être remplis" },
+        { status: 400 },
+      )
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ success: false, message: "Format d'email invalide" }, { status: 400 })
+    }
+
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+      console.error("Variables d'environnement manquantes: GMAIL_USER ou GMAIL_APP_PASSWORD")
+      return NextResponse.json({ success: false, message: "Configuration email manquante" }, { status: 500 })
+    }
+
     const transporter = nodemailer.createTransporter({
       service: "gmail",
       auth: {
@@ -12,6 +29,13 @@ export async function POST(request: NextRequest) {
         pass: process.env.GMAIL_APP_PASSWORD,
       },
     })
+
+    try {
+      await transporter.verify()
+    } catch (verifyError) {
+      console.error("Erreur de vérification du transporteur:", verifyError)
+      return NextResponse.json({ success: false, message: "Erreur de configuration email" }, { status: 500 })
+    }
 
     const mailOptions = {
       from: process.env.GMAIL_USER,
@@ -23,7 +47,7 @@ export async function POST(request: NextRequest) {
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Téléphone:</strong> ${telephone}</p>
         <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <p>${message.replace(/\n/g, "<br>")}</p>
         <hr>
         <p><em>Envoyé depuis le site web Academy SON</em></p>
       `,
