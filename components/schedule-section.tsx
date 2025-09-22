@@ -9,7 +9,7 @@ import { useLanguage } from "@/contexts/language-context"
 export function ScheduleSection() {
   const { t, language } = useLanguage()
   const [currentDate, setCurrentDate] = useState(new Date())
-  const [selectedDate, setSelectedDate] = useState(null)
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedProfessor, setSelectedProfessor] = useState("tous")
 
   const professors = [
@@ -30,12 +30,12 @@ export function ScheduleSection() {
   ]
 
   const generateCesarSchedule = () => {
-    const schedule = {}
+    const schedule: Record<string, Array<{ time: string; professor: string; course: string; type: string }>> = {}
     const currentYear = new Date().getFullYear()
 
     // Helper function to generate dates for a range
-    const generateDatesForRange = (startDate, endDate, dayOfWeek) => {
-      const dates = []
+    const generateDatesForRange = (startDate: Date, endDate: Date, dayOfWeek: number): Date[] => {
+      const dates: Date[] = []
       const current = new Date(startDate)
 
       // Move to the first occurrence of the desired day of week
@@ -244,7 +244,7 @@ export function ScheduleSection() {
       ? ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]
       : ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]
 
-  const navigateMonth = (direction) => {
+  const navigateMonth = (direction: number) => {
     const newDate = new Date(currentDate)
     newDate.setMonth(currentDate.getMonth() + direction)
     setCurrentDate(newDate)
@@ -271,18 +271,18 @@ export function ScheduleSection() {
     return days
   }
 
-  const formatDateKey = (date) => {
+  const formatDateKey = (date: Date): string => {
     return date.toISOString().split("T")[0]
   }
 
-  const isAvailableDay = (date) => {
+  const isAvailableDay = (date: Date | null): boolean => {
     if (!date) return false
     const dayOfWeek = date.getDay()
     // Show Monday-Sunday as available days (1=Monday, 0=Sunday, 6=Saturday)
     return dayOfWeek >= 0 && dayOfWeek <= 6
   }
 
-  const hasAtLeastTwoHoursAvailable = (date) => {
+  const hasAtLeastTwoHoursAvailable = (date: Date | null): boolean => {
     if (!date) return false
 
     const dayOfWeek = date.getDay()
@@ -309,13 +309,13 @@ export function ScheduleSection() {
     return maxConsecutive >= 4
   }
 
-  const getClassesForDate = (date) => {
+  const getClassesForDate = (date: Date | null) => {
     if (!date) return []
     const dateKey = formatDateKey(date)
     return occupiedClasses[dateKey] || []
   }
 
-  const hasClasses = (date) => {
+  const hasClasses = (date: Date | null): boolean => {
     return getClassesForDate(date).length > 0
   }
 
