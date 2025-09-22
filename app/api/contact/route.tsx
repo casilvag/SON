@@ -23,6 +23,12 @@ export async function POST(request: NextRequest) {
 
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
       console.log("[v0] Missing environment variables")
+      console.error(
+        "[v0] REFUND LOG: Missing GMAIL environment variables - GMAIL_USER:",
+        !!process.env.GMAIL_USER,
+        "GMAIL_APP_PASSWORD:",
+        !!process.env.GMAIL_APP_PASSWORD,
+      )
       return NextResponse.json(
         {
           success: false,
@@ -33,7 +39,7 @@ export async function POST(request: NextRequest) {
     }
 
     console.log("[v0] Creating nodemailer transporter...")
-    const transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransporter({
       service: "gmail",
       auth: {
         user: process.env.GMAIL_USER,
@@ -42,8 +48,17 @@ export async function POST(request: NextRequest) {
     })
 
     console.log("[v0] Testing transporter connection...")
-    await transporter.verify()
-    console.log("[v0] Transporter verified successfully")
+    try {
+      await transporter.verify()
+      console.log("[v0] Transporter verified successfully")
+    } catch (verifyError) {
+      console.error("[v0] Transporter verification failed:", verifyError)
+      console.error(
+        "[v0] REFUND LOG: Gmail transporter verification failed:",
+        verifyError instanceof Error ? verifyError.message : "Unknown verification error",
+      )
+      throw verifyError
+    }
 
     const mailOptions = {
       from: process.env.GMAIL_USER,
@@ -74,6 +89,11 @@ export async function POST(request: NextRequest) {
     console.error("[v0] Error details:", {
       message: error instanceof Error ? error.message : "Unknown error",
       stack: error instanceof Error ? error.stack : undefined,
+    })
+    console.error("[v0] REFUND LOG: Email sending failed:", {
+      error: error instanceof Error ? error.message : "Unknown error",
+      timestamp: new Date().toISOString(),
+      userEmail: "Hidden for privacy",
     })
 
     return NextResponse.json(

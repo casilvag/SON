@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { UserPlusIcon, SendIcon } from "@/components/icons"
+import { UserPlusIcon, SendIcon, CheckCircleIcon, XCircleIcon } from "@/components/icons"
 import { useLanguage } from "@/contexts/language-context"
 
 export function RegistrationSection() {
@@ -21,6 +21,8 @@ export function RegistrationSection() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitMessage, setSubmitMessage] = useState("")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -41,8 +43,11 @@ export function RegistrationSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus("idle")
+    setSubmitMessage("")
 
     try {
+      console.log("[v0] Enviando formulario de inscripción...")
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -65,8 +70,12 @@ Message: ${formData.message}`,
         }),
       })
 
+      const result = await response.json()
+      console.log("[v0] Respuesta del servidor:", result)
+
       if (response.ok) {
-        alert(t("registration.success_message"))
+        setSubmitStatus("success")
+        setSubmitMessage("¡Tu solicitud de inscripción ha sido enviada exitosamente! Te contactaremos pronto.")
         setFormData({
           nom: "",
           email: "",
@@ -79,11 +88,19 @@ Message: ${formData.message}`,
           disponibilite: [],
           message: "",
         })
+        setTimeout(() => {
+          setSubmitStatus("idle")
+          setSubmitMessage("")
+        }, 5000)
       } else {
-        alert(t("registration.error_message"))
+        setSubmitStatus("error")
+        setSubmitMessage(result.message || "Error al enviar la solicitud. Por favor, inténtalo de nuevo.")
+        console.error("[v0] Error del servidor:", result)
       }
     } catch (error) {
-      alert(t("registration.error_message"))
+      console.error("[v0] Error al enviar formulario:", error)
+      setSubmitStatus("error")
+      setSubmitMessage("Error de conexión. Verifica tu internet e inténtalo de nuevo.")
     } finally {
       setIsSubmitting(false)
     }
@@ -109,6 +126,23 @@ Message: ${formData.message}`,
         </div>
 
         <div className="max-w-4xl mx-auto">
+          {submitStatus !== "idle" && (
+            <div
+              className={`mb-6 p-4 rounded-lg border flex items-center gap-3 ${
+                submitStatus === "success"
+                  ? "bg-green-900/50 border-green-500 text-green-100"
+                  : "bg-red-900/50 border-red-500 text-red-100"
+              }`}
+            >
+              {submitStatus === "success" ? (
+                <CheckCircleIcon className="w-6 h-6 text-green-400 flex-shrink-0" />
+              ) : (
+                <XCircleIcon className="w-6 h-6 text-red-400 flex-shrink-0" />
+              )}
+              <p className="font-medium">{submitMessage}</p>
+            </div>
+          )}
+
           <div className="bg-gray-900/80 rounded-2xl p-8 border border-gray-800 backdrop-blur-sm">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
