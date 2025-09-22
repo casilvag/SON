@@ -1,8 +1,8 @@
 import emailjs from "@emailjs/browser"
 
 const EMAIL_CONFIG = {
-  serviceId: "default_service",
-  contactTemplateId: "template_contact",
+  serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "default_service",
+  contactTemplateId: process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID || "template_contact",
   publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
 }
 
@@ -12,6 +12,13 @@ const validateEmailJSConfig = () => {
       "EmailJS public key no configurada. Verifica NEXT_PUBLIC_EMAILJS_PUBLIC_KEY en las variables de entorno.",
     )
   }
+
+  if (!process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID) {
+    throw new Error(
+      "Template ID no configurado. Verifica NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID en las variables de entorno.",
+    )
+  }
+
   return EMAIL_CONFIG.publicKey
 }
 
