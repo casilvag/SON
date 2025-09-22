@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Académie Son - Apprenez la Musique à Votre Rythme",
   description:
     "École de musique à Québec offrant des cours de guitare, basse, piano, batterie et percussions latines. Instructeurs trilingues et approche flexible.",
-  generator: "v0.app",
+    generator: 'v0.app'
 }
 
 export default function RootLayout({

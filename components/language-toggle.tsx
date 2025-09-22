@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui/button"
-import { Globe } from "lucide-react"
+import { GlobeIcon } from "@/components/icons"
 
 export function LanguageToggle() {
   const { language, setLanguage } = useLanguage()
@@ -19,7 +19,7 @@ export function LanguageToggle() {
       onClick={toggleLanguage}
       className="flex items-center gap-2 hover:bg-primary hover:text-primary-foreground transition-colors bg-transparent"
     >
-      <Globe className="w-4 h-4" />
+      <GlobeIcon className="w-4 h-4" />
       {language === "fr" ? "ES" : "FR"}
     </Button>
   )
