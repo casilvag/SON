@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Inscripción - Academia SON</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #fbbf24, #ef4444);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+            margin: -30px -30px 20px -30px;
+        }
+        .field {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #fbbf24;
+            border-radius: 5px;
+        }
+        .field-label {
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+        .field-value {
+            color: #374151;
+        }
+        .message-section {
+            background-color: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #fbbf24;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 Nueva Solicitud de Inscripción</h1>
+            <p>Academia SON - Escuela de Música</p>
+        </div>
+
+        <div class="field">
+            <div class="field-label">👤 Nombre Completo:</div>
+            <div class="field-value">{{nom}}</div>
+        </div>
+
+        <div class="field">
+            <div class="field-label">📧 Correo Electrónico:</div>
+            <div class="field-value">{{email}}</div>
+        </div>
+
+        <div class="field">
+            <div class="field-label">📱 Teléfono:</div>
+            <div class="field-value">{{telephone}}</div>
+        </div>
+
+        <div class="message-section">
+            <div class="field-label">📝 Detalles de la Inscripción:</div>
+            <div class="field-value">{{message}}</div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Academia SON</strong></p>
+            <p>Escuela de Música Moderna</p>
+            <p>Responde a este correo para contactar directamente con el estudiante</p>
+        </div>
+    </div>
+</body>
+</html>
