@@ -1,4 +1,4 @@
-import type * as React from "react"
+import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -26,12 +26,15 @@ interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps
   asChild?: boolean
 }
 
-function Badge({ className, variant, asChild = false, ...props }: BadgeProps) {
-  if (asChild) {
-    return <Slot data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
-  }
+const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
+  ({ className, variant, asChild = false, ...props }, ref) => {
+    if (asChild) {
+      return <Slot ref={ref} data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
+    }
 
-  return <span data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
-}
+    return <span ref={ref} data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
+  },
+)
+Badge.displayName = "Badge"
 
 export { Badge, badgeVariants }
