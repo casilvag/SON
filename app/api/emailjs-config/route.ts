@@ -20,9 +20,18 @@ export async function GET() {
       publicKey: process.env.EMAILJS_PUBLIC_KEY,
     }
 
-    if (!config.serviceId || !config.templateId || !config.publicKey) {
+    const missingVars = []
+    if (!config.serviceId) missingVars.push("NEXT_PUBLIC_EMAILJS_SERVICE_ID")
+    if (!config.templateId) missingVars.push("NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID")
+    if (!config.publicKey) missingVars.push("EMAILJS_PUBLIC_KEY")
+
+    if (missingVars.length > 0) {
       return NextResponse.json(
-        { error: "Variables de entorno de EmailJS no configuradas completamente" },
+        {
+          error: `Variables de entorno faltantes: ${missingVars.join(", ")}`,
+          missingVariables: missingVars,
+          instructions: "Configura estas variables en Project Settings → Environment Variables",
+        },
         { status: 500 },
       )
     }
