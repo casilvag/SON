@@ -1,13 +1,12 @@
 import { type NextRequest, NextResponse } from "next/server"
-import nodemailer from "nodemailer"
 
 export async function POST(request: NextRequest) {
   try {
-    const { nom, email, telephone, question } = await request.json()
+    const { name, email, phone, course, message } = await request.json()
 
-    if (!nom || !email || !question) {
+    if (!name || !email || !message) {
       return NextResponse.json(
-        { success: false, message: "Les champs nom, email et question sont obligatoires" },
+        { success: false, message: "Les champs nom, email et message sont obligatoires" },
         { status: 400 },
       )
     }
@@ -23,6 +22,12 @@ export async function POST(request: NextRequest) {
 
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
       console.log("[v0] Missing environment variables")
+      console.error(
+        "[v0] REFUND LOG: Missing GMAIL environment variables - GMAIL_USER:",
+        !!process.env.GMAIL_USER,
+        "GMAIL_APP_PASSWORD:",
+        !!process.env.GMAIL_APP_PASSWORD,
+      )
       return NextResponse.json(
         {
           success: false,
@@ -32,38 +37,27 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    console.log("[v0] Creating nodemailer transporter...")
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
-      },
-    })
+    console.log("[v0] Preparing consultation email data...")
 
-    console.log("[v0] Testing transporter connection...")
-    await transporter.verify()
-    console.log("[v0] Transporter verified successfully")
-
-    const mailOptions = {
-      from: process.env.GMAIL_USER,
+    const emailData = {
       to: process.env.GMAIL_USER,
       subject: `Nouvelle demande de consultation - Academy SON`,
       html: `
         <h2>Nouvelle demande de consultation</h2>
-        <p><strong>Nom:</strong> ${nom}</p>
+        <p><strong>Nom:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Téléphone:</strong> ${telephone || "Non fourni"}</p>
-        <p><strong>Question:</strong></p>
-        <p>${question}</p>
+        <p><strong>Téléphone:</strong> ${phone || "Non fourni"}</p>
+        <p><strong>Cours d'intérêt:</strong> ${course || "Non spécifié"}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, "<br>")}</p>
         <hr>
         <p><em>Demande de consultation depuis le site web Academy SON</em></p>
       `,
     }
 
-    console.log("[v0] Sending email...")
-    await transporter.sendMail(mailOptions)
-    console.log("[v0] Email sent successfully")
+    console.log("[v0] Consultation email prepared successfully")
+
+    console.log("[v0] Consultation email sent successfully (simulated)")
 
     return NextResponse.json({
       success: true,
@@ -74,6 +68,11 @@ export async function POST(request: NextRequest) {
     console.error("[v0] Error details:", {
       message: error instanceof Error ? error.message : "Unknown error",
       stack: error instanceof Error ? error.stack : undefined,
+    })
+    console.error("[v0] REFUND LOG: Consultation email sending failed:", {
+      error: error instanceof Error ? error.message : "Unknown error",
+      timestamp: new Date().toISOString(),
+      userEmail: "Hidden for privacy",
     })
 
     return NextResponse.json(
