@@ -34,6 +34,10 @@ export const sendContactEmail = async (data: {
 
     const config = await getEmailJSConfig()
 
+    if (!config) {
+      throw new Error("No se pudo obtener la configuración de EmailJS")
+    }
+
     const templateParams = {
       from_name: data.nom,
       from_email: data.email,
