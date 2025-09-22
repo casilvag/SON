@@ -19,7 +19,13 @@ export async function POST(request: NextRequest) {
 
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
       console.error("Variables d'environnement manquantes: GMAIL_USER ou GMAIL_APP_PASSWORD")
-      return NextResponse.json({ success: false, message: "Configuration email manquante" }, { status: 500 })
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Configuration email manquante. Veuillez contacter l'administrateur.",
+        },
+        { status: 500 },
+      )
     }
 
     const transporter = nodemailer.createTransporter({
@@ -30,16 +36,9 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    try {
-      await transporter.verify()
-    } catch (verifyError) {
-      console.error("Erreur de vérification du transporteur:", verifyError)
-      return NextResponse.json({ success: false, message: "Erreur de configuration email" }, { status: 500 })
-    }
-
     const mailOptions = {
       from: process.env.GMAIL_USER,
-      to: process.env.GMAIL_USER, // Enviar a tu propio email
+      to: process.env.GMAIL_USER,
       subject: `Nouveau message de contact - Academy SON`,
       html: `
         <h2>Nouveau message de contact</h2>
@@ -61,6 +60,12 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error("Erreur lors de l'envoi de l'email:", error)
-    return NextResponse.json({ success: false, message: "Erreur lors de l'envoi du message" }, { status: 500 })
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Erreur lors de l'envoi du message. Veuillez réessayer.",
+      },
+      { status: 500 },
+    )
   }
 }

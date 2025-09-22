@@ -5,6 +5,29 @@ export async function POST(request: NextRequest) {
   try {
     const { nom, email, telephone, question } = await request.json()
 
+    if (!nom || !email || !question) {
+      return NextResponse.json(
+        { success: false, message: "Les champs nom, email et question sont obligatoires" },
+        { status: 400 },
+      )
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ success: false, message: "Format d'email invalide" }, { status: 400 })
+    }
+
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+      console.error("Variables d'environnement manquantes: GMAIL_USER ou GMAIL_APP_PASSWORD")
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Configuration email manquante. Veuillez contacter l'administrateur.",
+        },
+        { status: 500 },
+      )
+    }
+
     const transporter = nodemailer.createTransporter({
       service: "gmail",
       auth: {
@@ -15,13 +38,13 @@ export async function POST(request: NextRequest) {
 
     const mailOptions = {
       from: process.env.GMAIL_USER,
-      to: process.env.GMAIL_USER, // Enviar a tu propio email
+      to: process.env.GMAIL_USER,
       subject: `Nouvelle demande de consultation - Academy SON`,
       html: `
         <h2>Nouvelle demande de consultation</h2>
         <p><strong>Nom:</strong> ${nom}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Téléphone:</strong> ${telephone}</p>
+        <p><strong>Téléphone:</strong> ${telephone || "Non fourni"}</p>
         <p><strong>Question:</strong></p>
         <p>${question}</p>
         <hr>
@@ -37,6 +60,12 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error("Erreur lors de l'envoi de l'email:", error)
-    return NextResponse.json({ success: false, message: "Erreur lors de l'envoi de la demande" }, { status: 500 })
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Erreur lors de l'envoi de la demande. Veuillez réessayer.",
+      },
+      { status: 500 },
+    )
   }
 }
