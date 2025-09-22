@@ -2,8 +2,9 @@
 
 import type React from "react"
 import { useState } from "react"
-import { ChevronDown, ChevronUp, MessageCircle, Send } from "lucide-react"
+import { ChevronDown, ChevronUp, MessageCircle, Send, CheckCircle, XCircle } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import { sendConsultationEmail } from "@/lib/email-service"
 
 const faqs = [
   {
@@ -62,6 +63,8 @@ export function FAQSection() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitMessage, setSubmitMessage] = useState("")
 
   const faqsTranslated = [
     {
@@ -123,25 +126,32 @@ export function FAQSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus("idle")
+    setSubmitMessage("")
 
     try {
-      const response = await fetch("/api/consultation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
+      console.log("[v0] Enviando consulta con EmailJS:", formData)
 
-      if (response.ok) {
-        const result = await response.json()
-        alert(t("faq.consultation.success"))
+      const result = await sendConsultationEmail(formData)
+
+      console.log("[v0] Resultado de consulta:", result)
+
+      if (result.success) {
+        setSubmitStatus("success")
+        setSubmitMessage("¡Tu consulta ha sido enviada exitosamente! Te contactaremos pronto.")
         setFormData({ name: "", email: "", phone: "", course: "", message: "" })
+        setTimeout(() => {
+          setSubmitStatus("idle")
+          setSubmitMessage("")
+        }, 5000)
       } else {
-        alert(t("faq.consultation.error"))
+        setSubmitStatus("error")
+        setSubmitMessage(result.error || "Error al enviar la consulta. Por favor, inténtalo de nuevo.")
       }
     } catch (error) {
-      alert(t("faq.consultation.error"))
+      console.log("[v0] Error en consulta:", error)
+      setSubmitStatus("error")
+      setSubmitMessage("Error de conexión. Verifica tu internet e inténtalo de nuevo.")
     } finally {
       setIsSubmitting(false)
     }
@@ -234,6 +244,24 @@ export function FAQSection() {
             >
               <div className="bg-gray-900 rounded-lg p-8 border border-gray-800">
                 <p className="text-gray-300 mb-6">{t("faq.consultation.description")}</p>
+
+                {submitStatus !== "idle" && (
+                  <div
+                    className={`mb-6 p-4 rounded-lg border flex items-center gap-3 ${
+                      submitStatus === "success"
+                        ? "bg-green-900/50 border-green-500 text-green-100"
+                        : "bg-red-900/50 border-red-500 text-red-100"
+                    }`}
+                  >
+                    {submitStatus === "success" ? (
+                      <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
+                    ) : (
+                      <XCircle className="w-6 h-6 text-red-400 flex-shrink-0" />
+                    )}
+                    <p className="font-medium">{submitMessage}</p>
+                  </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-white font-medium mb-2">

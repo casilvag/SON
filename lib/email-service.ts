@@ -7,6 +7,11 @@ export const sendContactEmail = async (data: {
   message?: string
 }) => {
   try {
+    // Verificar que EmailJS esté disponible
+    if (!process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
+      throw new Error("EmailJS public key no configurada")
+    }
+
     const templateParams = {
       to_email: "info@academyson.com",
       from_name: data.nom,
@@ -16,6 +21,12 @@ export const sendContactEmail = async (data: {
       subject: "Nuevo mensaje de contacto - Academy SON",
     }
 
+    console.log("[v0] Enviando email con EmailJS:", {
+      service: "default_service",
+      template: "template_contact",
+      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? "configurada" : "no configurada",
+    })
+
     const result = await emailjs.send(
       "default_service",
       "template_contact",
@@ -23,10 +34,14 @@ export const sendContactEmail = async (data: {
       process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
     )
 
+    console.log("[v0] EmailJS resultado exitoso:", result)
     return { success: true, result }
   } catch (error) {
-    console.error("[v0] EmailJS error:", error)
-    return { success: false, error: error instanceof Error ? error.message : "Error desconocido" }
+    console.error("[v0] EmailJS error completo:", error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Error desconocido en EmailJS",
+    }
   }
 }
 
