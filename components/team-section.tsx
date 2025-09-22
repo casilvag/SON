@@ -1,10 +1,32 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { GraduationCap, Award, Users } from "lucide-react"
+import Image from "next/image"
 
 export function TeamSection() {
   return (
-    <section id="equipe" className="py-20 bg-secondary/20">
-      <div className="container mx-auto px-4">
+    <section id="equipe" className="py-20 bg-secondary/20 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-24 left-20 text-blue-400 text-2xl opacity-50">♪</div>
+        <div className="absolute top-40 right-16 text-yellow-400 text-xl opacity-40">♫</div>
+        <div className="absolute top-56 left-1/4 text-red-400 text-lg opacity-50">♬</div>
+        <div className="absolute top-72 right-1/3 text-blue-400 text-xl opacity-40">♪</div>
+        <div className="absolute top-88 left-16 text-yellow-400 text-2xl opacity-50">♫</div>
+        <div className="absolute bottom-36 right-24 text-red-400 text-xl opacity-40">♪</div>
+        <div className="absolute bottom-52 left-1/3 text-blue-400 text-lg opacity-50">♬</div>
+        <div className="absolute bottom-68 right-1/4 text-yellow-400 text-2xl opacity-40">♫</div>
+        <div className="absolute top-28 right-1/2 text-red-400 text-xl opacity-50">♪</div>
+        <div className="absolute bottom-28 left-1/2 text-blue-400 text-xl opacity-40">♬</div>
+        <div className="absolute top-44 left-1/5 text-yellow-400 text-lg opacity-45">♪</div>
+        <div className="absolute top-60 right-1/5 text-red-400 text-2xl opacity-50">♫</div>
+        <div className="absolute top-76 left-2/3 text-blue-400 text-xl opacity-40">♬</div>
+        <div className="absolute bottom-44 right-2/3 text-yellow-400 text-lg opacity-45">♪</div>
+        <div className="absolute bottom-60 left-1/6 text-red-400 text-xl opacity-50">♫</div>
+        <div className="absolute top-32 left-3/4 text-blue-400 text-lg opacity-40">♪</div>
+        <div className="absolute bottom-32 right-1/6 text-yellow-400 text-2xl opacity-50">♬</div>
+        <div className="absolute top-12 left-1/2 text-red-400 text-xl opacity-45">♫</div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
             Notre <span className="text-primary">Équipe</span>
@@ -19,8 +41,14 @@ export function TeamSection() {
           <Card className="bg-card border-border">
             <CardContent className="p-8">
               <div className="text-center mb-6">
-                <div className="w-32 h-32 bg-primary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Users className="w-16 h-16 text-primary" />
+                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20">
+                  <Image
+                    src="/images/cesar-silva.jpeg"
+                    alt="César Silva - Fondateur et Instructeur Principal"
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">César Silva</h3>
                 <p className="text-primary font-semibold">Fondateur et Instructeur Principal</p>
@@ -30,7 +58,8 @@ export function TeamSection() {
                 <div>
                   <h4 className="font-semibold text-accent mb-2">Spécialités</h4>
                   <p className="text-sm text-muted-foreground">
-                    Production musicale, composition, batterie, guitare, basse, percussions latines, piano
+                    Tous les cours - Guitare, Piano, Batterie, Basse Électrique, Chant, DJ, Production Musicale,
+                    Xylophone
                   </p>
                 </div>
 
@@ -76,7 +105,7 @@ export function TeamSection() {
               <div className="space-y-4">
                 <div>
                   <h4 className="font-semibold text-primary mb-2">Spécialités</h4>
-                  <p className="text-sm text-muted-foreground">Piano, batterie, percussions, guitare, basse</p>
+                  <p className="text-sm text-muted-foreground">Batterie, Basse Électrique</p>
                 </div>
 
                 <div>

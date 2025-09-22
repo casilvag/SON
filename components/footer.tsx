@@ -1,6 +1,11 @@
+"use client"
+
 import { Music } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 export function Footer() {
+  const { t } = useLanguage()
+
   return (
     <footer className="bg-card border-t border-border py-12">
       <div className="container mx-auto px-4">
@@ -10,58 +15,55 @@ export function Footer() {
               <Music className="w-8 h-8 text-primary" />
               <span className="text-2xl font-bold text-primary">SON</span>
             </div>
-            <p className="text-muted-foreground mb-4 max-w-md">
-              Académie de musique à Québec offrant une approche flexible et créative pour apprendre la musique à votre
-              rythme.
-            </p>
-            <p className="text-sm text-muted-foreground">© 2024 Académie Son. Tous droits réservés.</p>
+            <p className="text-muted-foreground mb-4 max-w-md">{t("footer.description")}</p>
+            <p className="text-sm text-muted-foreground">{t("footer.rights")}</p>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-primary">Navigation</h4>
+            <h4 className="font-semibold mb-4 text-primary">{t("footer.navigation")}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#accueil" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Accueil
+                  {t("nav.home")}
                 </a>
               </li>
               <li>
                 <a href="#apropos" className="text-muted-foreground hover:text-foreground transition-colors">
-                  À Propos
+                  {t("nav.about")}
                 </a>
               </li>
               <li>
                 <a href="#services" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Services
+                  {t("nav.services")}
                 </a>
               </li>
               <li>
                 <a href="#equipe" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Équipe
+                  {t("nav.team")}
                 </a>
               </li>
               <li>
                 <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Contact
+                  {t("nav.contact")}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-primary">Instruments</h4>
+            <h4 className="font-semibold mb-4 text-primary">{t("footer.instruments")}</h4>
             <ul className="space-y-2 text-sm">
-              <li className="text-muted-foreground">Guitare</li>
-              <li className="text-muted-foreground">Basse</li>
-              <li className="text-muted-foreground">Piano</li>
-              <li className="text-muted-foreground">Batterie</li>
-              <li className="text-muted-foreground">Percussions Latines</li>
+              <li className="text-muted-foreground">{t("footer.guitar")}</li>
+              <li className="text-muted-foreground">{t("footer.bass")}</li>
+              <li className="text-muted-foreground">{t("footer.piano")}</li>
+              <li className="text-muted-foreground">{t("footer.drums")}</li>
+              <li className="text-muted-foreground">{t("footer.latin_percussion")}</li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-border mt-8 pt-8 text-center">
-          <p className="text-sm text-muted-foreground">Créé avec passion pour la musique • Québec, Canada</p>
+          <p className="text-sm text-muted-foreground">{t("footer.created_with_passion")}</p>
         </div>
       </div>
     </footer>
