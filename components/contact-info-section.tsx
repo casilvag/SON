@@ -1,4 +1,54 @@
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
+import { Send, Phone, Mail, MapPin } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
+import { sendContactEmail } from "@/lib/email-service"
+import { useEmailForm, emailValidations } from "@/hooks/use-email-form"
+import { FormStatusAlert } from "@/components/ui/form-status-alert"
+
 export function ContactInfoSection() {
+  const { t } = useLanguage()
+  const [showContactForm, setShowContactForm] = useState(false)
+  const [formData, setFormData] = useState({
+    nom: "",
+    email: "",
+    telephone: "",
+    message: "",
+  })
+
+  const { isSubmitting, status, message, handleSubmit } = useEmailForm({
+    onSuccess: () => {
+      setFormData({ nom: "", email: "", telephone: "", message: "" })
+    },
+  })
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    await handleSubmit(formData, sendContactEmail, (data) => {
+      const requiredError = emailValidations.required(data, ["nom", "email", "telephone"])
+      if (requiredError) return requiredError
+
+      const emailError = emailValidations.email(data.email)
+      if (emailError) return emailError
+
+      const phoneError = emailValidations.phone(data.telephone)
+      if (phoneError) return phoneError
+
+      return null
+    })
+  }
+
   return (
     <section id="contact" className="py-20 bg-black relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -23,13 +73,11 @@ export function ContactInfoSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-12">
           {/* Phone */}
           <div className="text-center p-6 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-              </svg>
+              <Phone className="w-8 h-8 text-black" />
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">Téléphone</h3>
             <p className="text-gray-300 text-lg font-medium">418-802-0383</p>
@@ -39,10 +87,7 @@ export function ContactInfoSection() {
           {/* Email */}
           <div className="text-center p-6 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-              </svg>
+              <Mail className="w-8 h-8 text-black" />
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">Email</h3>
             <p className="text-gray-300 text-lg font-medium">casilvag10@gmail.com</p>
@@ -52,13 +97,7 @@ export function ContactInfoSection() {
           {/* Address */}
           <div className="text-center p-6 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <MapPin className="w-8 h-8 text-black" />
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">Adresse</h3>
             <p className="text-gray-300 text-lg font-medium">125 25e rue</p>
@@ -66,9 +105,108 @@ export function ContactInfoSection() {
           </div>
         </div>
 
+        <div className="max-w-2xl mx-auto mb-12">
+          <div className="text-center mb-8">
+            <button
+              onClick={() => setShowContactForm(!showContactForm)}
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-yellow-400 to-red-400 text-black px-6 py-3 rounded-lg font-medium hover:from-yellow-300 hover:to-red-300 transition-all duration-300"
+            >
+              <Send className="w-5 h-5" />
+              <span>{showContactForm ? "Masquer le formulaire" : "Envoyer un message"}</span>
+            </button>
+          </div>
+
+          {showContactForm && (
+            <div className="bg-gray-900/80 rounded-2xl p-8 border border-gray-800 backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-white mb-6 text-center">Contactez-nous directement</h3>
+
+              <FormStatusAlert status={status} message={message} />
+
+              <form onSubmit={handleFormSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="nom" className="block text-white font-medium mb-2">
+                      Nom complet *
+                    </label>
+                    <input
+                      type="text"
+                      id="nom"
+                      name="nom"
+                      value={formData.nom}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                      placeholder="Votre nom complet"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-white font-medium mb-2">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                      placeholder="votre@email.com"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="telephone" className="block text-white font-medium mb-2">
+                    Téléphone *
+                  </label>
+                  <input
+                    type="tel"
+                    id="telephone"
+                    name="telephone"
+                    value={formData.telephone}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                    placeholder="418-XXX-XXXX"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-white font-medium mb-2">
+                    Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={4}
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300 resize-vertical"
+                    placeholder="Votre message..."
+                  />
+                </div>
+
+                <div className="text-center">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold text-lg rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+                  >
+                    <Send className="w-5 h-5 mr-2" />
+                    {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
+
         {/* Additional Info */}
-        <div className="mt-12 text-center">
-          <div className="bg-gray-900/30 rounded-lg p-6 max-w-2xl mx-auto border border-gray-800">
+        <div className="text-center">
+          <div className="bg-gray-900/30 rounded-lg p-6 max-w-2xl mx-auto border border-gray-800 mb-8">
             <h4 className="text-xl font-semibold text-white mb-3">Heures d'Ouverture</h4>
             <div className="grid md:grid-cols-2 gap-4 text-gray-300">
               <div>
@@ -81,10 +219,8 @@ export function ContactInfoSection() {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Social Media Section with Construction Notice */}
-        <div className="mt-12 text-center">
+          {/* Social Media Section with Construction Notice */}
           <div className="bg-gray-900/30 rounded-lg p-6 max-w-2xl mx-auto border border-gray-800">
             <h4 className="text-xl font-semibold text-white mb-4">Suivez-nous</h4>
             <div className="flex justify-center space-x-6 mb-4">

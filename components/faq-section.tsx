@@ -130,9 +130,21 @@ export function FAQSection() {
     setSubmitMessage("")
 
     try {
-      console.log("[v0] Enviando consulta con EmailJS:", formData)
+      if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+        throw new Error("Por favor completa todos los campos obligatorios")
+      }
 
-      const result = await sendConsultationEmail(formData)
+      const consultationData = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        course: formData.course,
+        message: formData.message.trim(),
+      }
+
+      console.log("[v0] Enviando consulta con datos validados")
+
+      const result = await sendConsultationEmail(consultationData)
 
       console.log("[v0] Resultado de consulta:", result)
 
@@ -149,9 +161,11 @@ export function FAQSection() {
         setSubmitMessage(result.error || "Error al enviar la consulta. Por favor, inténtalo de nuevo.")
       }
     } catch (error) {
-      console.log("[v0] Error en consulta:", error)
+      console.error("[v0] Error en consulta:", error)
       setSubmitStatus("error")
-      setSubmitMessage("Error de conexión. Verifica tu internet e inténtalo de nuevo.")
+      setSubmitMessage(
+        error instanceof Error ? error.message : "Error de conexión. Verifica tu internet e inténtalo de nuevo.",
+      )
     } finally {
       setIsSubmitting(false)
     }
@@ -342,7 +356,7 @@ export function FAQSection() {
                       onChange={handleInputChange}
                       required
                       rows={4}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300 resize-vertical"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-all duration-300 resize-vertical"
                       placeholder={t("faq.consultation.message_placeholder")}
                     />
                   </div>

@@ -1,5 +1,15 @@
 import emailjs from "@emailjs/browser"
 
+const validateEmailJSConfig = () => {
+  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+  if (!publicKey) {
+    throw new Error(
+      "EmailJS public key no configurada. Verifica NEXT_PUBLIC_EMAILJS_PUBLIC_KEY en las variables de entorno.",
+    )
+  }
+  return publicKey
+}
+
 export const sendContactEmail = async (data: {
   nom: string
   email: string
@@ -7,10 +17,7 @@ export const sendContactEmail = async (data: {
   message?: string
 }) => {
   try {
-    // Verificar que EmailJS esté disponible
-    if (!process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
-      throw new Error("EmailJS public key no configurada")
-    }
+    const publicKey = validateEmailJSConfig()
 
     const templateParams = {
       to_email: "info@academyson.com",
@@ -24,15 +31,10 @@ export const sendContactEmail = async (data: {
     console.log("[v0] Enviando email con EmailJS:", {
       service: "default_service",
       template: "template_contact",
-      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? "configurada" : "no configurada",
+      publicKey: "configurada ✓",
     })
 
-    const result = await emailjs.send(
-      "default_service",
-      "template_contact",
-      templateParams,
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-    )
+    const result = await emailjs.send("default_service", "template_contact", templateParams, publicKey)
 
     console.log("[v0] EmailJS resultado exitoso:", result)
     return { success: true, result }
@@ -53,6 +55,8 @@ export const sendConsultationEmail = async (data: {
   message: string
 }) => {
   try {
+    const publicKey = validateEmailJSConfig()
+
     const templateParams = {
       to_email: "info@academyson.com",
       from_name: data.name,
@@ -63,13 +67,15 @@ export const sendConsultationEmail = async (data: {
       subject: "Nueva solicitud de consulta - Academy SON",
     }
 
-    const result = await emailjs.send(
-      "default_service",
-      "template_consultation",
-      templateParams,
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-    )
+    console.log("[v0] Enviando consulta con EmailJS:", {
+      service: "default_service",
+      template: "template_consultation",
+      publicKey: "configurada ✓",
+    })
 
+    const result = await emailjs.send("default_service", "template_consultation", templateParams, publicKey)
+
+    console.log("[v0] Consulta enviada exitosamente:", result)
     return { success: true, result }
   } catch (error) {
     console.error("[v0] EmailJS consultation error:", error)

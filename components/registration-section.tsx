@@ -48,23 +48,27 @@ export function RegistrationSection() {
     setSubmitMessage("")
 
     try {
-      const emailData = {
-        nom: formData.nom,
-        email: formData.email,
-        telephone: formData.telephone,
-        message: `INSCRIPCIÓN - Nueva solicitud de inscripción:
-        
-Edad: ${formData.age}
-Nivel: ${formData.niveau}
-Curso deseado: ${formData.cours}
-Duración deseada: ${formData.duree}
-Horario preferido: ${formData.horaire}
-Disponibilidad: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "No especificada"}
-
-Mensaje: ${formData.message}`,
+      if (!formData.nom.trim() || !formData.email.trim() || !formData.telephone.trim()) {
+        throw new Error("Por favor completa todos los campos obligatorios")
       }
 
-      console.log("[v0] Enviando email con datos:", emailData)
+      const emailData = {
+        nom: formData.nom.trim(),
+        email: formData.email.trim(),
+        telephone: formData.telephone.trim(),
+        message: `INSCRIPCIÓN - Nueva solicitud de inscripción:
+        
+Edad: ${formData.age || "No especificada"}
+Nivel: ${formData.niveau || "No especificado"}
+Curso deseado: ${formData.cours || "No especificado"}
+Duración deseada: ${formData.duree || "No especificada"}
+Horario preferido: ${formData.horaire || "No especificado"}
+Disponibilidad: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "No especificada"}
+
+Mensaje adicional: ${formData.message || "Ninguno"}`,
+      }
+
+      console.log("[v0] Enviando inscripción con datos validados")
 
       const result = await sendEmail(emailData)
 
@@ -94,9 +98,11 @@ Mensaje: ${formData.message}`,
         setSubmitMessage(result.error || "Error al enviar la solicitud. Por favor, inténtalo de nuevo.")
       }
     } catch (error) {
-      console.log("[v0] Error en handleSubmit:", error)
+      console.error("[v0] Error en handleSubmit:", error)
       setSubmitStatus("error")
-      setSubmitMessage("Error de conexión. Verifica tu internet e inténtalo de nuevo.")
+      setSubmitMessage(
+        error instanceof Error ? error.message : "Error de conexión. Verifica tu internet e inténtalo de nuevo.",
+      )
     } finally {
       setIsSubmitting(false)
     }
