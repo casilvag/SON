@@ -1,10 +1,7 @@
 "use client"
-
-import type React from "react"
 import { useState } from "react"
-import { ChevronDown, ChevronUp, MessageCircle, Send, CheckCircle, XCircle } from "lucide-react"
+import { ChevronDown, ChevronUp, MessageCircle } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
-import { sendConsultationEmail } from "@/lib/email-service"
 
 const faqs = [
   {
@@ -54,17 +51,6 @@ export function FAQSection() {
 
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
   const [showFAQs, setShowFAQs] = useState(false)
-  const [showConsultation, setShowConsultation] = useState(false)
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    course: "",
-    message: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
-  const [submitMessage, setSubmitMessage] = useState("")
 
   const faqsTranslated = [
     {
@@ -112,65 +98,6 @@ export function FAQSection() {
     }
   }
 
-  const toggleConsultationSection = () => {
-    setShowConsultation(!showConsultation)
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus("idle")
-    setSubmitMessage("")
-
-    try {
-      if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-        throw new Error("Por favor completa todos los campos obligatorios")
-      }
-
-      const consultationData = {
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        phone: formData.phone.trim(),
-        course: formData.course,
-        message: formData.message.trim(),
-      }
-
-      console.log("[v0] Enviando consulta con datos validados")
-
-      const result = await sendConsultationEmail(consultationData)
-
-      console.log("[v0] Resultado de consulta:", result)
-
-      if (result.success) {
-        setSubmitStatus("success")
-        setSubmitMessage("¡Tu consulta ha sido enviada exitosamente! Te contactaremos pronto.")
-        setFormData({ name: "", email: "", phone: "", course: "", message: "" })
-        setTimeout(() => {
-          setSubmitStatus("idle")
-          setSubmitMessage("")
-        }, 5000)
-      } else {
-        setSubmitStatus("error")
-        setSubmitMessage(result.error || "Error al enviar la consulta. Por favor, inténtalo de nuevo.")
-      }
-    } catch (error) {
-      console.error("[v0] Error en consulta:", error)
-      setSubmitStatus("error")
-      setSubmitMessage(
-        error instanceof Error ? error.message : "Error de conexión. Verifica tu internet e inténtalo de nuevo.",
-      )
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
   return (
     <section className="py-20 bg-black relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -192,184 +119,45 @@ export function FAQSection() {
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">{t("faq.subtitle")}</p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* FAQ Section */}
-          <div>
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-2xl font-bold text-white flex items-center">
-                <MessageCircle className="w-8 h-8 text-yellow-400 mr-3" />
-                FAQ
-              </h3>
-              <button
-                onClick={toggleFAQSection}
-                className="flex items-center space-x-2 bg-yellow-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-300 transition-colors duration-300"
-              >
-                <span>{showFAQs ? t("faq.hide") : t("faq.show")}</span>
-                {showFAQs ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              </button>
-            </div>
-
-            <div
-              className={`transition-all duration-500 ease-in-out ${showFAQs ? "opacity-100 max-h-none" : "opacity-0 max-h-0 overflow-hidden"}`}
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-2xl font-bold text-white flex items-center">
+              <MessageCircle className="w-8 h-8 text-yellow-400 mr-3" />
+              FAQ
+            </h3>
+            <button
+              onClick={toggleFAQSection}
+              className="flex items-center space-x-2 bg-yellow-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-300 transition-colors duration-300"
             >
-              <div className="space-y-4">
-                {faqsTranslated.map((faq, index) => (
-                  <div key={index} className="bg-gray-900 rounded-lg border border-gray-800">
-                    <button
-                      onClick={() => toggleFAQ(index)}
-                      className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-800 transition-colors duration-300"
-                    >
-                      <span className="text-white font-medium pr-4">{faq.question}</span>
-                      {openFAQ === index ? (
-                        <ChevronUp className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                      ) : (
-                        <ChevronDown className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                      )}
-                    </button>
-                    {openFAQ === index && (
-                      <div className="px-6 pb-6">
-                        <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+              <span>{showFAQs ? t("faq.hide") : t("faq.show")}</span>
+              {showFAQs ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            </button>
           </div>
 
-          {/* Consultation Form */}
-          <div>
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-2xl font-bold text-white flex items-center">
-                <Send className="w-8 h-8 text-blue-400 mr-3" />
-                {t("faq.consultation.title")}
-              </h3>
-              <button
-                onClick={toggleConsultationSection}
-                className="flex items-center space-x-2 bg-blue-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-blue-300 transition-colors duration-300"
-              >
-                <span>{showConsultation ? t("faq.consultation.hide") : t("faq.consultation.show")}</span>
-                {showConsultation ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              </button>
-            </div>
-
-            <div
-              className={`transition-all duration-500 ease-in-out ${showConsultation ? "opacity-100 max-h-none" : "opacity-0 max-h-0 overflow-hidden"}`}
-            >
-              <div className="bg-gray-900 rounded-lg p-8 border border-gray-800">
-                <p className="text-gray-300 mb-6">{t("faq.consultation.description")}</p>
-
-                {submitStatus !== "idle" && (
-                  <div
-                    className={`mb-6 p-4 rounded-lg border flex items-center gap-3 ${
-                      submitStatus === "success"
-                        ? "bg-green-900/50 border-green-500 text-green-100"
-                        : "bg-red-900/50 border-red-500 text-red-100"
-                    }`}
-                  >
-                    {submitStatus === "success" ? (
-                      <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
-                    ) : (
-                      <XCircle className="w-6 h-6 text-red-400 flex-shrink-0" />
-                    )}
-                    <p className="font-medium">{submitMessage}</p>
-                  </div>
-                )}
-
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-white font-medium mb-2">
-                      {t("faq.consultation.name")} *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                      placeholder={t("faq.consultation.name_placeholder")}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-white font-medium mb-2">
-                      {t("faq.consultation.email")} *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                      placeholder={t("faq.consultation.email_placeholder")}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="phone" className="block text-white font-medium mb-2">
-                      {t("faq.consultation.phone")}
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                      placeholder={t("faq.consultation.phone_placeholder")}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="course" className="block text-white font-medium mb-2">
-                      {t("faq.consultation.course")}
-                    </label>
-                    <select
-                      id="course"
-                      name="course"
-                      value={formData.course}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                    >
-                      <option value="">{t("faq.consultation.course_placeholder")}</option>
-                      <option value="piano-moderne">{t("faq.consultation.course_piano")}</option>
-                      <option value="guitare">{t("faq.consultation.course_guitar")}</option>
-                      <option value="chant">{t("faq.consultation.course_voice")}</option>
-                      <option value="dj">{t("faq.consultation.course_dj")}</option>
-                      <option value="production-musicale">{t("faq.consultation.course_production")}</option>
-                      <option value="ensemble-de-groupe">{t("faq.consultation.course_ensemble")}</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-white font-medium mb-2">
-                      {t("faq.consultation.message")} *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      rows={4}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-all duration-300 resize-vertical"
-                      placeholder={t("faq.consultation.message_placeholder")}
-                    />
-                  </div>
-
+          <div
+            className={`transition-all duration-500 ease-in-out ${showFAQs ? "opacity-100 max-h-none" : "opacity-0 max-h-0 overflow-hidden"}`}
+          >
+            <div className="space-y-4">
+              {faqsTranslated.map((faq, index) => (
+                <div key={index} className="bg-gray-900 rounded-lg border border-gray-800">
                   <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-800 transition-colors duration-300"
                   >
-                    {isSubmitting ? t("faq.consultation.submitting") : t("faq.consultation.submit")}
+                    <span className="text-white font-medium pr-4">{faq.question}</span>
+                    {openFAQ === index ? (
+                      <ChevronUp className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                    )}
                   </button>
-                </form>
-              </div>
+                  {openFAQ === index && (
+                    <div className="px-6 pb-6">
+                      <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>

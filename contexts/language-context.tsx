@@ -481,9 +481,9 @@ const translations: Record<Language, Record<string, string>> = {
 
     // FAQ Section
     "faq.title": "Questions Fréquentes",
-    "faq.subtitle": "Trouvez les réponses aux questions les plus courantes sur nos cours et services",
-    "faq.show": "Voir les FAQ",
-    "faq.hide": "Masquer les FAQ",
+    "faq.subtitle": "Trouvez rapidement les réponses à vos questions les plus courantes",
+    "faq.show": "Voir les questions",
+    "faq.hide": "Masquer les questions",
     "faq.consultation.title": "Demande de Consultation",
     "faq.consultation.show": "Voir le formulaire",
     "faq.consultation.hide": "Masquer le formulaire",
