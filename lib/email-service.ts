@@ -10,6 +10,15 @@ const validateEmailJSConfig = () => {
   return publicKey
 }
 
+const getEmailJSConfig = () => {
+  return {
+    serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "default_service",
+    contactTemplateId: process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID || "template_contact",
+    consultationTemplateId: process.env.NEXT_PUBLIC_EMAILJS_CONSULTATION_TEMPLATE_ID || "template_consultation",
+    publicKey: validateEmailJSConfig(),
+  }
+}
+
 export const sendContactEmail = async (data: {
   nom: string
   email: string
@@ -17,7 +26,7 @@ export const sendContactEmail = async (data: {
   message?: string
 }) => {
   try {
-    const publicKey = validateEmailJSConfig()
+    const config = getEmailJSConfig()
 
     const templateParams = {
       to_email: "info@academyson.com",
@@ -29,20 +38,30 @@ export const sendContactEmail = async (data: {
     }
 
     console.log("[v0] Enviando email con EmailJS:", {
-      service: "default_service",
-      template: "template_contact",
+      service: config.serviceId,
+      template: config.contactTemplateId,
       publicKey: "configurada ✓",
     })
 
-    const result = await emailjs.send("default_service", "template_contact", templateParams, publicKey)
+    const result = await emailjs.send(config.serviceId, config.contactTemplateId, templateParams, config.publicKey)
 
     console.log("[v0] EmailJS resultado exitoso:", result)
     return { success: true, result }
   } catch (error) {
     console.error("[v0] EmailJS error completo:", error)
+
+    let errorMessage = "Error desconocido en EmailJS"
+    if (error && typeof error === "object") {
+      if ("text" in error) {
+        errorMessage = `EmailJS Error: ${error.text}`
+      } else if ("message" in error) {
+        errorMessage = error.message as string
+      }
+    }
+
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Error desconocido en EmailJS",
+      error: errorMessage,
     }
   }
 }
@@ -55,7 +74,7 @@ export const sendConsultationEmail = async (data: {
   message: string
 }) => {
   try {
-    const publicKey = validateEmailJSConfig()
+    const config = getEmailJSConfig()
 
     const templateParams = {
       to_email: "info@academyson.com",
@@ -68,18 +87,28 @@ export const sendConsultationEmail = async (data: {
     }
 
     console.log("[v0] Enviando consulta con EmailJS:", {
-      service: "default_service",
-      template: "template_consultation",
+      service: config.serviceId,
+      template: config.consultationTemplateId,
       publicKey: "configurada ✓",
     })
 
-    const result = await emailjs.send("default_service", "template_consultation", templateParams, publicKey)
+    const result = await emailjs.send(config.serviceId, config.consultationTemplateId, templateParams, config.publicKey)
 
     console.log("[v0] Consulta enviada exitosamente:", result)
     return { success: true, result }
   } catch (error) {
     console.error("[v0] EmailJS consultation error:", error)
-    return { success: false, error: error instanceof Error ? error.message : "Error desconocido" }
+
+    let errorMessage = "Error desconocido"
+    if (error && typeof error === "object") {
+      if ("text" in error) {
+        errorMessage = `EmailJS Error: ${error.text}`
+      } else if ("message" in error) {
+        errorMessage = error.message as string
+      }
+    }
+
+    return { success: false, error: errorMessage }
   }
 }
 
