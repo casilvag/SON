@@ -165,9 +165,10 @@ export default function CoursesPage() {
       {/* Featured Plan Section */}
       <section className="py-16 relative overflow-hidden">
         <div className="absolute inset-0">
-          <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-            <source src="/children-music-class-laughing.mp4" type="video/mp4" />
-          </video>
+          <div
+            className="w-full h-full bg-cover bg-center"
+            style={{ backgroundImage: "url('/children-music-class-laughing.jpg')" }}
+          />
           {/* Dark overlay to ensure text readability */}
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
