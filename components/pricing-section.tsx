@@ -1,6 +1,10 @@
 "use client"
 
+import { useLanguage } from "@/contexts/language-context"
+
 export function PricingSection() {
+  const { t } = useLanguage()
+
   return (
     <section id="cours-individuels" className="py-20 bg-black relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -19,9 +23,9 @@ export function PricingSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Nos <span className="text-yellow-400">Tarifs</span>
+            {t("pricing.title")} <span className="text-yellow-400">{t("pricing.tarifs")}</span>
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">Plans flexibles adaptés à vos besoins musicaux</p>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">{t("pricing.subtitle")}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
@@ -34,7 +38,7 @@ export function PricingSection() {
                   className="text-2xl font-bold text-white cursor-pointer hover:text-yellow-400 transition-colors"
                   onClick={() => (window.location.href = "/#inscription")}
                 >
-                  Cours Individuels
+                  {t("pricing.individual.title")}
                 </h3>
                 <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
                   <svg className="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
@@ -50,10 +54,10 @@ export function PricingSection() {
 
               <div className="mb-6">
                 <div className="flex items-baseline mb-2">
-                  <span className="text-4xl font-bold text-yellow-400">$40</span>
-                  <span className="text-gray-400 ml-2">/ heure</span>
+                  <span className="text-4xl font-bold text-yellow-400">{t("pricing.individual.price")}</span>
+                  <span className="text-gray-400 ml-2">{t("pricing.individual.period")}</span>
                 </div>
-                <p className="text-gray-300">Attention personnalisée en tête-à-tête</p>
+                <p className="text-gray-300">{t("pricing.individual.description")}</p>
               </div>
 
               <div className="space-y-3 mb-8">
@@ -66,7 +70,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Piano moderne, guitare, basse, batterie, DJ, production, xylophone
+                  {t("pricing.individual.feature1")}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-yellow-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -77,7 +81,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Durée: 30min, 45min ou 1 heure
+                  {t("pricing.individual.feature2")}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-yellow-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -88,7 +92,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Horaire flexible
+                  {t("pricing.individual.feature3")}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-yellow-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
@@ -99,7 +103,7 @@ export function PricingSection() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Progrès personnalisé
+                  {t("pricing.individual.feature4")}
                 </div>
               </div>
             </div>
@@ -117,7 +121,7 @@ export function PricingSection() {
                   className="text-2xl font-bold text-white cursor-pointer hover:text-blue-400 transition-colors"
                   onClick={() => (window.location.href = "/#inscription")}
                 >
-                  Cours de Groupe
+                  {t("pricing.group.title")}
                 </h3>
                 <div className="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center">
                   <svg className="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
@@ -128,10 +132,10 @@ export function PricingSection() {
 
               <div className="mb-6">
                 <div className="flex items-baseline mb-2">
-                  <span className="text-4xl font-bold text-blue-400">$25</span>
-                  <span className="text-gray-400 ml-2">/ séance</span>
+                  <span className="text-4xl font-bold text-blue-400">{t("pricing.group.price")}</span>
+                  <span className="text-gray-400 ml-2">{t("pricing.group.period")}</span>
                 </div>
-                <p className="text-gray-300">Apprenez en groupe et partagez des expériences</p>
+                <p className="text-gray-300">{t("pricing.group.description")}</p>
               </div>
 
               <div className="space-y-3 mb-8">
@@ -139,37 +143,37 @@ export function PricingSection() {
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
                   </svg>
-                  Ensemble rock, production collective, folklore et rythmes latinos
+                  {t("pricing.group.feature1")}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
                   </svg>
-                  Durée: 90-120 minutes selon le cours
+                  {t("pricing.group.feature2")}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
                   </svg>
-                  Groupes de 3-8 étudiants
+                  {t("pricing.group.feature3")}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
                   </svg>
-                  Rotation entre instruments
+                  {t("pricing.group.feature4")}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
                   </svg>
-                  Présentations tous les 6 mois
+                  {t("pricing.group.feature5")}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <svg className="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
                   </svg>
-                  Environnement collaboratif
+                  {t("pricing.group.feature6")}
                 </div>
               </div>
             </div>
@@ -178,37 +182,37 @@ export function PricingSection() {
 
         {/* Duration Options */}
         <div className="bg-gray-900/50 rounded-2xl p-8 border border-gray-800 max-w-3xl mx-auto">
-          <h3 className="text-2xl font-bold text-white text-center mb-8">Options de Durée</h3>
+          <h3 className="text-2xl font-bold text-white text-center mb-8">{t("pricing.duration.title")}</h3>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
               <div className="w-12 h-12 bg-red-400 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-black font-bold text-sm">30</span>
               </div>
-              <h4 className="text-white font-semibold mb-2">30 Minutes</h4>
-              <p className="text-gray-400 text-sm">Idéal pour débutants</p>
+              <h4 className="text-white font-semibold mb-2">{t("pricing.duration.30min")}</h4>
+              <p className="text-gray-400 text-sm">{t("pricing.duration.30min_desc")}</p>
             </div>
             <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
               <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-black font-bold text-sm">45</span>
               </div>
-              <h4 className="text-white font-semibold mb-2">45 Minutes</h4>
-              <p className="text-gray-400 text-sm">Équilibre parfait</p>
+              <h4 className="text-white font-semibold mb-2">{t("pricing.duration.45min")}</h4>
+              <p className="text-gray-400 text-sm">{t("pricing.duration.45min_desc")}</p>
             </div>
             <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
               <div className="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-black font-bold text-sm">60</span>
               </div>
-              <h4 className="text-white font-semibold mb-2">1 Heure</h4>
-              <p className="text-gray-400 text-sm">Utilisation maximale</p>
+              <h4 className="text-white font-semibold mb-2">{t("pricing.duration.60min")}</h4>
+              <p className="text-gray-400 text-sm">{t("pricing.duration.60min_desc")}</p>
             </div>
           </div>
         </div>
 
         {/* Call to Action */}
         <div className="text-center mt-12">
-          <p className="text-gray-300 mb-6">Prêt à commencer votre voyage musical?</p>
+          <p className="text-gray-300 mb-6">{t("pricing.cta.title")}</p>
           <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-lg transition-colors">
-            <a href="/#inscription">Inscrivez-vous Maintenant</a>
+            <a href="/#inscription">{t("pricing.cta.button")}</a>
           </button>
         </div>
       </div>
