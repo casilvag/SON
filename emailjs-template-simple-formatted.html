@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Inscripción - SON académie</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6; 
+            color: #333; 
+            max-width: 650px; 
+            margin: 0 auto; 
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+        .header { 
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white; 
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        .header .subtitle {
+            margin: 8px 0 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .content { 
+            padding: 30px;
+        }
+        .message-content {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #fbbf24;
+            white-space: pre-line;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f8f8;
+            color: #666;
+            font-size: 14px;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 SON académie</h1>
+            <div class="subtitle">Nouvelle demande d'inscription</div>
+        </div>
+        
+        <div class="content">
+            <div class="message-content">{{message}}</div>
+        </div>
+        
+        <div class="footer">
+            <p>Email généré automatiquement par le système d'inscription de <span class="highlight">SON académie</span></p>
+            <p>Pour répondre à cette demande, contactez directement le candidat via les informations fournies ci-dessus.</p>
+        </div>
+    </div>
+</body>
+</html>
