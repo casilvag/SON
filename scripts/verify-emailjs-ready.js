@@ -24,7 +24,7 @@ if (allReady) {
   console.log("🎉 ¡SISTEMA COMPLETAMENTE CONFIGURADO!")
   console.log("✅ Todas las variables están disponibles")
   console.log("✅ El formulario de inscripción está listo")
-  console.log("✅ Los emails se enviarán a: info@academyson.com")
+  console.log("✅ Los emails se enviarán a: sonacademiemusique@gmail.com")
   console.log("\n🚀 Puedes probar el formulario en la página web")
 } else {
   console.log("⚠️  CONFIGURACIÓN INCOMPLETA")

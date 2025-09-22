@@ -28,5 +28,5 @@ const testData = {
 
 console.log("[v0] Datos de prueba preparados:", testData)
 console.log("[v0] Sistema listo para prueba real de inscripción")
-console.log("[v0] El email debería llegar a: info@academyson.com")
+console.log("[v0] El email debería llegar a: sonacademiemusique@gmail.com")
 console.log("[v0] Implementación: Cliente ejecuta EmailJS con config del servidor")
