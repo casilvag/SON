@@ -21,6 +21,7 @@ export function RegistrationSection() {
     disponibilite: [] as string[],
     message: "",
   })
+  const [acceptPrivacy, setAcceptPrivacy] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
   const [submitMessage, setSubmitMessage] = useState("")
@@ -48,36 +49,27 @@ export function RegistrationSection() {
     setSubmitMessage("")
 
     try {
+      if (!acceptPrivacy) {
+        throw new Error("Debes aceptar el envío de información personal")
+      }
+
       if (!formData.nom.trim() || !formData.email.trim() || !formData.telephone.trim()) {
         throw new Error("Por favor completa todos los campos obligatorios")
       }
 
-      console.log("[v0] Datos del formulario capturados:")
-      console.log("[v0] Nombre:", formData.nom)
-      console.log("[v0] Email:", formData.email)
-      console.log("[v0] Teléfono:", formData.telephone)
+      console.log("[v0] === DIAGNÓSTICO COMPLETO ===")
+      console.log("[v0] Nombre capturado:", `"${formData.nom}"`, "Longitud:", formData.nom.length)
+      console.log("[v0] Email capturado:", `"${formData.email}"`, "Longitud:", formData.email.length)
+      console.log("[v0] Teléfono capturado:", `"${formData.telephone}"`, "Longitud:", formData.telephone.length)
+
+      const mensajeCompleto = `INSCRIPCION ACADEMY SON - ${formData.nom} - ${formData.email} - ${formData.telephone} - Edad ${formData.age} - Nivel ${formData.niveau} - Curso ${formData.cours} - Duracion ${formData.duree} - Horario ${formData.horaire} - Disponible ${formData.disponibilite.join(" ")} - Mensaje ${formData.message}`
 
       const emailData = {
-        campo4: `NUEVA SOLICITUD ACADEMY SON
-        
-CONTACTO:
-N0MBR3: ${formData.nom.trim()}
-C0RR30: ${formData.email.trim()} 
-T3L3F0N0: ${formData.telephone.trim()}
-
-DETALLES CURSO:
-Edad: ${formData.age || "No especificada"}
-Nivel: ${formData.niveau || "No especificado"}
-Curso deseado: ${formData.cours || "No especificado"}
-Duración: ${formData.duree || "No especificada"}
-Horario: ${formData.horaire || "No especificado"}
-Disponibilidad: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "No especificada"}
-
-MENSAJE ADICIONAL:
-${formData.message || "Ninguno"}`,
+        campo4: mensajeCompleto,
       }
 
-      console.log("[v0] Datos que se envían a EmailJS:", emailData)
+      console.log("[v0] Mensaje completo que se envía:", mensajeCompleto)
+      console.log("[v0] Datos finales para EmailJS:", emailData)
 
       const result = await sendEmail(emailData)
 
@@ -357,11 +349,27 @@ ${formData.message || "Ninguno"}`,
                 />
               </div>
 
+              <div className="flex items-start space-x-3 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+                <input
+                  type="checkbox"
+                  id="acceptPrivacy"
+                  checked={acceptPrivacy}
+                  onChange={(e) => setAcceptPrivacy(e.target.checked)}
+                  className="w-4 h-4 text-yellow-400 bg-gray-800 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2 mt-1"
+                  required
+                />
+                <label htmlFor="acceptPrivacy" className="text-gray-300 text-sm">
+                  <span className="text-yellow-400">*</span> Acepto el envío de mi información personal (nombre, email,
+                  teléfono) para procesar mi solicitud de inscripción. Esta información será utilizada únicamente para
+                  contactarme sobre los cursos de Academy Son.
+                </label>
+              </div>
+
               {/* Submit Button */}
               <div className="text-center pt-4">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !acceptPrivacy}
                   className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold text-lg rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
                 >
                   <SendIcon className="w-5 h-5 mr-2" />
