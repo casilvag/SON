@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Inscripción - Academy SON</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 30px;
+            border: 1px solid #e9ecef;
+        }
+        .info-section {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+        }
+        .field {
+            margin: 10px 0;
+            padding: 8px 0;
+        }
+        .field-label {
+            font-weight: bold;
+            color: #1f2937;
+            display: inline-block;
+            min-width: 150px;
+        }
+        .field-value {
+            color: #374151;
+        }
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+        }
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎵 Nueva Solicitud de Inscripción</h1>
+        <p>Academy SON - École de Musique</p>
+    </div>
+    
+    <div class="content">
+        <div class="info-section">
+            <h2>📋 Información Personal</h2>
+            <div class="field">
+                <span class="field-label">Nombre Completo:</span>
+                <span class="field-value highlight">{{nom}}</span>
+            </div>
+            <div class="field">
+                <span class="field-label">Correo Electrónico:</span>
+                <span class="field-value highlight">{{email}}</span>
+            </div>
+            <div class="field">
+                <span class="field-label">Teléfono:</span>
+                <span class="field-value highlight">{{telephone}}</span>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>🎼 Detalles de la Inscripción</h2>
+            <div class="field-value">
+                {{message}}
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p><strong>Academy SON</strong></p>
+        <p>École de Musique Moderne</p>
+        <p>📧 sonacademiemusique@gmail.com</p>
+        <p>🌐 www.academyson.com</p>
+    </div>
+</body>
+</html>
