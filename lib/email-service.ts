@@ -56,10 +56,16 @@ export const sendContactEmail = async (data: {
 }
 
 export const sendEmail = async (data: {
-  nom: string
-  email: string
-  telephone: string
-  message: string
+  campo1: string // cambiado de nom a campo1
+  campo2: string // cambiado de email a campo2
+  campo3: string // cambiado de telephone a campo3
+  campo4: string // cambiado de message a campo4
 }) => {
-  return await sendContactEmail(data)
+  const mappedData = {
+    nom: data.campo1,
+    email: data.campo2,
+    telephone: data.campo3,
+    message: data.campo4,
+  }
+  return await sendContactEmail(mappedData)
 }
