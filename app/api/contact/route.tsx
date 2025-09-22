@@ -27,26 +27,38 @@ export async function POST(request: NextRequest) {
     }
 
     const emailData = {
-      to: process.env.GMAIL_USER,
-      subject: `Nuevo mensaje de contacto - Academy SON`,
-      html: `
-        <h2>Nuevo mensaje de contacto</h2>
-        <p><strong>Nombre:</strong> ${nom}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Teléfono:</strong> ${telephone}</p>
-        <p><strong>Mensaje:</strong></p>
-        <p>${message.replace(/\n/g, "<br>")}</p>
-        <hr>
-        <p><em>Enviado desde el sitio web Academy SON</em></p>
-      `,
+      service_id: "gmail",
+      template_id: "contact_form",
+      user_id: process.env.EMAILJS_PUBLIC_KEY,
+      template_params: {
+        to_email: process.env.GMAIL_USER,
+        from_name: nom,
+        from_email: email,
+        phone: telephone,
+        message: message,
+        subject: `Nuevo mensaje de contacto - Academy SON`,
+      },
     }
 
-    // En producción, esto se conectaría a un servicio de email compatible
+    // Envío real usando EmailJS API
+    const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(emailData),
+    })
+
+    if (!response.ok) {
+      throw new Error(`EmailJS API error: ${response.status}`)
+    }
+
     return NextResponse.json({
       success: true,
       message: "¡Mensaje enviado exitosamente!",
     })
   } catch (error) {
+    console.error("[v0] Email sending error:", error)
     return NextResponse.json(
       {
         success: false,
