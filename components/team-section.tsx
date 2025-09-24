@@ -1,8 +1,13 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
-import { GraduationCap, Award, Users } from "lucide-react"
+import { GraduationCap, Award } from "lucide-react"
 import Image from "next/image"
+import { useLanguage } from "@/contexts/language-context"
 
 export function TeamSection() {
+  const { t } = useLanguage()
+
   return (
     <section id="equipe" className="py-20 bg-secondary/20 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -29,11 +34,9 @@ export function TeamSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            Notre <span className="text-primary">Équipe</span>
+            {t("team.title")} <span className="text-primary">{t("team.titleHighlight")}</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
-            Des professeurs expérimentés et passionnés, reconnus dans d'autres écoles de musique du Québec
-          </p>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">{t("team.subtitle")}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
@@ -51,41 +54,34 @@ export function TeamSection() {
                   />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">César Silva</h3>
-                <p className="text-primary font-semibold">Fondateur et Instructeur Principal</p>
+                <p className="text-primary font-semibold">{t("team.cesar.title")}</p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-semibold text-accent mb-2">Spécialités</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Tous les cours - Guitare, Piano, Batterie, Basse Électrique, Chant, DJ, Production Musicale,
-                    Xylophone
-                  </p>
+                  <h4 className="font-semibold text-accent mb-2">{t("team.cesar.specialties.title")}</h4>
+                  <p className="text-sm text-muted-foreground">{t("team.cesar.specialties.description")}</p>
                 </div>
 
                 <div>
                   <h4 className="font-semibold text-accent mb-2 flex items-center">
                     <GraduationCap className="w-4 h-4 mr-2" />
-                    Formation Académique
+                    {t("team.cesar.education.title")}
                   </h4>
-                  <p className="text-sm text-muted-foreground">
-                    Berklee College of Music (USA), Universidad Nacional de Colombia, Université Laval (Canada)
-                  </p>
+                  <p className="text-sm text-muted-foreground">{t("team.cesar.education.description")}</p>
                 </div>
 
                 <div>
                   <h4 className="font-semibold text-accent mb-2 flex items-center">
                     <Award className="w-4 h-4 mr-2" />
-                    Expérience
+                    {t("team.cesar.experience.title")}
                   </h4>
-                  <p className="text-sm text-muted-foreground">Plus de 10 ans d'enseignement, dont 2 ans au Québec</p>
+                  <p className="text-sm text-muted-foreground">{t("team.cesar.experience.description")}</p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-accent mb-2">Approche</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Combine la maîtrise technique avec la créativité et la sensibilité musicale
-                  </p>
+                  <h4 className="font-semibold text-accent mb-2">{t("team.cesar.approach.title")}</h4>
+                  <p className="text-sm text-muted-foreground">{t("team.cesar.approach.description")}</p>
                 </div>
               </div>
             </CardContent>
@@ -95,34 +91,48 @@ export function TeamSection() {
           <Card className="bg-card border-border">
             <CardContent className="p-8">
               <div className="text-center mb-6">
-                <div className="w-32 h-32 bg-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Users className="w-16 h-16 text-accent" />
+                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20">
+                  <Image
+                    src="/images/sebastian-rey.jpeg"
+                    alt="Sebastián Rey - Instructeur"
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Sebastián Rey</h3>
-                <p className="text-accent font-semibold">Instructeur</p>
+                <p className="text-accent font-semibold">{t("team.sebastian.title")}</p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-semibold text-primary mb-2">Spécialités</h4>
-                  <p className="text-sm text-muted-foreground">Batterie, Basse Électrique</p>
+                  <h4 className="font-semibold text-primary mb-2">{t("team.sebastian.specialties.title")}</h4>
+                  <p className="text-sm text-muted-foreground">{t("team.sebastian.specialties.description")}</p>
                 </div>
 
                 <div>
                   <h4 className="font-semibold text-primary mb-2 flex items-center">
                     <Award className="w-4 h-4 mr-2" />
-                    Expérience
+                    {t("team.sebastian.groups.title")}
                   </h4>
-                  <p className="text-sm text-muted-foreground">
-                    Reconnu pour sa polyvalence et son soutien aux étudiants de tous niveaux dans leur parcours musical
-                  </p>
+                  <p className="text-sm text-muted-foreground">{t("team.sebastian.groups.description")}</p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-primary mb-2">{t("team.sebastian.instruments.title")}</h4>
+                  <p className="text-sm text-muted-foreground">{t("team.sebastian.instruments.description")}</p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-primary mb-2 flex items-center">
+                    <Award className="w-4 h-4 mr-2" />
+                    {t("team.sebastian.experience.title")}
+                  </h4>
+                  <p className="text-sm text-muted-foreground">{t("team.sebastian.experience.description")}</p>
                 </div>
 
                 <div className="bg-muted/50 rounded-lg p-4 mt-6">
-                  <p className="text-sm text-muted-foreground italic">
-                    "La musique est un voyage personnel unique pour chaque étudiant. Mon rôle est de les guider avec
-                    patience et passion."
-                  </p>
+                  <p className="text-sm text-muted-foreground italic">"{t("team.sebastian.quote")}"</p>
                 </div>
               </div>
             </CardContent>
@@ -131,11 +141,8 @@ export function TeamSection() {
 
         <div className="mt-12 text-center">
           <div className="bg-card border border-border rounded-lg p-6 max-w-4xl mx-auto">
-            <h3 className="text-xl font-bold mb-3 text-primary">Reconnaissance Professionnelle</h3>
-            <p className="text-muted-foreground">
-              Faculté reconnue dans d'autres écoles de musique du Québec, notamment Long & McQuade, Cercle de musique de
-              Cap Rouge, Sam Gagnon, et plus encore.
-            </p>
+            <h3 className="text-xl font-bold mb-3 text-primary">{t("team.recognition.title")}</h3>
+            <p className="text-muted-foreground">{t("team.recognition.description")}</p>
           </div>
         </div>
       </div>

@@ -400,6 +400,45 @@ const translations = {
     "policies.contactUs": "Nous contacter",
     "policies.lastUpdate": "Dernière mise à jour des politiques: Décembre 2024",
     "policies.availableInFrench": "Tous les documents sont disponibles en français",
+
+    // Team Section
+    "team.title": "Notre",
+    "team.titleHighlight": "Équipe",
+    "team.subtitle": "Des professeurs expérimentés et passionnés, reconnus dans d'autres écoles de musique du Québec",
+
+    // César Silva
+    "team.cesar.title": "Fondateur et Instructeur Principal",
+    "team.cesar.specialties.title": "Spécialités",
+    "team.cesar.specialties.description":
+      "Tous les cours - Guitare, Piano, Batterie, Basse Électrique, Chant, DJ, Production Musicale, Xylophone",
+    "team.cesar.education.title": "Formation Académique",
+    "team.cesar.education.description":
+      "Berklee College of Music (USA), Universidad Nacional de Colombia, Université Laval (Canada)",
+    "team.cesar.experience.title": "Expérience",
+    "team.cesar.experience.description": "Plus de 10 ans d'enseignement, dont 2 ans au Québec",
+    "team.cesar.approach.title": "Approche",
+    "team.cesar.approach.description": "Combine la maîtrise technique avec la créativité et la sensibilité musicale",
+
+    // Sebastián Rey
+    "team.sebastian.title": "Instructeur",
+    "team.sebastian.specialties.title": "Spécialités",
+    "team.sebastian.specialties.description": "Batterie, Basse Électrique",
+    "team.sebastian.groups.title": "Agrupations Reconnues",
+    "team.sebastian.groups.description":
+      "Membre de diverses agrupations latines reconnues au Québec, apportant une riche expérience culturelle",
+    "team.sebastian.instruments.title": "Instruments du Monde",
+    "team.sebastian.instruments.description":
+      "Maîtrise une vaste gamme d'instruments du monde entier, enrichissant l'expérience d'apprentissage",
+    "team.sebastian.experience.title": "Expérience",
+    "team.sebastian.experience.description":
+      "Reconnu pour sa polyvalence et son soutien aux étudiants de tous niveaux dans leur parcours musical",
+    "team.sebastian.quote":
+      "La musique est un voyage personnel unique pour chaque étudiant. Mon rôle est de les guider avec patience et passion.",
+
+    // Team Recognition
+    "team.recognition.title": "Reconnaissance Professionnelle",
+    "team.recognition.description":
+      "Faculté reconnue dans d'autres écoles de musique du Québec, notamment Long & McQuade, Cercle de musique de Cap Rouge, Sam Gagnon, et plus encore.",
   },
   es: {
     // Navigation
@@ -749,5 +788,44 @@ const translations = {
     "policies.contactUs": "Contáctanos",
     "policies.lastUpdate": "Última actualización de políticas: Diciembre 2024",
     "policies.availableInFrench": "Todos los documentos están disponibles en francés",
+
+    // Team Section
+    "team.title": "Nuestro",
+    "team.titleHighlight": "Equipo",
+    "team.subtitle": "Profesores experimentados y apasionados, reconocidos en otras escuelas de música de Quebec",
+
+    // César Silva
+    "team.cesar.title": "Fundador e Instructor Principal",
+    "team.cesar.specialties.title": "Especialidades",
+    "team.cesar.specialties.description":
+      "Todos los cursos - Guitarra, Piano, Batería, Bajo Eléctrico, Canto, DJ, Producción Musical, Xilófono",
+    "team.cesar.education.title": "Formación Académica",
+    "team.cesar.education.description":
+      "Berklee College of Music (USA), Universidad Nacional de Colombia, Université Laval (Canadá)",
+    "team.cesar.experience.title": "Experiencia",
+    "team.cesar.experience.description": "Más de 10 años de enseñanza, incluyendo 2 años en Quebec",
+    "team.cesar.approach.title": "Enfoque",
+    "team.cesar.approach.description": "Combina el dominio técnico con la creatividad y la sensibilidad musical",
+
+    // Sebastián Rey
+    "team.sebastian.title": "Instructor",
+    "team.sebastian.specialties.title": "Especialidades",
+    "team.sebastian.specialties.description": "Batería, Bajo Eléctrico",
+    "team.sebastian.groups.title": "Agrupaciones Reconocidas",
+    "team.sebastian.groups.description":
+      "Miembro de diversas agrupaciones latinas reconocidas en Quebec, aportando una rica experiencia cultural",
+    "team.sebastian.instruments.title": "Instrumentos del Mundo",
+    "team.sebastian.instruments.description":
+      "Domina una amplia gama de instrumentos del mundo entero, enriqueciendo la experiencia de aprendizaje",
+    "team.sebastian.experience.title": "Experiencia",
+    "team.sebastian.experience.description":
+      "Reconocido por su versatilidad y apoyo a estudiantes de todos los niveles en su viaje musical",
+    "team.sebastian.quote":
+      "La música es un viaje personal único para cada estudiante. Mi papel es guiarlos con paciencia y pasión.",
+
+    // Team Recognition
+    "team.recognition.title": "Reconocimiento Profesional",
+    "team.recognition.description":
+      "Facultad reconocida en otras escuelas de música de Quebec, incluyendo Long & McQuade, Cercle de música de Cap Rouge, Sam Gagnon, y más.",
   },
 }
