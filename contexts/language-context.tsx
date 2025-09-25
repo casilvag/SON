@@ -344,7 +344,7 @@ const translations = {
     "schedule.legend.ongoing_classes": "Cours en cours",
     "schedule.legend.not_available": "Non disponible",
     "schedule.professors.cesar.specialty": "Todos los cursos",
-    "schedule.professors.sebastian.specialty1": "Batterie",
+    "schedule.professors.sebastian.specialty1": "Battería",
     "schedule.professors.sebastian.specialty2": "Bajo",
     "schedule.courses.guitare": "Guitare",
     "schedule.courses.batterie": "Batterie",
@@ -423,9 +423,9 @@ const translations = {
     "team.sebastian.title": "Instructeur",
     "team.sebastian.specialties.title": "Spécialités",
     "team.sebastian.specialties.description": "Batterie, Basse Électrique",
-    "team.sebastian.groups.title": "Agrupations Reconnues",
+    "team.sebastian.groups.title": "Agrupaciones Reconnues",
     "team.sebastian.groups.description":
-      "Membre de diverses agrupations latines reconnues au Québec, apportant une riche expérience culturelle",
+      "Membre de diverses agrupaciones latines reconnues au Québec, apportant une riche expérience culturelle",
     "team.sebastian.instruments.title": "Instruments du Monde",
     "team.sebastian.instruments.description":
       "Maîtrise une vaste gamme d'instruments du monde entier, enrichissant l'expérience d'apprentissage",
@@ -433,12 +433,28 @@ const translations = {
     "team.sebastian.experience.description":
       "Reconnu pour sa polyvalence et son soutien aux étudiants de tous niveaux dans leur parcours musical",
     "team.sebastian.quote":
-      "La musique est un voyage personnel unique pour chaque étudiant. Mon rôle est de les guider avec patience et passion.",
+      "La musique est un voyage personnel unique pour cada étudiant. Mon rôle est de les guider avec patience et passion.",
 
     // Team Recognition
     "team.recognition.title": "Reconnaissance Professionnelle",
     "team.recognition.description":
       "Faculté reconnue dans d'autres écoles de musique du Québec, notamment Long & McQuade, Cercle de musique de Cap Rouge, Sam Gagnon, et plus encore.",
+
+    // Ana Lucia Piedrahita Fernandez
+    "team.analucia.title": "Professeure de Chant",
+    "team.analucia.specialties.title": "Spécialités",
+    "team.analucia.specialties.description": "Chant – Technique vocale, expression artistique et confiance sur scène",
+    "team.analucia.education.title": "Formation Académique",
+    "team.analucia.education.description":
+      "Diplômée en Musique avec spécialisation en chant (voix) de la Faculté des Arts ASAB – Universidad Distrital Francisco José de Caldas, Bogotá, Colombie",
+    "team.analucia.experience.title": "Expérience",
+    "team.analucia.experience.description":
+      "9 ans d'enseignement auprès d'élèves de tous âges et niveaux. Large expérience en enseignement musical et en arts de la scène",
+    "team.analucia.approach.title": "Approche",
+    "team.analucia.approach.description":
+      "Allie technique vocale, expression artistique et assurance scénique. S'adapte aux besoins spécifiques de chaque élève pour offrir des cours dynamiques et personnalisés qui permettent de découvrir et développer tout le potentiel de la voix",
+    "team.analucia.quote":
+      "Chaque voix est unique et possède son propre potentiel. Mon objectif est d'aider chaque étudiant à découvrir et développer sa voix authentique avec confiance et expression artistique.",
   },
   es: {
     // Navigation
@@ -827,5 +843,21 @@ const translations = {
     "team.recognition.title": "Reconocimiento Profesional",
     "team.recognition.description":
       "Facultad reconocida en otras escuelas de música de Quebec, incluyendo Long & McQuade, Cercle de música de Cap Rouge, Sam Gagnon, y más.",
+
+    // Ana Lucia Piedrahita Fernandez
+    "team.analucia.title": "Profesora de Canto",
+    "team.analucia.specialties.title": "Especialidades",
+    "team.analucia.specialties.description": "Canto – Técnica vocal, expresión artística y confianza en el escenario",
+    "team.analucia.education.title": "Formación Académica",
+    "team.analucia.education.description":
+      "Graduada en Música con especialización en canto (voz) de la Facultad de Artes ASAB – Universidad Distrital Francisco José de Caldas, Bogotá, Colombia",
+    "team.analucia.experience.title": "Experiencia",
+    "team.analucia.experience.description":
+      "9 años de enseñanza con estudiantes de todas las edades y niveles. Amplia experiencia en enseñanza musical y artes escénicas",
+    "team.analucia.approach.title": "Enfoque",
+    "team.analucia.approach.description":
+      "Combina técnica vocal, expresión artística y seguridad escénica. Se adapta a las necesidades específicas de cada estudiante para ofrecer clases dinámicas y personalizadas que permiten descubrir y desarrollar todo el potencial de la voz",
+    "team.analucia.quote":
+      "Cada voz es única y posee su propio potencial. Mi objetivo es ayudar a cada estudiante a descubrir y desarrollar su voz auténtica con confianza y expresión artística.",
   },
 }

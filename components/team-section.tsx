@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { GraduationCap, Award } from "lucide-react"
+import { GraduationCap, Award, Music } from "lucide-react"
 import Image from "next/image"
 import { useLanguage } from "@/contexts/language-context"
 
@@ -27,7 +27,7 @@ export function TeamSection() {
         <div className="absolute bottom-44 right-2/3 text-yellow-400 text-lg opacity-45">♪</div>
         <div className="absolute bottom-60 left-1/6 text-red-400 text-xl opacity-50">♫</div>
         <div className="absolute top-32 left-3/4 text-blue-400 text-lg opacity-40">♪</div>
-        <div className="absolute bottom-32 right-1/6 text-yellow-400 text-2xl opacity-50">♬</div>
+        <div className="absolute bottom-32 right-1/6 text-yellow-400 text-2xl opacity-40">♬</div>
         <div className="absolute top-12 left-1/2 text-red-400 text-xl opacity-45">♫</div>
       </div>
 
@@ -39,7 +39,7 @@ export function TeamSection() {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">{t("team.subtitle")}</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
           {/* César Silva */}
           <Card className="bg-card border-border">
             <CardContent className="p-8">
@@ -133,6 +133,51 @@ export function TeamSection() {
 
                 <div className="bg-muted/50 rounded-lg p-4 mt-6">
                   <p className="text-sm text-muted-foreground italic">"{t("team.sebastian.quote")}"</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Ana Lucia Piedrahita Fernandez */}
+          <Card className="bg-card border-border">
+            <CardContent className="p-8">
+              <div className="text-center mb-6">
+                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20 bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                  <Music className="w-16 h-16 text-purple-600" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Ana Lucia Piedrahita Fernandez</h3>
+                <p className="text-purple-600 font-semibold">{t("team.analucia.title")}</p>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-purple-600 mb-2">{t("team.analucia.specialties.title")}</h4>
+                  <p className="text-sm text-muted-foreground">{t("team.analucia.specialties.description")}</p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-purple-600 mb-2 flex items-center">
+                    <GraduationCap className="w-4 h-4 mr-2" />
+                    {t("team.analucia.education.title")}
+                  </h4>
+                  <p className="text-sm text-muted-foreground">{t("team.analucia.education.description")}</p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-purple-600 mb-2 flex items-center">
+                    <Award className="w-4 h-4 mr-2" />
+                    {t("team.analucia.experience.title")}
+                  </h4>
+                  <p className="text-sm text-muted-foreground">{t("team.analucia.experience.description")}</p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-purple-600 mb-2">{t("team.analucia.approach.title")}</h4>
+                  <p className="text-sm text-muted-foreground">{t("team.analucia.approach.description")}</p>
+                </div>
+
+                <div className="bg-purple-50 rounded-lg p-4 mt-6">
+                  <p className="text-sm text-muted-foreground italic">"{t("team.analucia.quote")}"</p>
                 </div>
               </div>
             </CardContent>
