@@ -48,9 +48,11 @@ export function TeamSection() {
                   <Image
                     src="/images/cesar-silva.jpeg"
                     alt="César Silva - Fondateur et Instructeur Principal"
-                    width={128}
-                    height={128}
+                    width={256}
+                    height={256}
                     className="w-full h-full object-cover"
+                    quality={95}
+                    priority
                   />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">César Silva</h3>
@@ -95,9 +97,11 @@ export function TeamSection() {
                   <Image
                     src="/images/sebastian-rey.jpeg"
                     alt="Sebastián Rey - Instructeur"
-                    width={128}
-                    height={128}
+                    width={256}
+                    height={256}
                     className="w-full h-full object-cover"
+                    quality={95}
+                    priority
                   />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Sebastián Rey</h3>
@@ -146,9 +150,11 @@ export function TeamSection() {
                   <Image
                     src="/images/ana-lucia.png"
                     alt="Ana Lucia Piedrahita Fernandez - Professeure de Chant"
-                    width={128}
-                    height={128}
+                    width={256}
+                    height={256}
                     className="w-full h-full object-cover"
+                    quality={95}
+                    priority
                   />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Ana Lucia Piedrahita Fernandez</h3>
