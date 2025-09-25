@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { GraduationCap, Award, Music } from "lucide-react"
+import { GraduationCap, Award } from "lucide-react"
 import Image from "next/image"
 import { useLanguage } from "@/contexts/language-context"
 
@@ -142,21 +142,27 @@ export function TeamSection() {
           <Card className="bg-card border-border">
             <CardContent className="p-8">
               <div className="text-center mb-6">
-                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20 bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
-                  <Music className="w-16 h-16 text-purple-600" />
+                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20">
+                  <Image
+                    src="/images/ana-lucia.jpeg"
+                    alt="Ana Lucia Piedrahita Fernandez - Professeure de Chant"
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Ana Lucia Piedrahita Fernandez</h3>
-                <p className="text-purple-600 font-semibold">{t("team.analucia.title")}</p>
+                <p className="text-primary font-semibold">{t("team.analucia.title")}</p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-semibold text-purple-600 mb-2">{t("team.analucia.specialties.title")}</h4>
+                  <h4 className="font-semibold text-primary mb-2">{t("team.analucia.specialties.title")}</h4>
                   <p className="text-sm text-muted-foreground">{t("team.analucia.specialties.description")}</p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-purple-600 mb-2 flex items-center">
+                  <h4 className="font-semibold text-primary mb-2 flex items-center">
                     <GraduationCap className="w-4 h-4 mr-2" />
                     {t("team.analucia.education.title")}
                   </h4>
@@ -164,7 +170,7 @@ export function TeamSection() {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-purple-600 mb-2 flex items-center">
+                  <h4 className="font-semibold text-primary mb-2 flex items-center">
                     <Award className="w-4 h-4 mr-2" />
                     {t("team.analucia.experience.title")}
                   </h4>
@@ -172,11 +178,11 @@ export function TeamSection() {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-purple-600 mb-2">{t("team.analucia.approach.title")}</h4>
+                  <h4 className="font-semibold text-primary mb-2">{t("team.analucia.approach.title")}</h4>
                   <p className="text-sm text-muted-foreground">{t("team.analucia.approach.description")}</p>
                 </div>
 
-                <div className="bg-purple-50 rounded-lg p-4 mt-6">
+                <div className="bg-primary/10 rounded-lg p-4 mt-6">
                   <p className="text-sm text-muted-foreground italic">"{t("team.analucia.quote")}"</p>
                 </div>
               </div>
