@@ -1,9 +1,32 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { GraduationCap, Award } from "lucide-react"
 import Image from "next/image"
 import { useLanguage } from "@/contexts/language-context"
+
+const GraduationCapIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+    />
+  </svg>
+)
+
+const AwardIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <circle cx="12" cy="8" r="7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <polyline
+      points="8.21,13.89 7,23 12,20 17,23 15.79,13.88"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+  </svg>
+)
 
 export function TeamSection() {
   const { t } = useLanguage()
@@ -72,16 +95,16 @@ export function TeamSection() {
 
                 <div>
                   <h4 className="font-semibold text-accent mb-2 flex items-center">
-                    <GraduationCap className="w-4 h-4 mr-2" />
-                    {t("team.cesar.education.title")}
+                    <GraduationCapIcon />
+                    <span className="ml-2">{t("team.cesar.education.title")}</span>
                   </h4>
                   <p className="text-sm text-muted-foreground">{t("team.cesar.education.description")}</p>
                 </div>
 
                 <div>
                   <h4 className="font-semibold text-accent mb-2 flex items-center">
-                    <Award className="w-4 h-4 mr-2" />
-                    {t("team.cesar.experience.title")}
+                    <AwardIcon />
+                    <span className="ml-2">{t("team.cesar.experience.title")}</span>
                   </h4>
                   <p className="text-sm text-muted-foreground">{t("team.cesar.experience.description")}</p>
                 </div>
@@ -126,8 +149,8 @@ export function TeamSection() {
 
                 <div>
                   <h4 className="font-semibold text-primary mb-2 flex items-center">
-                    <Award className="w-4 h-4 mr-2" />
-                    {t("team.sebastian.groups.title")}
+                    <AwardIcon />
+                    <span className="ml-2">{t("team.sebastian.groups.title")}</span>
                   </h4>
                   <p className="text-sm text-muted-foreground">{t("team.sebastian.groups.description")}</p>
                 </div>
@@ -139,8 +162,8 @@ export function TeamSection() {
 
                 <div>
                   <h4 className="font-semibold text-primary mb-2 flex items-center">
-                    <Award className="w-4 h-4 mr-2" />
-                    {t("team.sebastian.experience.title")}
+                    <AwardIcon />
+                    <span className="ml-2">{t("team.sebastian.experience.title")}</span>
                   </h4>
                   <p className="text-sm text-muted-foreground">{t("team.sebastian.experience.description")}</p>
                 </div>
@@ -184,16 +207,16 @@ export function TeamSection() {
 
                 <div>
                   <h4 className="font-semibold text-primary mb-2 flex items-center">
-                    <GraduationCap className="w-4 h-4 mr-2" />
-                    {t("team.analucia.education.title")}
+                    <GraduationCapIcon />
+                    <span className="ml-2">{t("team.analucia.education.title")}</span>
                   </h4>
                   <p className="text-sm text-muted-foreground">{t("team.analucia.education.description")}</p>
                 </div>
 
                 <div>
                   <h4 className="font-semibold text-primary mb-2 flex items-center">
-                    <Award className="w-4 h-4 mr-2" />
-                    {t("team.analucia.experience.title")}
+                    <AwardIcon />
+                    <span className="ml-2">{t("team.analucia.experience.title")}</span>
                   </h4>
                   <p className="text-sm text-muted-foreground">{t("team.analucia.experience.description")}</p>
                 </div>
