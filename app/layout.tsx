@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import { LanguageProvider } from "../contexts/language-context"
 import "./globals.css"
@@ -29,7 +28,7 @@ export default function RootLayout({
         <LanguageProvider>
           <Suspense fallback={null}>{children}</Suspense>
         </LanguageProvider>
-        <Analytics />
+        {/* Analytics component removed */}
       </body>
     </html>
   )
