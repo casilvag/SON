@@ -178,7 +178,7 @@ const translations = {
       "Académie de musique à Québec offrant une approche flexible et créative pour apprendre la musique à votre rythme.",
     "footer.rights": "© 2024 Académie Son. Tous droits réservés.",
     "footer.navigation": "Navigation",
-    "footer.instruments": "Instruments",
+    "footer.instruments": "Instrumentos",
     "footer.guitar": "Guitare",
     "footer.bass": "Basse",
     "footer.piano": "Piano",
@@ -426,14 +426,14 @@ const translations = {
     "team.sebastian.groups.title": "Agrupaciones Reconnues",
     "team.sebastian.groups.description":
       "Membre de diverses agrupaciones latines reconnues au Québec, apportant une riche expérience culturelle",
-    "team.sebastian.instruments.title": "Instruments du Monde",
+    "team.sebastian.instruments.title": "Instrumentos del Mundo",
     "team.sebastian.instruments.description":
       "Maîtrise une vaste gamme d'instruments du monde entier, enrichissant l'expérience d'apprentissage",
     "team.sebastian.experience.title": "Expérience",
     "team.sebastian.experience.description":
       "Reconnu pour sa polyvalence et son soutien aux étudiants de tous niveaux dans leur parcours musical",
     "team.sebastian.quote":
-      "La musique est un voyage personnel unique pour cada étudiant. Mon rôle est de les guider avec patience et passion.",
+      "La musique est un voyage personnel unique pour cada étudiant. Mon rôle es de les guider avec patience et passion.",
 
     // Team Recognition
     "team.recognition.title": "Reconnaissance Professionnelle",
@@ -443,18 +443,18 @@ const translations = {
     // Ana Lucia Piedrahita Fernandez
     "team.analucia.title": "Professeure de Chant",
     "team.analucia.specialties.title": "Spécialités",
-    "team.analucia.specialties.description": "Chant – Technique vocale, expression artistique et confiance sur scène",
+    "team.analucia.specialties.description": "Technique vocale, expression artistique et confiance sur scène",
     "team.analucia.education.title": "Formation Académique",
     "team.analucia.education.description":
-      "Diplômée en Musique avec spécialisation en chant (voix) de la Faculté des Arts ASAB – Universidad Distrital Francisco José de Caldas, Bogotá, Colombie",
+      "Diplômée en Musique (spécialisation chant) - Universidad Distrital Francisco José de Caldas, Bogotá",
     "team.analucia.experience.title": "Expérience",
     "team.analucia.experience.description":
-      "9 ans d'enseignement auprès d'élèves de tous âges et niveaux. Large expérience en enseignement musical et en arts de la scène",
+      "9 ans d'enseignement musical et arts de la scène avec étudiants de tous âges et niveaux",
     "team.analucia.approach.title": "Approche",
     "team.analucia.approach.description":
-      "Allie technique vocale, expression artistique et assurance scénique. S'adapte aux besoins spécifiques de chaque élève pour offrir des cours dynamiques et personnalisés qui permettent de découvrir et développer tout le potentiel de la voix",
+      "Cours dynamiques et personnalisés adaptés aux besoins spécifiques de chaque élève pour développer tout le potentiel vocal",
     "team.analucia.quote":
-      "Chaque voix est unique et possède son propre potentiel. Mon objectif est d'aider chaque étudiant à découvrir et développer sa voix authentique avec confiance et expression artistique.",
+      "Chaque voix est unique. Mon objectif est d'aider chaque étudiant à découvrir sa voix authentique avec confiance.",
   },
   es: {
     // Navigation
@@ -847,17 +847,17 @@ const translations = {
     // Ana Lucia Piedrahita Fernandez
     "team.analucia.title": "Profesora de Canto",
     "team.analucia.specialties.title": "Especialidades",
-    "team.analucia.specialties.description": "Canto – Técnica vocal, expresión artística y confianza en el escenario",
+    "team.analucia.specialties.description": "Técnica vocal, expresión artística y confianza en el escenario",
     "team.analucia.education.title": "Formación Académica",
     "team.analucia.education.description":
-      "Graduada en Música con especialización en canto (voz) de la Facultad de Artes ASAB – Universidad Distrital Francisco José de Caldas, Bogotá, Colombia",
+      "Graduada en Música (especialización canto) - Universidad Distrital Francisco José de Caldas, Bogotá",
     "team.analucia.experience.title": "Experiencia",
     "team.analucia.experience.description":
-      "9 años de enseñanza con estudiantes de todas las edades y niveles. Amplia experiencia en enseñanza musical y artes escénicas",
+      "9 años de enseñanza musical y artes escénicas con estudiantes de todas las edades y niveles",
     "team.analucia.approach.title": "Enfoque",
     "team.analucia.approach.description":
-      "Combina técnica vocal, expresión artística y seguridad escénica. Se adapta a las necesidades específicas de cada estudiante para ofrecer clases dinámicas y personalizadas que permiten descubrir y desarrollar todo el potencial de la voz",
+      "Clases dinámicas y personalizadas adaptadas a las necesidades específicas de cada estudiante para desarrollar todo el potencial vocal",
     "team.analucia.quote":
-      "Cada voz es única y posee su propio potencial. Mi objetivo es ayudar a cada estudiante a descubrir y desarrollar su voz auténtica con confianza y expresión artística.",
+      "Cada voz es única. Mi objetivo es ayudar a cada estudiante a descubrir su voz auténtica con confianza.",
   },
 }
