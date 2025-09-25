@@ -44,15 +44,20 @@ export function TeamSection() {
           <Card className="bg-card border-border">
             <CardContent className="p-8">
               <div className="text-center mb-6">
-                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20">
+                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
                   <Image
                     src="/images/cesar-silva.jpeg"
                     alt="César Silva - Fondateur et Instructeur Principal"
-                    width={256}
-                    height={256}
-                    className="w-full h-full object-cover"
-                    quality={95}
+                    width={320}
+                    height={320}
+                    className="w-full h-full object-cover object-center scale-105 hover:scale-110 transition-transform duration-300"
+                    quality={100}
                     priority
+                    style={{
+                      imageRendering: "crisp-edges",
+                      WebkitImageSmoothing: "high",
+                      imageSmoothing: "high",
+                    }}
                   />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">César Silva</h3>
@@ -93,15 +98,20 @@ export function TeamSection() {
           <Card className="bg-card border-border">
             <CardContent className="p-8">
               <div className="text-center mb-6">
-                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20">
+                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
                   <Image
                     src="/images/sebastian-rey.jpeg"
                     alt="Sebastián Rey - Instructeur"
-                    width={256}
-                    height={256}
-                    className="w-full h-full object-cover"
-                    quality={95}
+                    width={320}
+                    height={320}
+                    className="w-full h-full object-cover object-center scale-105 hover:scale-110 transition-transform duration-300"
+                    quality={100}
                     priority
+                    style={{
+                      imageRendering: "crisp-edges",
+                      WebkitImageSmoothing: "high",
+                      imageSmoothing: "high",
+                    }}
                   />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Sebastián Rey</h3>
@@ -146,15 +156,20 @@ export function TeamSection() {
           <Card className="bg-card border-border">
             <CardContent className="p-8">
               <div className="text-center mb-6">
-                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20">
+                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
                   <Image
                     src="/images/ana-lucia.png"
                     alt="Ana Lucia Piedrahita Fernandez - Professeure de Chant"
-                    width={256}
-                    height={256}
-                    className="w-full h-full object-cover"
-                    quality={95}
+                    width={320}
+                    height={320}
+                    className="w-full h-full object-cover object-center scale-105 hover:scale-110 transition-transform duration-300"
+                    quality={100}
                     priority
+                    style={{
+                      imageRendering: "crisp-edges",
+                      WebkitImageSmoothing: "high",
+                      imageSmoothing: "high",
+                    }}
                   />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Ana Lucia Piedrahita Fernandez</h3>
