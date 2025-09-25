@@ -1,59 +1,131 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { Guitar, Piano, Drum, Mic, Music, Headphones, Users } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
+
+const GuitarIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2v20" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <path
+      d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+  </svg>
+)
+
+const PianoIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <rect x="3" y="8" width="18" height="12" rx="2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <path d="M7 8V4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="7" x2="7" y1="12" y2="16" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="12" x2="12" y1="12" y2="16" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="17" x2="17" y1="12" y2="16" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const DrumIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="12" cy="12" r="4" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="21.17" x2="12" y1="8" y2="8" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="3.95" x2="8.54" y1="6.06" y2="14" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="10.88" x2="15.46" y1="21.94" y2="14" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const MicIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+    <path d="M19 10v2a7 7 0 0 1-14 0v-2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="12" x2="12" y1="19" y2="22" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const MusicIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path d="M9 18V5l12-2v13" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="6" cy="18" r="3" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="18" cy="16" r="3" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const HeadphonesIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+  </svg>
+)
+
+const UsersIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="9" cy="7" r="4" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
 
 export function ServicesSection() {
   const { t } = useLanguage()
 
   const services = [
     {
-      icon: Music,
+      icon: MusicIcon,
       title: t("services.sensibilization.title"),
       description: t("services.sensibilization.description"),
       color: "text-yellow-400",
       isStar: true,
     },
     {
-      icon: Guitar,
+      icon: GuitarIcon,
       title: t("services.strings.title"),
       description: t("services.strings.description"),
       color: "text-primary",
     },
     {
-      icon: Piano,
+      icon: PianoIcon,
       title: t("services.piano.title"),
       description: t("services.piano.description"),
       color: "text-accent",
     },
     {
-      icon: Drum,
+      icon: DrumIcon,
       title: t("services.percussion.title"),
       description: t("services.percussion.description"),
       color: "text-primary",
     },
     {
-      icon: Headphones,
+      icon: HeadphonesIcon,
       title: t("services.dj.title"),
       description: t("services.dj.description"),
       color: "text-accent",
     },
     {
-      icon: Music,
+      icon: MusicIcon,
       title: t("services.production.title"),
       description: t("services.production.description"),
       color: "text-primary",
     },
     {
-      icon: Mic,
+      icon: MicIcon,
       title: t("services.recording.title"),
       description: t("services.recording.description"),
       color: "text-accent",
     },
     {
-      icon: Users,
+      icon: UsersIcon,
       title: t("services.ensemble.title"),
       description: t("services.ensemble.description"),
       color: "text-blue-400",

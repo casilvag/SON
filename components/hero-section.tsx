@@ -1,9 +1,22 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Play, Music } from "lucide-react"
 import { useState, useEffect } from "react"
 import { useLanguage } from "@/contexts/language-context"
+
+const PlayIcon = () => (
+  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polygon points="5,3 19,12 5,21" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const MusicIcon = () => (
+  <svg className="w-16 h-16 text-white mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path d="M9 18V5l12-2v13" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="6" cy="18" r="3" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="18" cy="16" r="3" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
 
 export function HeroSection() {
   const { t } = useLanguage()
@@ -51,7 +64,7 @@ export function HeroSection() {
         <div className="max-w-4xl mx-auto">
           <div className="bg-gray-900/60 backdrop-blur-sm rounded-2xl p-8 md:p-12">
             <div className="mb-8">
-              <Music className="w-16 h-16 text-white mx-auto mb-6" />
+              <MusicIcon />
             </div>
 
             <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance text-white">
@@ -66,7 +79,7 @@ export function HeroSection() {
                 size="lg"
                 className="text-lg px-8 py-6 bg-white/10 border-white/20 text-white hover:bg-white/20"
               >
-                <Play className="w-5 h-5 mr-2" />
+                <PlayIcon />
                 {t("hero.demoButton")}
               </Button>
             </div>

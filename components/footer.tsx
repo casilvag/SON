@@ -1,7 +1,14 @@
 "use client"
 
-import { Music } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+
+const MusicIcon = () => (
+  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path d="M9 18V5l12-2v13" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="6" cy="18" r="3" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="18" cy="16" r="3" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
 
 export function Footer() {
   const { t } = useLanguage()
@@ -12,7 +19,7 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <Music className="w-8 h-8 text-primary" />
+              <MusicIcon />
               <span className="text-2xl font-bold text-primary">SON</span>
             </div>
             <p className="text-muted-foreground mb-4 max-w-md">{t("footer.description")}</p>

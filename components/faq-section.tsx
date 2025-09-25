@@ -3,7 +3,36 @@
 import type React from "react"
 
 import { useState } from "react"
-import { ChevronDown, ChevronUp, MessageCircle, Send } from "lucide-react"
+
+const ChevronDownIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="6,9 12,15 18,9" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const ChevronUpIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="18,15 12,9 6,15" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const MessageCircleIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+  </svg>
+)
+
+const SendIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <line x1="22" x2="11" y1="2" y2="13" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <polygon points="22,2 15,22 11,13 2,9" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
 
 const faqs = [
   {
@@ -143,7 +172,7 @@ export function FAQSection() {
           <div>
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-2xl font-bold text-white flex items-center">
-                <MessageCircle className="w-8 h-8 text-yellow-400 mr-3" />
+                <MessageCircleIcon className="w-8 h-8 text-yellow-400 mr-3" />
                 FAQ
               </h3>
               <button
@@ -151,7 +180,7 @@ export function FAQSection() {
                 className="flex items-center space-x-2 bg-yellow-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-300 transition-colors duration-300"
               >
                 <span>{showFAQs ? "Masquer les FAQ" : "Voir les FAQ"}</span>
-                {showFAQs ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                {showFAQs ? <ChevronUpIcon className="w-4 h-4" /> : <ChevronDownIcon className="w-4 h-4" />}
               </button>
             </div>
 
@@ -167,9 +196,9 @@ export function FAQSection() {
                     >
                       <span className="text-white font-medium pr-4">{faq.question}</span>
                       {openFAQ === index ? (
-                        <ChevronUp className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                        <ChevronUpIcon className="w-5 h-5 text-yellow-400 flex-shrink-0" />
                       ) : (
-                        <ChevronDown className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                        <ChevronDownIcon className="w-5 h-5 text-yellow-400 flex-shrink-0" />
                       )}
                     </button>
                     {openFAQ === index && (
@@ -187,7 +216,7 @@ export function FAQSection() {
           <div>
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-2xl font-bold text-white flex items-center">
-                <Send className="w-8 h-8 text-blue-400 mr-3" />
+                <SendIcon className="w-8 h-8 text-blue-400 mr-3" />
                 Demande de Consultation
               </h3>
               <button
@@ -195,7 +224,7 @@ export function FAQSection() {
                 className="flex items-center space-x-2 bg-blue-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-blue-300 transition-colors duration-300"
               >
                 <span>{showConsultation ? "Masquer le formulaire" : "Voir le formulaire"}</span>
-                {showConsultation ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                {showConsultation ? <ChevronUpIcon className="w-4 h-4" /> : <ChevronDownIcon className="w-4 h-4" />}
               </button>
             </div>
 

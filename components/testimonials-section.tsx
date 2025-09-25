@@ -1,8 +1,30 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, Star } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+
+const ChevronLeftIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="15,18 9,12 15,6" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const ChevronRightIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="9,18 15,12 9,6" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const StarIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+    <polygon
+      points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+  </svg>
+)
 
 const testimonials = [
   {
@@ -168,7 +190,7 @@ export function TestimonialsSection() {
             )
             .replace(
               "Les cours sont adaptés à tous les âges et niveaux",
-              "Las clases están adaptadas a todas las edades y niveaux",
+              "Las clases están adaptadas a todas las edades y niveles",
             )
             .replace(
               "J'ai appris à créer mes propres beats et à produire ma musique",
@@ -249,7 +271,7 @@ export function TestimonialsSection() {
 
                 <div className="flex mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    <StarIcon key={i} className="w-5 h-5 text-yellow-400" />
                   ))}
                 </div>
 
@@ -265,7 +287,7 @@ export function TestimonialsSection() {
               className="p-3 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition-colors duration-300"
               aria-label={t("testimonials.previous")}
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeftIcon className="w-6 h-6" />
             </button>
 
             <div className="flex gap-2">
@@ -290,7 +312,7 @@ export function TestimonialsSection() {
               className="p-3 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition-colors duration-300"
               aria-label={t("testimonials.next")}
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRightIcon className="w-6 h-6" />
             </button>
           </div>
         </div>

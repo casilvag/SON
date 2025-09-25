@@ -1,7 +1,75 @@
 "use client"
 
-import { Download, FileText, Shield, CreditCard, Calendar, Users } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+
+const DownloadIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <polyline points="7,10 12,15 17,10" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="12" x2="12" y1="15" y2="3" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const FileTextIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2Z"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+    <polyline points="14,2 14,8 20,8" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="16" x2="8" y1="13" y2="13" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="16" x2="8" y1="17" y2="17" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <polyline points="10,9 9,9 8,9" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const ShieldIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      d="M12,22s8-4 8-10V5l-8-3L4,5v7c0,6 8,10 8,10z"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+  </svg>
+)
+
+const CreditCardIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <rect width="20" height="14" x="2" y="5" rx="2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="2" x2="22" y1="10" y2="10" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const CalendarIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <rect
+      width="18"
+      height="18"
+      x="3"
+      y="4"
+      rx="2"
+      ry="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+    />
+    <line x1="16" x2="16" y1="2" y2="6" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="8" x2="8" y1="2" y2="6" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <line x1="3" x2="21" y1="10" y2="10" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const UsersIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="9" cy="7" r="4" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
 
 export function PoliciesSection() {
   const { t } = useLanguage()
@@ -10,28 +78,28 @@ export function PoliciesSection() {
     {
       title: t("policies.generalPolicies"),
       description: t("policies.generalPoliciesDesc"),
-      icon: Shield,
+      icon: ShieldIcon,
       filename: "politiques-generales.pdf",
       size: "245 KB",
     },
     {
       title: t("policies.paymentPolicies"),
       description: t("policies.paymentPoliciesDesc"),
-      icon: CreditCard,
+      icon: CreditCardIcon,
       filename: "politiques-paiement.pdf",
       size: "189 KB",
     },
     {
       title: t("policies.cancellationPolicies"),
       description: t("policies.cancellationPoliciesDesc"),
-      icon: Calendar,
+      icon: CalendarIcon,
       filename: "politiques-annulation.pdf",
       size: "156 KB",
     },
     {
       title: t("policies.ensemblePolicies"),
       description: t("policies.ensemblePoliciesDesc"),
-      icon: Users,
+      icon: UsersIcon,
       filename: "politiques-ensamble.pdf",
       size: "203 KB",
     },
@@ -79,7 +147,7 @@ export function PoliciesSection() {
 
                 <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
                   <span className="flex items-center">
-                    <FileText className="w-4 h-4 mr-1" />
+                    <FileTextIcon className="w-4 h-4 mr-1" />
                     PDF
                   </span>
                   <span>{policy.size}</span>
@@ -89,7 +157,7 @@ export function PoliciesSection() {
                   onClick={() => handleDownload(policy.filename)}
                   className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium py-3 px-4 rounded-lg hover:from-blue-400 hover:to-blue-500 transition-all duration-300 flex items-center justify-center group-hover:scale-105"
                 >
-                  <Download className="w-5 h-5 mr-2" />
+                  <DownloadIcon className="w-5 h-5 mr-2" />
                   Télécharger
                 </button>
               </div>
