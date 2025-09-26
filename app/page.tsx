@@ -8,7 +8,6 @@ import { GallerySection } from "@/components/gallery-section"
 import { PricingSection } from "@/components/pricing-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { FAQSection } from "@/components/faq-section"
-import { PoliciesSection } from "@/components/policies-section"
 import { RegistrationSection } from "@/components/registration-section"
 import { ContactInfoSection } from "@/components/contact-info-section"
 import { Footer } from "@/components/footer"
@@ -26,7 +25,6 @@ export default function HomePage() {
       <PricingSection />
       <TestimonialsSection />
       <FAQSection />
-      <PoliciesSection />
       <RegistrationSection />
       <ContactInfoSection />
       <Footer />
