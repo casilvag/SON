@@ -76,10 +76,19 @@ export function Header() {
             </div>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <XIcon /> : <MenuIcon />}
-          </Button>
+          <div className="flex items-center gap-3 md:hidden">
+            <LanguageToggle />
+            <Button
+              asChild
+              size="sm"
+              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-sm"
+            >
+              <a href="/#inscription">{t("nav.inscription")}</a>
+            </Button>
+            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <XIcon /> : <MenuIcon />}
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -96,16 +105,6 @@ export function Header() {
                   {item.label}
                 </a>
               ))}
-              <div className="flex flex-col gap-3 pt-2">
-                <LanguageToggle />
-                <Button
-                  asChild
-                  className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold rounded-full shadow-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <a href="/#inscription">{t("nav.inscription")}</a>
-                </Button>
-              </div>
             </div>
           </nav>
         )}
