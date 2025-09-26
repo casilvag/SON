@@ -59,7 +59,7 @@ export function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
               <a key={item.href} href={item.href} className="text-foreground hover:text-primary transition-colors">
                 {item.label}
@@ -76,7 +76,7 @@ export function Header() {
             </div>
           </nav>
 
-          <div className="flex items-center gap-3 md:hidden">
+          <div className="flex items-center gap-3 lg:hidden">
             <LanguageToggle />
             <Button
               asChild
@@ -93,7 +93,7 @@ export function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-border pt-4">
+          <nav className="lg:hidden mt-4 pb-4 border-t border-border pt-4">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <a
