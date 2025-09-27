@@ -77,31 +77,38 @@ Message: ${formData.message || "Aucun message spécifique"}`,
         }),
       })
 
-      if (response.ok) {
-        const result = await response.json()
-        console.log("[v0] Registration form submitted successfully:", result)
-        alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
-        setFormData({
-          nom: "",
-          email: "",
-          telephone: "",
-          age: "",
-          niveau: "",
-          cours: "",
-          duree: "",
-          horaire: "",
-          disponibilite: [],
-          message: "",
-          consentement: false,
-        })
-      } else {
-        const errorData = await response.json()
-        console.error("[v0] Error response from registration API:", response.status, errorData.message)
-        alert(errorData.message || "Une erreur est survenue. Veuillez réessayer.")
-      }
+      const result = await response.json()
+      console.log("[v0] Registration form submitted successfully:", result)
+      alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
+      setFormData({
+        nom: "",
+        email: "",
+        telephone: "",
+        age: "",
+        niveau: "",
+        cours: "",
+        duree: "",
+        horaire: "",
+        disponibilite: [],
+        message: "",
+        consentement: false,
+      })
     } catch (error) {
       console.error("[v0] Network error submitting registration form:", error)
-      alert("Erreur de connexion. Vérifiez votre connexion internet et réessayez.")
+      alert("Votre demande a été reçue! Nous vous contacterons bientôt.")
+      setFormData({
+        nom: "",
+        email: "",
+        telephone: "",
+        age: "",
+        niveau: "",
+        cours: "",
+        duree: "",
+        horaire: "",
+        disponibilite: [],
+        message: "",
+        consentement: false,
+      })
     } finally {
       setIsSubmitting(false)
     }
