@@ -10,10 +10,15 @@ export async function POST(request: NextRequest) {
 
     const { nom, email, telephone, message, consent } = body
 
-    if (!nom || !email || !message) {
-      console.log("[v0] Missing required fields:", { nom: !!nom, email: !!email, message: !!message })
+    if (!nom || !email || !telephone || !message) {
+      console.log("[v0] Missing required fields:", {
+        nom: !!nom,
+        email: !!email,
+        telephone: !!telephone,
+        message: !!message,
+      })
       return NextResponse.json(
-        { success: false, message: "Les champs nom, email et message sont requis." },
+        { success: false, message: "Les champs nom, email, téléphone et message sont requis." },
         { status: 400 },
       )
     }
@@ -65,7 +70,7 @@ export async function POST(request: NextRequest) {
         <h2>Nouveau message de contact</h2>
         <p><strong>Nom:</strong> ${nom}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Téléphone:</strong> ${telephone || "Non fourni"}</p>
+        <p><strong>Téléphone:</strong> ${telephone}</p>
         <p><strong>Message:</strong></p>
         <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0;">
           ${message.replace(/\n/g, "<br>")}

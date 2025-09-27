@@ -39,6 +39,11 @@ export function RegistrationSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    if (!formData.nom || !formData.email || !formData.telephone) {
+      alert("Les champs nom, email et téléphone sont requis.")
+      return
+    }
+
     if (!formData.consentement) {
       alert("Vous devez accepter le traitement de vos données personnelles pour continuer.")
       return
@@ -47,7 +52,7 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Submitting registration form:", formData)
+      console.log("[v0] Submitting registration form:", formData.nom)
 
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -91,7 +96,7 @@ Message: ${formData.message}`,
         })
       } else {
         const errorData = await response.json()
-        console.error("[v0] Error response from registration API:", response.status, errorData)
+        console.error("[v0] Error response from registration API:", response.status, errorData.message)
         alert(errorData.message || "Une erreur est survenue. Veuillez réessayer.")
       }
     } catch (error) {
