@@ -71,12 +71,11 @@ export function RegistrationSection() {
         message: formData.message || "Aucun message spécifique",
       }
 
-      // Replace these with your actual EmailJS credentials
       const result = await emailjs.send(
-        "service_academy_son", // Your EmailJS Service ID
-        "template_contact", // Your EmailJS Template ID
+        "service_tzq6Oem", // Your actual EmailJS Service ID
+        "template_yyurn48", // Your actual EmailJS Template ID
         emailData,
-        "your_emailjs_public_key", // Your EmailJS Public Key
+        "ZA8Tp_KoAQ9vsWEW6", // Your actual EmailJS Public Key
       )
 
       console.log("[v0] SUCCESS - Email sent:", result)
