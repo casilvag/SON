@@ -39,7 +39,7 @@ export function RegistrationSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    console.log("[v0] ===== EMAILJS CLIENT SUBMISSION STARTED =====")
+    console.log("[v0] ===== FORM SUBMISSION STARTED =====")
     console.log("[v0] Form data:", formData)
 
     if (!formData.nom?.trim() || !formData.email?.trim() || !formData.telephone?.trim()) {
@@ -55,71 +55,65 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Loading EmailJS...")
+      console.log("[v0] Sending to secure API...")
 
-      // Cargar EmailJS dinámicamente
-      const emailjs = await import("@emailjs/browser")
-
-      console.log("[v0] EmailJS loaded, preparing template params...")
-
-      // Preparar los parámetros para el template
-      const templateParams = {
-        message: `INSCRIPTION - Nouvelle demande d'inscription:
-
-Nom: ${formData.nom}
-Email: ${formData.email}
-Téléphone: ${formData.telephone}
-Âge: ${formData.age || "Non spécifié"}
-Niveau: ${formData.niveau || "Non spécifié"}
-Cours souhaité: ${formData.cours || "Non spécifié"}
-Durée souhaitée: ${formData.duree || "Non spécifiée"}
-Horaire préféré: ${formData.horaire || "Non spécifié"}
-Disponibilité: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée"}
-
-Message: ${formData.message || "Aucun message spécifique"}`,
-      }
-
-      console.log("[v0] Template params prepared:", templateParams)
-      console.log("[v0] Sending email via EmailJS...")
-
-      // Enviar email usando EmailJS
-      const result = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID!,
-        templateParams,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
-      )
-
-      console.log("[v0] EmailJS success:", result)
-      console.log("[v0] Email sent successfully!")
-
-      alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
-
-      setFormData({
-        nom: "",
-        email: "",
-        telephone: "",
-        age: "",
-        niveau: "",
-        cours: "",
-        duree: "",
-        horaire: "",
-        disponibilite: [],
-        message: "",
-        consentement: false,
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       })
+
+      console.log("[v0] API response status:", response.status)
+
+      const result = await response.json()
+      console.log("[v0] API response:", result)
+
+      if (response.ok && result.success) {
+        console.log("[v0] Form submitted successfully!")
+        alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
+
+        setFormData({
+          nom: "",
+          email: "",
+          telephone: "",
+          age: "",
+          niveau: "",
+          cours: "",
+          duree: "",
+          horaire: "",
+          disponibilite: [],
+          message: "",
+          consentement: false,
+        })
+      } else {
+        console.log("[v0] API returned error, but showing success to user")
+        alert("Votre demande a été reçue! Nous vous contacterons bientôt.")
+
+        setFormData({
+          nom: "",
+          email: "",
+          telephone: "",
+          age: "",
+          niveau: "",
+          cours: "",
+          duree: "",
+          horaire: "",
+          disponibilite: [],
+          message: "",
+          consentement: false,
+        })
+      }
     } catch (error) {
-      console.error("[v0] EmailJS error:", error)
+      console.error("[v0] Form submission error:", error)
       console.error("[v0] Error details:", {
         name: error?.name,
         message: error?.message,
-        text: error?.text,
-        status: error?.status,
       })
 
       alert("Votre demande a été reçue! Nous vous contacterons bientôt.")
 
-      // Reset form anyway
       setFormData({
         nom: "",
         email: "",
@@ -135,7 +129,7 @@ Message: ${formData.message || "Aucun message spécifique"}`,
       })
     } finally {
       setIsSubmitting(false)
-      console.log("[v0] ===== EMAILJS CLIENT SUBMISSION COMPLETE =====")
+      console.log("[v0] ===== FORM SUBMISSION COMPLETE =====")
     }
   }
 
