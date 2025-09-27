@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { UserPlus, Send } from "lucide-react"
-import emailjs from "@emailjs/browser"
+import { sendRegistrationEmail } from "@/lib/actions"
 
 export function RegistrationSection() {
   const [formData, setFormData] = useState({
@@ -40,7 +40,7 @@ export function RegistrationSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    console.log("[v0] ===== EMAILJS FORM SUBMISSION STARTED =====")
+    console.log("[v0] ===== FORM SUBMISSION STARTED =====")
     console.log("[v0] Form data:", formData)
 
     if (!formData.nom?.trim() || !formData.email?.trim() || !formData.telephone?.trim()) {
@@ -56,68 +56,48 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
-      const emailjsConfig = {
-        serviceId: "service_academy_son", // Replace with your actual service ID
-        templateId: "template_contact", // Replace with your actual template ID
-        publicKey: "your_emailjs_public_key", // Replace with your actual public key
-      }
+      console.log("[v0] Sending email via server action...")
 
-      console.log("[v0] Using direct EmailJS configuration")
-
-      const emailData = {
+      const result = await sendRegistrationEmail({
         nom: formData.nom,
         email: formData.email,
         telephone: formData.telephone,
-        age: formData.age || "Non spécifié",
-        niveau: formData.niveau || "Non spécifié",
-        cours: formData.cours || "Non spécifié",
-        duree: formData.duree || "Non spécifiée",
-        horaire: formData.horaire || "Non spécifié",
-        disponibilite: formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée",
-        message: formData.message || "Aucun message spécifique",
+        age: formData.age,
+        niveau: formData.niveau,
+        cours: formData.cours,
+        duree: formData.duree,
+        horaire: formData.horaire,
+        disponibilite: formData.disponibilite,
+        message: formData.message,
+      })
+
+      if (result.success) {
+        console.log("[v0] SUCCESS - Email sent:", result.result)
+        alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
+
+        setFormData({
+          nom: "",
+          email: "",
+          telephone: "",
+          age: "",
+          niveau: "",
+          cours: "",
+          duree: "",
+          horaire: "",
+          disponibilite: [],
+          message: "",
+          consentement: false,
+        })
+      } else {
+        console.error("[v0] ERROR:", result.error)
+        alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer ou nous contacter directement.")
       }
-
-      console.log("[v0] Sending email via EmailJS...")
-      console.log("[v0] EmailJS data:", emailData)
-
-      const result = await emailjs.send(
-        emailjsConfig.serviceId,
-        emailjsConfig.templateId,
-        emailData,
-        emailjsConfig.publicKey,
-      )
-
-      console.log("[v0] EmailJS SUCCESS - Response:", result)
-      console.log("[v0] Email sent successfully via EmailJS!")
-
-      alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
-
-      setFormData({
-        nom: "",
-        email: "",
-        telephone: "",
-        age: "",
-        niveau: "",
-        cours: "",
-        duree: "",
-        horaire: "",
-        disponibilite: [],
-        message: "",
-        consentement: false,
-      })
     } catch (error) {
-      console.error("[v0] EmailJS ERROR:", error)
-      console.error("[v0] Error details:", {
-        name: error?.name,
-        message: error?.message,
-        status: error?.status,
-        text: error?.text,
-      })
-
+      console.error("[v0] Submission error:", error)
       alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer ou nous contacter directement.")
     } finally {
       setIsSubmitting(false)
-      console.log("[v0] ===== EMAILJS FORM SUBMISSION COMPLETE =====")
+      console.log("[v0] ===== FORM SUBMISSION COMPLETE =====")
     }
   }
 
