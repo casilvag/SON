@@ -39,7 +39,7 @@ export function RegistrationSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    console.log("[v0] ===== FORM SUBMISSION STARTED =====")
+    console.log("[v0] ===== SECURE FORM SUBMISSION STARTED =====")
     console.log("[v0] Form data:", formData)
 
     if (!formData.nom?.trim() || !formData.email?.trim() || !formData.telephone?.trim()) {
@@ -55,7 +55,7 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Sending to secure API...")
+      console.log("[v0] Sending to secure Gmail API...")
 
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -71,7 +71,7 @@ export function RegistrationSection() {
       console.log("[v0] API response:", result)
 
       if (response.ok && result.success) {
-        console.log("[v0] Form submitted successfully!")
+        console.log("[v0] Form submitted successfully via Gmail!")
         alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
 
         setFormData({
@@ -129,7 +129,7 @@ export function RegistrationSection() {
       })
     } finally {
       setIsSubmitting(false)
-      console.log("[v0] ===== FORM SUBMISSION COMPLETE =====")
+      console.log("[v0] ===== SECURE FORM SUBMISSION COMPLETE =====")
     }
   }
 
