@@ -135,6 +135,7 @@ export function FAQSection() {
           nom: formData.nom,
           email: formData.email,
           telephone: formData.telephone,
+          consent: formData.consentement,
           question: `CONSULTATION - Cours d'intérêt: ${formData.cours}\n\nMessage: ${formData.question}`,
         }),
       })
@@ -147,7 +148,7 @@ export function FAQSection() {
       } else {
         const errorData = await response.json()
         console.error("[v0] Error response from consultation API:", response.status, errorData)
-        alert(`Une erreur est survenue: ${errorData.message || "Erreur inconnue"}. Veuillez réessayer.`)
+        alert(errorData.message || "Une erreur est survenue. Veuillez réessayer.")
       }
     } catch (error) {
       console.error("[v0] Network error submitting consultation form:", error)

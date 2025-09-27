@@ -58,6 +58,7 @@ export function RegistrationSection() {
           nom: formData.nom,
           email: formData.email,
           telephone: formData.telephone,
+          consent: formData.consentement,
           message: `INSCRIPTION - Nouvelle demande d'inscription:
           
 Âge: ${formData.age}
@@ -91,7 +92,7 @@ Message: ${formData.message}`,
       } else {
         const errorData = await response.json()
         console.error("[v0] Error response from registration API:", response.status, errorData)
-        alert(`Une erreur est survenue: ${errorData.message || "Erreur inconnue"}. Veuillez réessayer.`)
+        alert(errorData.message || "Une erreur est survenue. Veuillez réessayer.")
       }
     } catch (error) {
       console.error("[v0] Network error submitting registration form:", error)
