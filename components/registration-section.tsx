@@ -39,33 +39,51 @@ export function RegistrationSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!formData.nom || !formData.email || !formData.telephone) {
-      alert("Les champs nom, email et téléphone sont requis.")
-      return
+    console.log("[v0] ===== FORM SUBMISSION STARTED =====")
+    console.log("[v0] Form data state:", {
+      nom: formData.nom ? `"${formData.nom}" (${formData.nom.length} chars)` : "EMPTY",
+      email: formData.email ? `"${formData.email}" (${formData.email.length} chars)` : "EMPTY",
+      telephone: formData.telephone ? `"${formData.telephone}" (${formData.telephone.length} chars)` : "EMPTY",
+      consentement: formData.consentement,
+      messageLength: formData.message.length,
+    })
+
+    const clientValidationErrors = []
+    if (!formData.nom?.trim()) clientValidationErrors.push("nom is empty or whitespace")
+    if (!formData.email?.trim()) clientValidationErrors.push("email is empty or whitespace")
+    if (!formData.telephone?.trim()) clientValidationErrors.push("telephone is empty or whitespace")
+    if (!formData.consentement) clientValidationErrors.push("consentement is false")
+
+    if (clientValidationErrors.length > 0) {
+      console.log("[v0] CLIENT VALIDATION FAILED:")
+      clientValidationErrors.forEach((error, index) => {
+        console.log(`[v0] Client Error ${index + 1}: ${error}`)
+      })
+
+      if (!formData.nom || !formData.email || !formData.telephone) {
+        console.log("[v0] Showing required fields alert")
+        alert("Les champs nom, email et téléphone sont requis.")
+        return
+      }
     }
 
     if (!formData.consentement) {
+      console.log("[v0] Consent not provided, showing consent alert")
       alert("Vous devez accepter le traitement de vos données personnelles pour continuer.")
       return
     }
 
+    console.log("[v0] Client validation passed, proceeding with submission")
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Submitting registration form:", formData.nom)
-
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nom: formData.nom,
-          email: formData.email,
-          telephone: formData.telephone,
-          consent: formData.consentement,
-          message: `INSCRIPTION - Nouvelle demande d'inscription:
-          
+      const payload = {
+        nom: formData.nom,
+        email: formData.email,
+        telephone: formData.telephone,
+        consent: formData.consentement,
+        message: `INSCRIPTION - Nouvelle demande d'inscription:
+        
 Âge: ${formData.age || "Non spécifié"}
 Niveau: ${formData.niveau || "Non spécifié"}
 Cours souhaité: ${formData.cours || "Non spécifié"}
@@ -74,12 +92,65 @@ Horaire préféré: ${formData.horaire || "Non spécifié"}
 Disponibilité: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée"}
 
 Message: ${formData.message || "Aucun message spécifique"}`,
-        }),
+      }
+
+      console.log("[v0] Payload prepared:", {
+        nom: payload.nom ? `"${payload.nom}"` : "MISSING",
+        email: payload.email ? `"${payload.email}"` : "MISSING",
+        telephone: payload.telephone ? `"${payload.telephone}"` : "MISSING",
+        consent: payload.consent,
+        messageLength: payload.message.length,
       })
 
-      const result = await response.json()
-      console.log("[v0] Registration form submitted successfully:", result)
+      console.log("[v0] Making fetch request to /api/contact")
+      console.log("[v0] Request details:", {
+        method: "POST",
+        url: "/api/contact",
+        headers: { "Content-Type": "application/json" },
+        bodySize: JSON.stringify(payload).length,
+      })
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+
+      console.log("[v0] Response received:")
+      console.log("[v0] Response status:", response.status)
+      console.log("[v0] Response statusText:", response.statusText)
+      console.log("[v0] Response headers:", Object.fromEntries(response.headers.entries()))
+      console.log("[v0] Response ok:", response.ok)
+
+      let result
+      try {
+        result = await response.json()
+        console.log("[v0] Response JSON parsed successfully:", result)
+      } catch (jsonError) {
+        console.error("[v0] JSON PARSING ERROR:")
+        console.error("[v0] JSON Error:", jsonError)
+        console.error("[v0] Response text might not be valid JSON")
+
+        // Intentar obtener el texto de la respuesta
+        try {
+          const responseText = await response.text()
+          console.error("[v0] Raw response text:", responseText)
+        } catch (textError) {
+          console.error("[v0] Could not get response text:", textError)
+        }
+
+        throw new Error(`JSON parsing failed: ${jsonError.message}`)
+      }
+
+      console.log("[v0] Registration form submitted successfully")
+      console.log("[v0] Success result:", result)
+      console.log("[v0] Showing success alert to user")
+
       alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
+
+      console.log("[v0] Resetting form data")
       setFormData({
         nom: "",
         email: "",
@@ -93,9 +164,30 @@ Message: ${formData.message || "Aucun message spécifique"}`,
         message: "",
         consentement: false,
       })
+      console.log("[v0] Form reset completed")
     } catch (error) {
-      console.error("[v0] Network error submitting registration form:", error)
+      console.error("[v0] ===== FORM SUBMISSION ERROR =====")
+      console.error("[v0] Error type:", error?.constructor?.name || "Unknown")
+      console.error("[v0] Error message:", error?.message || "No message")
+      console.error("[v0] Error stack:", error?.stack || "No stack trace")
+      console.error("[v0] Full error object:", error)
+
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        console.error("[v0] NETWORK ERROR - fetch failed, likely network connectivity issue")
+      } else if (error instanceof SyntaxError) {
+        console.error("[v0] SYNTAX ERROR - likely JSON parsing issue")
+      } else if (error?.name === "AbortError") {
+        console.error("[v0] ABORT ERROR - request was aborted")
+      } else if (error?.message?.includes("JSON")) {
+        console.error("[v0] JSON ERROR - response was not valid JSON")
+      } else {
+        console.error("[v0] UNKNOWN ERROR TYPE")
+      }
+
+      console.error("[v0] Showing fallback success message to user")
       alert("Votre demande a été reçue! Nous vous contacterons bientôt.")
+
+      console.log("[v0] Resetting form data after error")
       setFormData({
         nom: "",
         email: "",
@@ -109,8 +201,11 @@ Message: ${formData.message || "Aucun message spécifique"}`,
         message: "",
         consentement: false,
       })
+      console.error("[v0] ===== FORM SUBMISSION ERROR HANDLING COMPLETE =====")
     } finally {
+      console.log("[v0] Setting isSubmitting to false")
       setIsSubmitting(false)
+      console.log("[v0] ===== FORM SUBMISSION PROCESS COMPLETE =====")
     }
   }
 
