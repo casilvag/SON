@@ -66,14 +66,14 @@ export function RegistrationSection() {
           consent: formData.consentement,
           message: `INSCRIPTION - Nouvelle demande d'inscription:
           
-Âge: ${formData.age}
-Niveau: ${formData.niveau}
-Cours souhaité: ${formData.cours}
-Durée souhaitée: ${formData.duree}
-Horaire préféré: ${formData.horaire}
+Âge: ${formData.age || "Non spécifié"}
+Niveau: ${formData.niveau || "Non spécifié"}
+Cours souhaité: ${formData.cours || "Non spécifié"}
+Durée souhaitée: ${formData.duree || "Non spécifiée"}
+Horaire préféré: ${formData.horaire || "Non spécifié"}
 Disponibilité: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée"}
 
-Message: ${formData.message}`,
+Message: ${formData.message || "Aucun message spécifique"}`,
         }),
       })
 
