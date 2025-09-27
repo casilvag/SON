@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@emailjs/browser':
-        specifier: 4.4.1
+        specifier: latest
         version: 4.4.1
       '@hookform/resolvers':
         specifier: ^3.10.0
@@ -132,7 +132,7 @@ importers:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
       nodemailer:
-        specifier: latest
+        specifier: 7.0.6
         version: 7.0.6
       react:
         specifier: ^18

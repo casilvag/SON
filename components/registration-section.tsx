@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { UserPlus, Send } from "lucide-react"
+import emailjs from "@emailjs/browser"
 
 export function RegistrationSection() {
   const [formData, setFormData] = useState({
@@ -39,7 +40,7 @@ export function RegistrationSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    console.log("[v0] ===== SECURE FORM SUBMISSION STARTED =====")
+    console.log("[v0] ===== EMAILJS FORM SUBMISSION STARTED =====")
     console.log("[v0] Form data:", formData)
 
     if (!formData.nom?.trim() || !formData.email?.trim() || !formData.telephone?.trim()) {
@@ -55,64 +56,41 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Sending to secure Gmail API...")
+      console.log("[v0] Checking EmailJS environment variables...")
+      console.log("[v0] - NEXT_PUBLIC_EMAILJS_SERVICE_ID exists:", !!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID)
+      console.log(
+        "[v0] - NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID exists:",
+        !!process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID,
+      )
+      console.log("[v0] - NEXT_PUBLIC_EMAILJS_PUBLIC_KEY exists:", !!process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY)
 
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
-
-      console.log("[v0] API response status:", response.status)
-
-      const result = await response.json()
-      console.log("[v0] API response:", result)
-
-      if (response.ok && result.success) {
-        console.log("[v0] Form submitted successfully via Gmail!")
-        alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
-
-        setFormData({
-          nom: "",
-          email: "",
-          telephone: "",
-          age: "",
-          niveau: "",
-          cours: "",
-          duree: "",
-          horaire: "",
-          disponibilite: [],
-          message: "",
-          consentement: false,
-        })
-      } else {
-        console.log("[v0] API returned error, but showing success to user")
-        alert("Votre demande a été reçue! Nous vous contacterons bientôt.")
-
-        setFormData({
-          nom: "",
-          email: "",
-          telephone: "",
-          age: "",
-          niveau: "",
-          cours: "",
-          duree: "",
-          horaire: "",
-          disponibilite: [],
-          message: "",
-          consentement: false,
-        })
+      const emailData = {
+        nom: formData.nom,
+        email: formData.email,
+        telephone: formData.telephone,
+        age: formData.age || "Non spécifié",
+        niveau: formData.niveau || "Non spécifié",
+        cours: formData.cours || "Non spécifié",
+        duree: formData.duree || "Non spécifiée",
+        horaire: formData.horaire || "Non spécifié",
+        disponibilite: formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée",
+        message: formData.message || "Aucun message spécifique",
       }
-    } catch (error) {
-      console.error("[v0] Form submission error:", error)
-      console.error("[v0] Error details:", {
-        name: error?.name,
-        message: error?.message,
-      })
 
-      alert("Votre demande a été reçue! Nous vous contacterons bientôt.")
+      console.log("[v0] Sending email via EmailJS...")
+      console.log("[v0] EmailJS data:", emailData)
+
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID!,
+        emailData,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+      )
+
+      console.log("[v0] EmailJS SUCCESS - Response:", result)
+      console.log("[v0] Email sent successfully via EmailJS!")
+
+      alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
 
       setFormData({
         nom: "",
@@ -127,9 +105,19 @@ export function RegistrationSection() {
         message: "",
         consentement: false,
       })
+    } catch (error) {
+      console.error("[v0] EmailJS ERROR:", error)
+      console.error("[v0] Error details:", {
+        name: error?.name,
+        message: error?.message,
+        status: error?.status,
+        text: error?.text,
+      })
+
+      alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer ou nous contacter directement.")
     } finally {
       setIsSubmitting(false)
-      console.log("[v0] ===== SECURE FORM SUBMISSION COMPLETE =====")
+      console.log("[v0] ===== EMAILJS FORM SUBMISSION COMPLETE =====")
     }
   }
 
