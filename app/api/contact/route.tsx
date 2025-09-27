@@ -49,18 +49,11 @@ export async function POST(request: NextRequest) {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_APP_PASSWORD,
       },
+      pool: true,
+      maxConnections: 1,
+      rateDelta: 20000,
+      rateLimit: 5,
     })
-
-    try {
-      await transporter.verify()
-      console.log("[v0] SMTP connection verified")
-    } catch (verifyError) {
-      console.error("[v0] SMTP verification failed:", verifyError)
-      return NextResponse.json(
-        { success: false, message: "Erreur de configuration email. Contactez l'administrateur." },
-        { status: 500 },
-      )
-    }
 
     const mailOptions = {
       from: process.env.GMAIL_USER,
