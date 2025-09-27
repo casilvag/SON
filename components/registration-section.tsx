@@ -40,6 +40,8 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
+      console.log("[v0] Submitting registration form:", formData)
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -63,6 +65,8 @@ Message: ${formData.message}`,
       })
 
       if (response.ok) {
+        const result = await response.json()
+        console.log("[v0] Registration form submitted successfully:", result)
         alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
         setFormData({
           nom: "",
@@ -77,11 +81,13 @@ Message: ${formData.message}`,
           message: "",
         })
       } else {
-        alert("Une erreur est survenue. Veuillez réessayer.")
+        const errorData = await response.json()
+        console.error("[v0] Error response from registration API:", response.status, errorData)
+        alert(`Une erreur est survenue: ${errorData.message || "Erreur inconnue"}. Veuillez réessayer.`)
       }
     } catch (error) {
-      console.error("Erreur lors de l'envoi:", error)
-      alert("Une erreur est survenue. Veuillez réessayer.")
+      console.error("[v0] Network error submitting registration form:", error)
+      alert("Erreur de connexion. Vérifiez votre connexion internet et réessayez.")
     } finally {
       setIsSubmitting(false)
     }

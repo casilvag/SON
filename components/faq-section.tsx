@@ -82,11 +82,11 @@ export function FAQSection() {
   const [showFAQs, setShowFAQs] = useState(false)
   const [showConsultation, setShowConsultation] = useState(false) // Added state for consultation section visibility
   const [formData, setFormData] = useState({
-    name: "",
+    nom: "",
     email: "",
-    phone: "",
-    course: "",
-    message: "",
+    telephone: "",
+    cours: "",
+    question: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -124,21 +124,27 @@ export function FAQSection() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          nom: formData.nom,
+          email: formData.email,
+          telephone: formData.telephone,
+          question: `CONSULTATION - Cours d'intérêt: ${formData.cours}\n\nMessage: ${formData.question}`,
+        }),
       })
 
       if (response.ok) {
         const result = await response.json()
         console.log("[v0] Consultation form submitted successfully:", result)
         alert("Votre demande de consultation a été envoyée avec succès!")
-        setFormData({ name: "", email: "", phone: "", course: "", message: "" })
+        setFormData({ nom: "", email: "", telephone: "", cours: "", question: "" })
       } else {
-        console.error("[v0] Error response from consultation API:", response.status)
-        alert("Une erreur est survenue. Veuillez réessayer.")
+        const errorData = await response.json()
+        console.error("[v0] Error response from consultation API:", response.status, errorData)
+        alert(`Une erreur est survenue: ${errorData.message || "Erreur inconnue"}. Veuillez réessayer.`)
       }
     } catch (error) {
       console.error("[v0] Network error submitting consultation form:", error)
-      alert("Une erreur est survenue. Veuillez réessayer.")
+      alert("Erreur de connexion. Vérifiez votre connexion internet et réessayez.")
     } finally {
       setIsSubmitting(false)
     }
@@ -237,14 +243,14 @@ export function FAQSection() {
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label htmlFor="name" className="block text-white font-medium mb-2">
+                    <label htmlFor="nom" className="block text-white font-medium mb-2">
                       Nom complet *
                     </label>
                     <input
                       type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
+                      id="nom"
+                      name="nom"
+                      value={formData.nom}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
@@ -269,14 +275,14 @@ export function FAQSection() {
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-white font-medium mb-2">
+                    <label htmlFor="telephone" className="block text-white font-medium mb-2">
                       Téléphone
                     </label>
                     <input
                       type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
+                      id="telephone"
+                      name="telephone"
+                      value={formData.telephone}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
                       placeholder="Votre numéro de téléphone"
@@ -284,34 +290,36 @@ export function FAQSection() {
                   </div>
 
                   <div>
-                    <label htmlFor="course" className="block text-white font-medium mb-2">
+                    <label htmlFor="cours" className="block text-white font-medium mb-2">
                       Cours d'intérêt
                     </label>
                     <select
-                      id="course"
-                      name="course"
-                      value={formData.course}
+                      id="cours"
+                      name="cours"
+                      value={formData.cours}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
                     >
                       <option value="">Sélectionnez un cours</option>
-                      <option value="piano-moderne">Piano Moderne</option>
-                      <option value="guitare">Guitare</option>
-                      <option value="chant">Chant</option>
+                      <option value="bajo-electrico">Basse Électrique</option>
+                      <option value="bateria">Batterie</option>
                       <option value="dj">DJ</option>
-                      <option value="production-musicale">Production Musicale</option>
                       <option value="ensemble-de-groupe">Ensemble de Groupe</option>
+                      <option value="guitare">Guitare</option>
+                      <option value="piano-moderne">Piano Moderne</option>
+                      <option value="production-musicale">Production Musicale</option>
+                      <option value="xilofono">Xylophone</option>
                     </select>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-white font-medium mb-2">
+                    <label htmlFor="question" className="block text-white font-medium mb-2">
                       Message *
                     </label>
                     <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
+                      id="question"
+                      name="question"
+                      value={formData.question}
                       onChange={handleInputChange}
                       required
                       rows={4}
