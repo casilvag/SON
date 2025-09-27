@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { UserPlus, Send } from "lucide-react"
 import emailjs from "@emailjs/browser"
 
@@ -20,6 +20,12 @@ export function RegistrationSection() {
     consentement: false,
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    console.log("[v0] Initializing EmailJS...")
+    emailjs.init("ZA8Tp_KoAQ9vsWEW6")
+    console.log("[v0] EmailJS initialized successfully")
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -56,7 +62,7 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Sending email via EmailJS...")
+      console.log("[v0] Preparing email data...")
 
       const emailData = {
         nom: formData.nom,
@@ -71,32 +77,60 @@ export function RegistrationSection() {
         message: formData.message || "Aucun message spécifique",
       }
 
+      console.log("[v0] Email data prepared:", emailData)
+      console.log("[v0] Sending email via EmailJS...")
+
       const result = await emailjs.send(
         "service_tzq6Oem", // Your actual EmailJS Service ID
         "template_yyurn48", // Your actual EmailJS Template ID
         emailData,
-        "ZA8Tp_KoAQ9vsWEW6", // Your actual EmailJS Public Key
       )
 
       console.log("[v0] SUCCESS - Email sent:", result)
-      alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
+      console.log("[v0] Result status:", result.status)
+      console.log("[v0] Result text:", result.text)
 
-      setFormData({
-        nom: "",
-        email: "",
-        telephone: "",
-        age: "",
-        niveau: "",
-        cours: "",
-        duree: "",
-        horaire: "",
-        disponibilite: [],
-        message: "",
-        consentement: false,
-      })
+      if (result.status === 200) {
+        alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
+
+        setFormData({
+          nom: "",
+          email: "",
+          telephone: "",
+          age: "",
+          niveau: "",
+          cours: "",
+          duree: "",
+          horaire: "",
+          disponibilite: [],
+          message: "",
+          consentement: false,
+        })
+      } else {
+        throw new Error(`EmailJS returned status: ${result.status}`)
+      }
     } catch (error) {
-      console.error("[v0] EmailJS Error:", error)
-      alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer ou nous contacter directement.")
+      console.error("[v0] EmailJS Error Details:", error)
+      console.error("[v0] Error type:", typeof error)
+      console.error("[v0] Error message:", error instanceof Error ? error.message : String(error))
+
+      let errorMessage = "Une erreur s'est produite lors de l'envoi. "
+
+      if (error instanceof Error) {
+        if (error.message.includes("network") || error.message.includes("fetch")) {
+          errorMessage += "Problème de connexion internet. Vérifiez votre connexion et réessayez."
+        } else if (error.message.includes("400")) {
+          errorMessage += "Données invalides. Vérifiez vos informations et réessayez."
+        } else if (error.message.includes("401") || error.message.includes("403")) {
+          errorMessage += "Problème d'authentification. Contactez-nous directement."
+        } else {
+          errorMessage += "Veuillez réessayer ou nous contacter directement."
+        }
+      } else {
+        errorMessage += "Veuillez réessayer ou nous contacter directement."
+      }
+
+      alert(errorMessage)
     } finally {
       setIsSubmitting(false)
       console.log("[v0] ===== FORM SUBMISSION COMPLETE =====")
