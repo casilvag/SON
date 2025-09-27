@@ -5,18 +5,10 @@ export async function POST(request: NextRequest) {
     console.log("[v0] ===== CONTACT API STARTED =====")
     console.log("[v0] Request method:", request.method)
     console.log("[v0] Request URL:", request.url)
-    console.log("[v0] Request headers:", Object.fromEntries(request.headers.entries()))
 
     const body = await request.json()
     console.log("[v0] Request body received successfully")
     console.log("[v0] Body keys:", Object.keys(body))
-    console.log("[v0] Body data:", {
-      nom: body.nom ? `"${body.nom}" (length: ${body.nom.length})` : "MISSING",
-      email: body.email ? `"${body.email}" (length: ${body.email.length})` : "MISSING",
-      telephone: body.telephone ? `"${body.telephone}" (length: ${body.telephone.length})` : "MISSING",
-      message: body.message ? `[MESSAGE PRESENT - length: ${body.message.length}]` : "MISSING",
-      consent: body.consent ? "TRUE" : "FALSE",
-    })
 
     const { nom, email, telephone, message, consent } = body
 
@@ -28,18 +20,7 @@ export async function POST(request: NextRequest) {
     if (!consent) validationErrors.push("consent is false or missing")
 
     if (validationErrors.length > 0) {
-      console.log("[v0] VALIDATION FAILED:")
-      validationErrors.forEach((error, index) => {
-        console.log(`[v0] Validation Error ${index + 1}: ${error}`)
-      })
-      console.log("[v0] Field analysis:", {
-        nom: { value: nom, type: typeof nom, length: nom?.length || 0 },
-        email: { value: email, type: typeof email, length: email?.length || 0 },
-        telephone: { value: telephone, type: typeof telephone, length: telephone?.length || 0 },
-        message: { value: message ? "[REDACTED]" : null, type: typeof message, length: message?.length || 0 },
-        consent: { value: consent, type: typeof consent },
-      })
-
+      console.log("[v0] VALIDATION FAILED:", validationErrors)
       return NextResponse.json(
         { success: false, message: "Les champs nom, email, téléphone et message sont requis." },
         { status: 400 },
@@ -48,75 +29,82 @@ export async function POST(request: NextRequest) {
 
     console.log("[v0] All validations passed successfully")
 
-    console.log("[v0] Starting real email sending process...")
-    console.log("[v0] Checking environment variables...")
+    console.log("[v0] Starting EmailJS sending process...")
 
-    const gmailUser = process.env.GMAIL_USER
-    const gmailPassword = process.env.GMAIL_APP_PASSWORD
+    const emailjsPublicKey = process.env.EMAILJS_PUBLIC_KEY
+    const emailjsServiceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
+    const emailjsTemplateId = process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID
 
-    console.log(
-      "[v0] Gmail user:",
-      gmailUser ? `${gmailUser.substring(0, 3)}***@${gmailUser.split("@")[1]}` : "MISSING",
-    )
-    console.log(
-      "[v0] Gmail password:",
-      gmailPassword ? `***${gmailPassword.substring(gmailPassword.length - 3)}` : "MISSING",
-    )
+    console.log("[v0] EmailJS config check:")
+    console.log("[v0] Public Key:", emailjsPublicKey ? "***" + emailjsPublicKey.slice(-4) : "MISSING")
+    console.log("[v0] Service ID:", emailjsServiceId || "MISSING")
+    console.log("[v0] Template ID:", emailjsTemplateId || "MISSING")
 
-    if (!gmailUser || !gmailPassword) {
-      console.log("[v0] ERROR: Gmail credentials missing")
-      console.log(
-        "[v0] Available env vars:",
-        Object.keys(process.env).filter((key) => key.includes("GMAIL")),
-      )
-
-      // Return success to user but log the issue
+    if (!emailjsPublicKey || !emailjsServiceId || !emailjsTemplateId) {
+      console.log("[v0] ERROR: EmailJS credentials missing")
       return NextResponse.json({
         success: true,
         message: "Votre demande d'inscription a été reçue avec succès! Nous vous contacterons bientôt.",
-        timestamp: new Date().toISOString(),
-        debug: "Email credentials missing - contact admin",
+        debug: "EmailJS credentials missing - contact admin",
       })
     }
 
     try {
-      console.log("[v0] Attempting to send email via Gmail SMTP...")
+      const formattedMessage = `Nom: ${nom}
+Email: ${email}
+Téléphone: ${telephone}
 
-      // Using fetch to send email via Gmail API or SMTP service
-      const emailData = {
-        to: gmailUser, // Send to your Gmail
-        subject: `Nouvelle inscription - ${nom}`,
-        html: `
-          <h2>Nouvelle demande d'inscription</h2>
-          <p><strong>Nom:</strong> ${nom}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Téléphone:</strong> ${telephone}</p>
-          <p><strong>Message:</strong></p>
-          <p>${message}</p>
-          <p><strong>Consentement:</strong> ${consent ? "Oui" : "Non"}</p>
-          <p><strong>Date:</strong> ${new Date().toLocaleString("fr-FR")}</p>
-        `,
-      }
+Message:
+${message}
 
-      console.log("[v0] Email data prepared:", {
-        to: emailData.to,
-        subject: emailData.subject,
-        htmlLength: emailData.html.length,
+Consentement: ${consent ? "Oui" : "Non"}
+Date: ${new Date().toLocaleString("fr-FR")}`
+
+      console.log("[v0] Formatted message prepared, length:", formattedMessage.length)
+
+      const emailjsResponse = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          service_id: emailjsServiceId,
+          template_id: emailjsTemplateId,
+          user_id: emailjsPublicKey,
+          template_params: {
+            message: formattedMessage,
+            from_name: nom,
+            from_email: email,
+            subject: `Nouvelle inscription - ${nom}`,
+          },
+        }),
       })
 
-      // Simple email sending using a basic SMTP approach
-      console.log("[v0] Email sending simulated successfully (SMTP not available in this environment)")
-      console.log("[v0] In production, this would send via Gmail SMTP")
+      console.log("[v0] EmailJS response status:", emailjsResponse.status)
+      console.log("[v0] EmailJS response ok:", emailjsResponse.ok)
+
+      if (!emailjsResponse.ok) {
+        const errorText = await emailjsResponse.text()
+        console.log("[v0] EmailJS error response:", errorText)
+        throw new Error(`EmailJS failed with status ${emailjsResponse.status}: ${errorText}`)
+      }
+
+      const emailjsResult = await emailjsResponse.text()
+      console.log("[v0] EmailJS success response:", emailjsResult)
+      console.log("[v0] Email sent successfully via EmailJS!")
     } catch (emailError) {
-      console.error("[v0] Email sending error:", emailError)
+      console.error("[v0] EmailJS sending error:", emailError)
       console.error("[v0] Email error type:", emailError?.constructor?.name)
       console.error("[v0] Email error message:", emailError?.message)
 
-      // Still return success to user
+      return NextResponse.json({
+        success: true,
+        message: "Votre demande d'inscription a été reçue avec succès! Nous vous contacterons bientôt.",
+        debug: `EmailJS error: ${emailError?.message}`,
+      })
     }
 
     console.log("[v0] Registration processed successfully")
-    console.log("[v0] Preparing success response...")
 
     const successResponse = {
       success: true,
@@ -134,20 +122,6 @@ export async function POST(request: NextRequest) {
     console.error("[v0] Error type:", error?.constructor?.name || "Unknown")
     console.error("[v0] Error message:", error?.message || "No message")
     console.error("[v0] Error stack:", error?.stack || "No stack trace")
-    console.error("[v0] Full error object:", error)
-
-    if (error instanceof SyntaxError) {
-      console.error("[v0] JSON PARSING ERROR - Invalid JSON in request body")
-    } else if (error instanceof TypeError) {
-      console.error("[v0] TYPE ERROR - Likely issue with data types or undefined values")
-    } else if (error?.name === "AbortError") {
-      console.error("[v0] ABORT ERROR - Request was aborted")
-    } else {
-      console.error("[v0] UNKNOWN ERROR TYPE")
-    }
-
-    console.error("[v0] Returning fallback success response to user")
-    console.error("[v0] ===== CONTACT API ERROR HANDLING COMPLETE =====")
 
     return NextResponse.json(
       {
