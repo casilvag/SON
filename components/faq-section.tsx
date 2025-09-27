@@ -1,7 +1,4 @@
 "use client"
-
-import type React from "react"
-
 import { useState } from "react"
 
 const ChevronDownIcon = ({ className }: { className?: string }) => (
@@ -24,13 +21,6 @@ const MessageCircleIcon = ({ className }: { className?: string }) => (
       strokeLinejoin="round"
       strokeWidth={2}
     />
-  </svg>
-)
-
-const SendIcon = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <line x1="22" x2="11" y1="2" y2="13" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-    <polygon points="22,2 15,22 11,13 2,9" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
   </svg>
 )
 
@@ -80,16 +70,6 @@ const faqs = [
 export function FAQSection() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
   const [showFAQs, setShowFAQs] = useState(false)
-  const [showConsultation, setShowConsultation] = useState(false) // Added state for consultation section visibility
-  const [formData, setFormData] = useState({
-    nom: "",
-    email: "",
-    telephone: "",
-    cours: "",
-    question: "",
-    consentement: false,
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const toggleFAQ = (index: number) => {
     setOpenFAQ(openFAQ === index ? null : index)
@@ -99,62 +79,6 @@ export function FAQSection() {
     setShowFAQs(!showFAQs)
     if (!showFAQs) {
       setOpenFAQ(null) // Close any open FAQ when hiding section
-    }
-  }
-
-  const toggleConsultationSection = () => {
-    setShowConsultation(!showConsultation) // Added toggle function for consultation section
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!formData.consentement) {
-      alert("Vous devez accepter le traitement de vos données personnelles pour continuer.")
-      return
-    }
-
-    setIsSubmitting(true)
-
-    try {
-      console.log("[v0] Submitting consultation form:", formData)
-
-      const response = await fetch("/api/consultation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nom: formData.nom,
-          email: formData.email,
-          telephone: formData.telephone,
-          consent: formData.consentement,
-          question: `CONSULTATION - Cours d'intérêt: ${formData.cours}\n\nMessage: ${formData.question}`,
-        }),
-      })
-
-      if (response.ok) {
-        const result = await response.json()
-        console.log("[v0] Consultation form submitted successfully:", result)
-        alert("Votre demande de consultation a été envoyée avec succès!")
-        setFormData({ nom: "", email: "", telephone: "", cours: "", question: "", consentement: false })
-      } else {
-        const errorData = await response.json()
-        console.error("[v0] Error response from consultation API:", response.status, errorData)
-        alert(errorData.message || "Une erreur est survenue. Veuillez réessayer.")
-      }
-    } catch (error) {
-      console.error("[v0] Network error submitting consultation form:", error)
-      alert("Erreur de connexion. Vérifiez votre connexion internet et réessayez.")
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
@@ -181,186 +105,45 @@ export function FAQSection() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* FAQ Section */}
-          <div>
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-2xl font-bold text-white flex items-center">
-                <MessageCircleIcon className="w-8 h-8 text-yellow-400 mr-3" />
-                FAQ
-              </h3>
-              <button
-                onClick={toggleFAQSection}
-                className="flex items-center space-x-2 bg-yellow-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-300 transition-colors duration-300"
-              >
-                <span>{showFAQs ? "Masquer les FAQ" : "Voir les FAQ"}</span>
-                {showFAQs ? <ChevronUpIcon className="w-4 h-4" /> : <ChevronDownIcon className="w-4 h-4" />}
-              </button>
-            </div>
-
-            <div
-              className={`transition-all duration-500 ease-in-out ${showFAQs ? "opacity-100 max-h-none" : "opacity-0 max-h-0 overflow-hidden"}`}
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-2xl font-bold text-white flex items-center">
+              <MessageCircleIcon className="w-8 h-8 text-yellow-400 mr-3" />
+              FAQ
+            </h3>
+            <button
+              onClick={toggleFAQSection}
+              className="flex items-center space-x-2 bg-yellow-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-300 transition-colors duration-300"
             >
-              <div className="space-y-4">
-                {faqs.map((faq, index) => (
-                  <div key={index} className="bg-gray-900 rounded-lg border border-gray-800">
-                    <button
-                      onClick={() => toggleFAQ(index)}
-                      className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-800 transition-colors duration-300"
-                    >
-                      <span className="text-white font-medium pr-4">{faq.question}</span>
-                      {openFAQ === index ? (
-                        <ChevronUpIcon className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                      ) : (
-                        <ChevronDownIcon className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                      )}
-                    </button>
-                    {openFAQ === index && (
-                      <div className="px-6 pb-6">
-                        <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+              <span>{showFAQs ? "Masquer les FAQ" : "Voir les FAQ"}</span>
+              {showFAQs ? <ChevronUpIcon className="w-4 h-4" /> : <ChevronDownIcon className="w-4 h-4" />}
+            </button>
           </div>
 
-          {/* Consultation Form */}
-          <div>
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-2xl font-bold text-white flex items-center">
-                <SendIcon className="w-8 h-8 text-blue-400 mr-3" />
-                Demande de Consultation
-              </h3>
-              <button
-                onClick={toggleConsultationSection}
-                className="flex items-center space-x-2 bg-blue-400 text-black px-4 py-2 rounded-lg font-medium hover:bg-blue-300 transition-colors duration-300"
-              >
-                <span>{showConsultation ? "Masquer le formulaire" : "Voir le formulaire"}</span>
-                {showConsultation ? <ChevronUpIcon className="w-4 h-4" /> : <ChevronDownIcon className="w-4 h-4" />}
-              </button>
-            </div>
-
-            <div
-              className={`transition-all duration-500 ease-in-out ${showConsultation ? "opacity-100 max-h-none" : "opacity-0 max-h-0 overflow-hidden"}`}
-            >
-              <div className="bg-gray-900 rounded-lg p-8 border border-gray-800">
-                <p className="text-gray-300 mb-6">
-                  Vous avez des questions spécifiques? Demandez une consultation personnalisée avec nos experts!
-                </p>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label htmlFor="nom" className="block text-white font-medium mb-2">
-                      Nom complet *
-                    </label>
-                    <input
-                      type="text"
-                      id="nom"
-                      name="nom"
-                      value={formData.nom}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                      placeholder="Votre nom complet"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-white font-medium mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                      placeholder="votre@email.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="telephone" className="block text-white font-medium mb-2">
-                      Téléphone
-                    </label>
-                    <input
-                      type="tel"
-                      id="telephone"
-                      name="telephone"
-                      value={formData.telephone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                      placeholder="Votre numéro de téléphone"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="cours" className="block text-white font-medium mb-2">
-                      Cours d'intérêt
-                    </label>
-                    <select
-                      id="cours"
-                      name="cours"
-                      value={formData.cours}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
-                    >
-                      <option value="">Sélectionnez un cours</option>
-                      <option value="bajo-electrico">Basse Électrique</option>
-                      <option value="bateria">Batterie</option>
-                      <option value="dj">DJ</option>
-                      <option value="ensemble-de-groupe">Ensemble de Groupe</option>
-                      <option value="guitare">Guitare</option>
-                      <option value="piano-moderne">Piano Moderne</option>
-                      <option value="production-musicale">Production Musicale</option>
-                      <option value="xilofono">Xylophone</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="question" className="block text-white font-medium mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                      id="question"
-                      name="question"
-                      value={formData.question}
-                      onChange={handleInputChange}
-                      required
-                      rows={4}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300 resize-vertical"
-                      placeholder="Décrivez vos questions ou besoins spécifiques..."
-                    />
-                  </div>
-
-                  <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
-                    <label className="flex items-start space-x-3 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={formData.consentement}
-                        onChange={(e) => setFormData({ ...formData, consentement: e.target.checked })}
-                        required
-                        className="w-5 h-5 text-yellow-400 bg-gray-800 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2 mt-1 flex-shrink-0"
-                      />
-                      <span className="text-gray-300 text-sm leading-relaxed">
-                        <span className="text-red-400">*</span> J'accepte le traitement de mes données personnelles pour
-                        cette consultation. Ces informations seront utilisées uniquement pour répondre à ma demande.
-                      </span>
-                    </label>
-                  </div>
-
+          <div
+            className={`transition-all duration-500 ease-in-out ${showFAQs ? "opacity-100 max-h-none" : "opacity-0 max-h-0 overflow-hidden"}`}
+          >
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <div key={index} className="bg-gray-900 rounded-lg border border-gray-800">
                   <button
-                    type="submit"
-                    disabled={isSubmitting || !formData.consentement}
-                    className="w-full bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-800 transition-colors duration-300"
                   >
-                    {isSubmitting ? "Envoi en cours..." : "Envoyer la demande"}
+                    <span className="text-white font-medium pr-4">{faq.question}</span>
+                    {openFAQ === index ? (
+                      <ChevronUpIcon className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                    ) : (
+                      <ChevronDownIcon className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                    )}
                   </button>
-                </form>
-              </div>
+                  {openFAQ === index && (
+                    <div className="px-6 pb-6">
+                      <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
