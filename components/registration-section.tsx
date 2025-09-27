@@ -56,15 +56,13 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Getting EmailJS configuration from API...")
-      const configResponse = await fetch("/api/emailjs-config")
-
-      if (!configResponse.ok) {
-        throw new Error(`Failed to get EmailJS config: ${configResponse.status}`)
+      const emailjsConfig = {
+        serviceId: "service_academy_son", // Replace with your actual service ID
+        templateId: "template_contact", // Replace with your actual template ID
+        publicKey: "your_emailjs_public_key", // Replace with your actual public key
       }
 
-      const config = await configResponse.json()
-      console.log("[v0] EmailJS config obtained successfully")
+      console.log("[v0] Using direct EmailJS configuration")
 
       const emailData = {
         nom: formData.nom,
@@ -82,7 +80,12 @@ export function RegistrationSection() {
       console.log("[v0] Sending email via EmailJS...")
       console.log("[v0] EmailJS data:", emailData)
 
-      const result = await emailjs.send(config.serviceId, config.templateId, emailData, config.publicKey)
+      const result = await emailjs.send(
+        emailjsConfig.serviceId,
+        emailjsConfig.templateId,
+        emailData,
+        emailjsConfig.publicKey,
+      )
 
       console.log("[v0] EmailJS SUCCESS - Response:", result)
       console.log("[v0] Email sent successfully via EmailJS!")
