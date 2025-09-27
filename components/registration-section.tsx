@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { UserPlus, Send } from "lucide-react"
-import { sendRegistrationEmail } from "@/lib/actions"
+import emailjs from "@emailjs/browser"
 
 export function RegistrationSection() {
   const [formData, setFormData] = useState({
@@ -56,44 +56,47 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Sending email via server action...")
+      console.log("[v0] Sending email via EmailJS...")
 
-      const result = await sendRegistrationEmail({
+      const emailData = {
         nom: formData.nom,
         email: formData.email,
         telephone: formData.telephone,
-        age: formData.age,
-        niveau: formData.niveau,
-        cours: formData.cours,
-        duree: formData.duree,
-        horaire: formData.horaire,
-        disponibilite: formData.disponibilite,
-        message: formData.message,
-      })
-
-      if (result.success) {
-        console.log("[v0] SUCCESS - Email sent:", result.result)
-        alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
-
-        setFormData({
-          nom: "",
-          email: "",
-          telephone: "",
-          age: "",
-          niveau: "",
-          cours: "",
-          duree: "",
-          horaire: "",
-          disponibilite: [],
-          message: "",
-          consentement: false,
-        })
-      } else {
-        console.error("[v0] ERROR:", result.error)
-        alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer ou nous contacter directement.")
+        age: formData.age || "Non spécifié",
+        niveau: formData.niveau || "Non spécifié",
+        cours: formData.cours || "Non spécifié",
+        duree: formData.duree || "Non spécifiée",
+        horaire: formData.horaire || "Non spécifié",
+        disponibilite: formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée",
+        message: formData.message || "Aucun message spécifique",
       }
+
+      // Replace these with your actual EmailJS credentials
+      const result = await emailjs.send(
+        "service_academy_son", // Your EmailJS Service ID
+        "template_contact", // Your EmailJS Template ID
+        emailData,
+        "your_emailjs_public_key", // Your EmailJS Public Key
+      )
+
+      console.log("[v0] SUCCESS - Email sent:", result)
+      alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
+
+      setFormData({
+        nom: "",
+        email: "",
+        telephone: "",
+        age: "",
+        niveau: "",
+        cours: "",
+        duree: "",
+        horaire: "",
+        disponibilite: [],
+        message: "",
+        consentement: false,
+      })
     } catch (error) {
-      console.error("[v0] Submission error:", error)
+      console.error("[v0] EmailJS Error:", error)
       alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer ou nous contacter directement.")
     } finally {
       setIsSubmitting(false)
