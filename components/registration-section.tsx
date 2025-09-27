@@ -56,13 +56,15 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Checking EmailJS environment variables...")
-      console.log("[v0] - NEXT_PUBLIC_EMAILJS_SERVICE_ID exists:", !!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID)
-      console.log(
-        "[v0] - NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID exists:",
-        !!process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID,
-      )
-      console.log("[v0] - NEXT_PUBLIC_EMAILJS_PUBLIC_KEY exists:", !!process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY)
+      console.log("[v0] Getting EmailJS configuration from API...")
+      const configResponse = await fetch("/api/emailjs-config")
+
+      if (!configResponse.ok) {
+        throw new Error(`Failed to get EmailJS config: ${configResponse.status}`)
+      }
+
+      const config = await configResponse.json()
+      console.log("[v0] EmailJS config obtained successfully")
 
       const emailData = {
         nom: formData.nom,
@@ -80,12 +82,7 @@ export function RegistrationSection() {
       console.log("[v0] Sending email via EmailJS...")
       console.log("[v0] EmailJS data:", emailData)
 
-      const result = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID!,
-        emailData,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
-      )
+      const result = await emailjs.send(config.serviceId, config.templateId, emailData, config.publicKey)
 
       console.log("[v0] EmailJS SUCCESS - Response:", result)
       console.log("[v0] Email sent successfully via EmailJS!")
