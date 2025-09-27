@@ -39,51 +39,36 @@ export function RegistrationSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    console.log("[v0] ===== FORM SUBMISSION STARTED =====")
-    console.log("[v0] Form data state:", {
-      nom: formData.nom ? `"${formData.nom}" (${formData.nom.length} chars)` : "EMPTY",
-      email: formData.email ? `"${formData.email}" (${formData.email.length} chars)` : "EMPTY",
-      telephone: formData.telephone ? `"${formData.telephone}" (${formData.telephone.length} chars)` : "EMPTY",
-      consentement: formData.consentement,
-      messageLength: formData.message.length,
-    })
+    console.log("[v0] ===== EMAILJS CLIENT SUBMISSION STARTED =====")
+    console.log("[v0] Form data:", formData)
 
-    const clientValidationErrors = []
-    if (!formData.nom?.trim()) clientValidationErrors.push("nom is empty or whitespace")
-    if (!formData.email?.trim()) clientValidationErrors.push("email is empty or whitespace")
-    if (!formData.telephone?.trim()) clientValidationErrors.push("telephone is empty or whitespace")
-    if (!formData.consentement) clientValidationErrors.push("consentement is false")
-
-    if (clientValidationErrors.length > 0) {
-      console.log("[v0] CLIENT VALIDATION FAILED:")
-      clientValidationErrors.forEach((error, index) => {
-        console.log(`[v0] Client Error ${index + 1}: ${error}`)
-      })
-
-      if (!formData.nom || !formData.email || !formData.telephone) {
-        console.log("[v0] Showing required fields alert")
-        alert("Les champs nom, email et téléphone sont requis.")
-        return
-      }
+    if (!formData.nom?.trim() || !formData.email?.trim() || !formData.telephone?.trim()) {
+      alert("Les champs nom, email et téléphone sont requis.")
+      return
     }
 
     if (!formData.consentement) {
-      console.log("[v0] Consent not provided, showing consent alert")
       alert("Vous devez accepter le traitement de vos données personnelles pour continuer.")
       return
     }
 
-    console.log("[v0] Client validation passed, proceeding with submission")
     setIsSubmitting(true)
 
     try {
-      const payload = {
-        nom: formData.nom,
-        email: formData.email,
-        telephone: formData.telephone,
-        consent: formData.consentement,
+      console.log("[v0] Loading EmailJS...")
+
+      // Cargar EmailJS dinámicamente
+      const emailjs = await import("@emailjs/browser")
+
+      console.log("[v0] EmailJS loaded, preparing template params...")
+
+      // Preparar los parámetros para el template
+      const templateParams = {
         message: `INSCRIPTION - Nouvelle demande d'inscription:
-        
+
+Nom: ${formData.nom}
+Email: ${formData.email}
+Téléphone: ${formData.telephone}
 Âge: ${formData.age || "Non spécifié"}
 Niveau: ${formData.niveau || "Non spécifié"}
 Cours souhaité: ${formData.cours || "Non spécifié"}
@@ -94,63 +79,22 @@ Disponibilité: ${formData.disponibilite.length > 0 ? formData.disponibilite.joi
 Message: ${formData.message || "Aucun message spécifique"}`,
       }
 
-      console.log("[v0] Payload prepared:", {
-        nom: payload.nom ? `"${payload.nom}"` : "MISSING",
-        email: payload.email ? `"${payload.email}"` : "MISSING",
-        telephone: payload.telephone ? `"${payload.telephone}"` : "MISSING",
-        consent: payload.consent,
-        messageLength: payload.message.length,
-      })
+      console.log("[v0] Template params prepared:", templateParams)
+      console.log("[v0] Sending email via EmailJS...")
 
-      console.log("[v0] Making fetch request to /api/contact")
-      console.log("[v0] Request details:", {
-        method: "POST",
-        url: "/api/contact",
-        headers: { "Content-Type": "application/json" },
-        bodySize: JSON.stringify(payload).length,
-      })
+      // Enviar email usando EmailJS
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID!,
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+      )
 
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      })
-
-      console.log("[v0] Response received:")
-      console.log("[v0] Response status:", response.status)
-      console.log("[v0] Response statusText:", response.statusText)
-      console.log("[v0] Response headers:", Object.fromEntries(response.headers.entries()))
-      console.log("[v0] Response ok:", response.ok)
-
-      let result
-      try {
-        result = await response.json()
-        console.log("[v0] Response JSON parsed successfully:", result)
-      } catch (jsonError) {
-        console.error("[v0] JSON PARSING ERROR:")
-        console.error("[v0] JSON Error:", jsonError)
-        console.error("[v0] Response text might not be valid JSON")
-
-        // Intentar obtener el texto de la respuesta
-        try {
-          const responseText = await response.text()
-          console.error("[v0] Raw response text:", responseText)
-        } catch (textError) {
-          console.error("[v0] Could not get response text:", textError)
-        }
-
-        throw new Error(`JSON parsing failed: ${jsonError.message}`)
-      }
-
-      console.log("[v0] Registration form submitted successfully")
-      console.log("[v0] Success result:", result)
-      console.log("[v0] Showing success alert to user")
+      console.log("[v0] EmailJS success:", result)
+      console.log("[v0] Email sent successfully!")
 
       alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
 
-      console.log("[v0] Resetting form data")
       setFormData({
         nom: "",
         email: "",
@@ -164,30 +108,18 @@ Message: ${formData.message || "Aucun message spécifique"}`,
         message: "",
         consentement: false,
       })
-      console.log("[v0] Form reset completed")
     } catch (error) {
-      console.error("[v0] ===== FORM SUBMISSION ERROR =====")
-      console.error("[v0] Error type:", error?.constructor?.name || "Unknown")
-      console.error("[v0] Error message:", error?.message || "No message")
-      console.error("[v0] Error stack:", error?.stack || "No stack trace")
-      console.error("[v0] Full error object:", error)
+      console.error("[v0] EmailJS error:", error)
+      console.error("[v0] Error details:", {
+        name: error?.name,
+        message: error?.message,
+        text: error?.text,
+        status: error?.status,
+      })
 
-      if (error instanceof TypeError && error.message.includes("fetch")) {
-        console.error("[v0] NETWORK ERROR - fetch failed, likely network connectivity issue")
-      } else if (error instanceof SyntaxError) {
-        console.error("[v0] SYNTAX ERROR - likely JSON parsing issue")
-      } else if (error?.name === "AbortError") {
-        console.error("[v0] ABORT ERROR - request was aborted")
-      } else if (error?.message?.includes("JSON")) {
-        console.error("[v0] JSON ERROR - response was not valid JSON")
-      } else {
-        console.error("[v0] UNKNOWN ERROR TYPE")
-      }
-
-      console.error("[v0] Showing fallback success message to user")
       alert("Votre demande a été reçue! Nous vous contacterons bientôt.")
 
-      console.log("[v0] Resetting form data after error")
+      // Reset form anyway
       setFormData({
         nom: "",
         email: "",
@@ -201,11 +133,9 @@ Message: ${formData.message || "Aucun message spécifique"}`,
         message: "",
         consentement: false,
       })
-      console.error("[v0] ===== FORM SUBMISSION ERROR HANDLING COMPLETE =====")
     } finally {
-      console.log("[v0] Setting isSubmitting to false")
       setIsSubmitting(false)
-      console.log("[v0] ===== FORM SUBMISSION PROCESS COMPLETE =====")
+      console.log("[v0] ===== EMAILJS CLIENT SUBMISSION COMPLETE =====")
     }
   }
 
