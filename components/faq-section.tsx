@@ -87,6 +87,7 @@ export function FAQSection() {
     telephone: "",
     cours: "",
     question: "",
+    consentement: false,
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -114,6 +115,12 @@ export function FAQSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!formData.consentement) {
+      alert("Vous devez accepter le traitement de vos données personnelles pour continuer.")
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -136,7 +143,7 @@ export function FAQSection() {
         const result = await response.json()
         console.log("[v0] Consultation form submitted successfully:", result)
         alert("Votre demande de consultation a été envoyée avec succès!")
-        setFormData({ nom: "", email: "", telephone: "", cours: "", question: "" })
+        setFormData({ nom: "", email: "", telephone: "", cours: "", question: "", consentement: false })
       } else {
         const errorData = await response.json()
         console.error("[v0] Error response from consultation API:", response.status, errorData)
@@ -328,9 +335,25 @@ export function FAQSection() {
                     />
                   </div>
 
+                  <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+                    <label className="flex items-start space-x-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.consentement}
+                        onChange={(e) => setFormData({ ...formData, consentement: e.target.checked })}
+                        required
+                        className="w-5 h-5 text-yellow-400 bg-gray-800 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2 mt-1 flex-shrink-0"
+                      />
+                      <span className="text-gray-300 text-sm leading-relaxed">
+                        <span className="text-red-400">*</span> J'accepte le traitement de mes données personnelles pour
+                        cette consultation. Ces informations seront utilisées uniquement pour répondre à ma demande.
+                      </span>
+                    </label>
+                  </div>
+
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !formData.consentement}
                     className="w-full bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? "Envoi en cours..." : "Envoyer la demande"}

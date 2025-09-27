@@ -16,6 +16,7 @@ export function RegistrationSection() {
     horaire: "",
     disponibilite: [] as string[],
     message: "",
+    consentement: false,
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -37,6 +38,12 @@ export function RegistrationSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!formData.consentement) {
+      alert("Vous devez accepter le traitement de vos données personnelles pour continuer.")
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -79,6 +86,7 @@ Message: ${formData.message}`,
           horaire: "",
           disponibilite: [],
           message: "",
+          consentement: false,
         })
       } else {
         const errorData = await response.json()
@@ -318,11 +326,29 @@ Message: ${formData.message}`,
                 />
               </div>
 
+              {/* Consentimiento */}
+              <div className="bg-gray-800/50 rounded-lg p-6 border border-gray-700">
+                <label className="flex items-start space-x-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.consentement}
+                    onChange={(e) => setFormData({ ...formData, consentement: e.target.checked })}
+                    required
+                    className="w-5 h-5 text-yellow-400 bg-gray-800 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2 mt-1 flex-shrink-0"
+                  />
+                  <span className="text-gray-300 text-sm leading-relaxed">
+                    <span className="text-red-400">*</span> J'accepte le traitement de mes données personnelles
+                    conformément à la politique de confidentialité d'Academy SON. Ces informations seront utilisées
+                    uniquement pour traiter ma demande d'inscription et me contacter concernant les cours.
+                  </span>
+                </label>
+              </div>
+
               {/* Submit Button */}
               <div className="text-center pt-4">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !formData.consentement}
                   className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold text-lg rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
                 >
                   <Send className="w-5 h-5 mr-2" />
