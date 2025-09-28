@@ -65,19 +65,24 @@ export function RegistrationSection() {
       console.log("[v0] Preparing email data...")
 
       const emailData = {
-        nom: formData.nom,
-        email: formData.email,
-        telephone: formData.telephone,
+        from_name: formData.nom,
+        from_email: formData.email,
+        phone: formData.telephone,
         age: formData.age || "Non spécifié",
-        niveau: formData.niveau || "Non spécifié",
-        cours: formData.cours || "Non spécifié",
-        duree: formData.duree || "Non spécifiée",
-        horaire: formData.horaire || "Non spécifié",
-        disponibilite: formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée",
+        level: formData.niveau || "Non spécifié",
+        course: formData.cours || "Non spécifié",
+        duration: formData.duree || "Non spécifiée",
+        schedule: formData.horaire || "Non spécifié",
+        availability: formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée",
         message: formData.message || "Aucun message spécifique",
+        reply_to: formData.email,
       }
 
       console.log("[v0] Email data prepared:", emailData)
+      console.log("[v0] EmailJS Configuration:")
+      console.log("[v0] - Service ID: service_tzq6Oem")
+      console.log("[v0] - Template ID: template_yyurn48")
+      console.log("[v0] - Public Key: ZA8Tp_KoAQ9vsWEW6")
       console.log("[v0] Sending email via EmailJS...")
 
       const result = await emailjs.send(
@@ -110,24 +115,44 @@ export function RegistrationSection() {
         throw new Error(`EmailJS returned status: ${result.status}`)
       }
     } catch (error) {
-      console.error("[v0] EmailJS Error Details:", error)
+      console.error("[v0] ===== EMAIL ERROR DETAILS =====")
+      console.error("[v0] Full error object:", error)
       console.error("[v0] Error type:", typeof error)
-      console.error("[v0] Error message:", error instanceof Error ? error.message : String(error))
+      console.error("[v0] Error constructor:", error?.constructor?.name)
+
+      if (error instanceof Error) {
+        console.error("[v0] Error message:", error.message)
+        console.error("[v0] Error stack:", error.stack)
+      }
+
+      if (error && typeof error === "object") {
+        console.error("[v0] Error status:", (error as any).status)
+        console.error("[v0] Error text:", (error as any).text)
+        console.error("[v0] Error response:", (error as any).response)
+      }
 
       let errorMessage = "Une erreur s'est produite lors de l'envoi. "
 
       if (error instanceof Error) {
-        if (error.message.includes("network") || error.message.includes("fetch")) {
+        if (error.message.includes("400")) {
+          errorMessage += "Configuration invalide (Error 400). Vérifiez que tous les champs requis sont remplis."
+          console.error("[v0] Likely cause: Template variables mismatch or invalid service configuration")
+        } else if (error.message.includes("401")) {
+          errorMessage += "Problème d'authentification (Error 401). Clé publique invalide."
+          console.error("[v0] Likely cause: Invalid public key")
+        } else if (error.message.includes("403")) {
+          errorMessage += "Accès refusé (Error 403). Contenu bloqué par les filtres."
+          console.error("[v0] Likely cause: Content blocked by EmailJS filters")
+        } else if (error.message.includes("404")) {
+          errorMessage += "Service ou template introuvable (Error 404)."
+          console.error("[v0] Likely cause: Invalid service ID or template ID")
+        } else if (error.message.includes("network") || error.message.includes("fetch")) {
           errorMessage += "Problème de connexion internet. Vérifiez votre connexion et réessayez."
-        } else if (error.message.includes("400")) {
-          errorMessage += "Données invalides. Vérifiez vos informations et réessayez."
-        } else if (error.message.includes("401") || error.message.includes("403")) {
-          errorMessage += "Problème d'authentification. Contactez-nous directement."
         } else {
-          errorMessage += "Veuillez réessayer ou nous contacter directement."
+          errorMessage += `Erreur technique: ${error.message}. Contactez-nous directement.`
         }
       } else {
-        errorMessage += "Veuillez réessayer ou nous contacter directement."
+        errorMessage += "Erreur inconnue. Veuillez réessayer ou nous contacter directement."
       }
 
       alert(errorMessage)
