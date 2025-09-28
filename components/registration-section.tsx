@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 import { UserPlus, Send } from "lucide-react"
 import emailjs from "@emailjs/browser"
 
-const COMPONENT_VERSION = "v1.4"
+const COMPONENT_VERSION = "v1.5"
 
 export function RegistrationSection() {
   const [formData, setFormData] = useState({
@@ -66,17 +66,35 @@ export function RegistrationSection() {
     try {
       console.log(`[v0] ${COMPONENT_VERSION} - Preparing email data...`)
 
+      const fullMessage = `
+NOUVELLE DEMANDE D'INSCRIPTION - ACADEMY SON
+============================================
+
+INFORMATIONS PERSONNELLES:
+• Nom: ${formData.nom}
+• Email: ${formData.email}
+• Téléphone: ${formData.telephone}
+• Âge: ${formData.age || "Non spécifié"}
+
+DÉTAILS DU COURS:
+• Niveau musical: ${formData.niveau || "Non spécifié"}
+• Cours souhaité: ${formData.cours || "Non spécifié"}
+• Durée souhaitée: ${formData.duree || "Non spécifiée"}
+• Horaire préféré: ${formData.horaire || "Non spécifié"}
+• Disponibilité: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée"}
+
+MESSAGE PERSONNEL:
+${formData.message || "Aucun message spécifique"}
+
+============================================
+Demande envoyée le: ${new Date().toLocaleString("fr-FR")}
+      `.trim()
+
       const emailData = {
         from_name: formData.nom,
         from_email: formData.email,
-        phone: formData.telephone,
-        age: formData.age || "Non spécifié",
-        level: formData.niveau || "Non spécifié",
-        course: formData.cours || "Non spécifié",
-        duration: formData.duree || "Non spécifiée",
-        schedule: formData.horaire || "Non spécifié",
-        availability: formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée",
-        message: formData.message || "Aucun message spécifique",
+        to_name: "Academy SON",
+        message: fullMessage,
         reply_to: formData.email,
       }
 
@@ -87,11 +105,7 @@ export function RegistrationSection() {
       console.log("[v0] - Public Key: ZA8Tp_KoAQ9vsWEW6")
       console.log(`[v0] ${COMPONENT_VERSION} - Sending email via EmailJS...`)
 
-      const result = await emailjs.send(
-        "service_tzq60em", // Corrected Service ID from service_tzq6Oem to service_tzq60em
-        "template_yyurn48", // Your actual EmailJS Template ID
-        emailData,
-      )
+      const result = await emailjs.send("service_tzq60em", "template_yyurn48", emailData)
 
       console.log(`[v0] ${COMPONENT_VERSION} - SUCCESS - Email sent:`, result)
       console.log("[v0] Result status:", result.status)
