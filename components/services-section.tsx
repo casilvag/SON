@@ -4,15 +4,16 @@ import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
 
-const ViolinIcon = ({ className }: { className?: string }) => (
+const GuitarIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path d="M8 2L6 4v16l2 2h8l2-2V4l-2-2H8z" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
     <path d="M12 2v20" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
     <path d="M8 6h8" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
     <path d="M8 10h8" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
     <path d="M8 14h8" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
     <path d="M8 18h8" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-    <circle cx="12" cy="1" r="1" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <ellipse cx="12" cy="4" rx="6" ry="2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <path d="M6 4v16c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V4" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="12" cy="20" r="1" fill="currentColor" />
   </svg>
 )
 
@@ -92,7 +93,7 @@ export function ServicesSection() {
       isStar: true,
     },
     {
-      icon: ViolinIcon,
+      icon: GuitarIcon,
       title: t("services.strings.title"),
       description: t("services.strings.description"),
       color: "text-primary",
