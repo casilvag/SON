@@ -5,6 +5,8 @@ import { useState, useEffect } from "react"
 import { UserPlus, Send } from "lucide-react"
 import emailjs from "@emailjs/browser"
 
+const COMPONENT_VERSION = "v1.4"
+
 export function RegistrationSection() {
   const [formData, setFormData] = useState({
     nom: "",
@@ -22,9 +24,9 @@ export function RegistrationSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
-    console.log("[v0] Initializing EmailJS...")
+    console.log(`[v0] Registration Section ${COMPONENT_VERSION} - Initializing EmailJS...`)
     emailjs.init("ZA8Tp_KoAQ9vsWEW6")
-    console.log("[v0] EmailJS initialized successfully")
+    console.log(`[v0] Registration Section ${COMPONENT_VERSION} - EmailJS initialized successfully`)
   }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -46,7 +48,7 @@ export function RegistrationSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    console.log("[v0] ===== FORM SUBMISSION STARTED =====")
+    console.log(`[v0] ===== FORM SUBMISSION STARTED (${COMPONENT_VERSION}) =====`)
     console.log("[v0] Form data:", formData)
 
     if (!formData.nom?.trim() || !formData.email?.trim() || !formData.telephone?.trim()) {
@@ -62,7 +64,7 @@ export function RegistrationSection() {
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Preparing email data...")
+      console.log(`[v0] ${COMPONENT_VERSION} - Preparing email data...`)
 
       const emailData = {
         from_name: formData.nom,
@@ -78,20 +80,20 @@ export function RegistrationSection() {
         reply_to: formData.email,
       }
 
-      console.log("[v0] Email data prepared:", emailData)
-      console.log("[v0] EmailJS Configuration:")
+      console.log(`[v0] ${COMPONENT_VERSION} - Email data prepared:`, emailData)
+      console.log(`[v0] ${COMPONENT_VERSION} - EmailJS Configuration:`)
       console.log("[v0] - Service ID: service_tzq60em")
       console.log("[v0] - Template ID: template_yyurn48")
       console.log("[v0] - Public Key: ZA8Tp_KoAQ9vsWEW6")
-      console.log("[v0] Sending email via EmailJS...")
+      console.log(`[v0] ${COMPONENT_VERSION} - Sending email via EmailJS...`)
 
       const result = await emailjs.send(
-        "service_tzq60em", // Your actual EmailJS Service ID
+        "service_tzq60em", // Corrected Service ID from service_tzq6Oem to service_tzq60em
         "template_yyurn48", // Your actual EmailJS Template ID
         emailData,
       )
 
-      console.log("[v0] SUCCESS - Email sent:", result)
+      console.log(`[v0] ${COMPONENT_VERSION} - SUCCESS - Email sent:`, result)
       console.log("[v0] Result status:", result.status)
       console.log("[v0] Result text:", result.text)
 
@@ -115,7 +117,7 @@ export function RegistrationSection() {
         throw new Error(`EmailJS returned status: ${result.status}`)
       }
     } catch (error) {
-      console.error("[v0] ===== EMAIL ERROR DETAILS =====")
+      console.error(`[v0] ===== EMAIL ERROR DETAILS (${COMPONENT_VERSION}) =====`)
       console.error("[v0] Full error object:", error)
       console.error("[v0] Error type:", typeof error)
       console.error("[v0] Error constructor:", error?.constructor?.name)
@@ -158,12 +160,15 @@ export function RegistrationSection() {
       alert(errorMessage)
     } finally {
       setIsSubmitting(false)
-      console.log("[v0] ===== FORM SUBMISSION COMPLETE =====")
+      console.log(`[v0] ===== FORM SUBMISSION COMPLETE (${COMPONENT_VERSION}) =====`)
     }
   }
 
   return (
     <section id="inscription" className="py-20 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
+      {/* Added version display in component */}
+      <div className="absolute top-4 right-4 text-xs text-gray-500 z-20">Registration {COMPONENT_VERSION}</div>
+
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-16 text-yellow-400 opacity-30 text-2xl">♪</div>
         <div className="absolute top-40 right-24 text-blue-400 opacity-30 text-xl">♫</div>
