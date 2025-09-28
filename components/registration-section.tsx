@@ -80,13 +80,13 @@ export function RegistrationSection() {
 
       console.log("[v0] Email data prepared:", emailData)
       console.log("[v0] EmailJS Configuration:")
-      console.log("[v0] - Service ID: service_tzq6Oem")
+      console.log("[v0] - Service ID: service_tzq60em")
       console.log("[v0] - Template ID: template_yyurn48")
       console.log("[v0] - Public Key: ZA8Tp_KoAQ9vsWEW6")
       console.log("[v0] Sending email via EmailJS...")
 
       const result = await emailjs.send(
-        "service_tzq6Oem", // Your actual EmailJS Service ID
+        "service_tzq60em", // Your actual EmailJS Service ID
         "template_yyurn48", // Your actual EmailJS Template ID
         emailData,
       )
