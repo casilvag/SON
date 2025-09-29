@@ -127,7 +127,7 @@ export default function CoursesPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <HeroSection />
+      <HeroSection showVideoButton={false} />
 
       {/* Featured Plan Section */}
       <section className="py-16 relative overflow-hidden">

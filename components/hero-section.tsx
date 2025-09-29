@@ -18,7 +18,7 @@ const MusicIcon = () => (
   </svg>
 )
 
-export function HeroSection() {
+export function HeroSection({ showVideoButton = true }: { showVideoButton?: boolean }) {
   const { t } = useLanguage()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -73,16 +73,18 @@ export function HeroSection() {
 
             <p className="text-xl md:text-2xl text-gray-100 mb-8 text-balance">{t("hero.subtitle")}</p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-lg px-8 py-6 bg-white/10 border-white/20 text-white hover:bg-white/20"
-              >
-                <PlayIcon />
-                {t("hero.demoButton")}
-              </Button>
-            </div>
+            {showVideoButton && (
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="text-lg px-8 py-6 bg-white/10 border-white/20 text-white hover:bg-white/20"
+                >
+                  <PlayIcon />
+                  {t("hero.demoButton")}
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>

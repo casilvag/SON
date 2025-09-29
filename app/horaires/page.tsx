@@ -9,7 +9,7 @@ export default function HorairesPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <HeroSection />
+      <HeroSection showVideoButton={false} />
 
       <div className="pt-4">
         <ScheduleSection />
