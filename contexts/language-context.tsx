@@ -446,7 +446,7 @@ const translations = {
     "team.analucia.specialties.description": "Technique vocale, expression artistique et confiance sur scène",
     "team.analucia.education.title": "Formation Académique",
     "team.analucia.education.description":
-      "Diplômée en Musique (spécialisation chant) - Universidad Distrital Francisco José de Caldas, Bogotá",
+      "Diplômée en Musique (spécialisation chant) - Universidad Central de Colombia, Bogotá",
     "team.analucia.experience.title": "Expérience",
     "team.analucia.experience.description":
       "9 ans d'enseignement musical et arts de la scène avec étudiants de tous âges et niveaux",
@@ -850,7 +850,7 @@ const translations = {
     "team.analucia.specialties.description": "Técnica vocal, expresión artística y confianza en el escenario",
     "team.analucia.education.title": "Formación Académica",
     "team.analucia.education.description":
-      "Graduada en Música (especialización canto) - Universidad Distrital Francisco José de Caldas, Bogotá",
+      "Graduada en Música (especialización canto) - Universidad Central de Colombia, Bogotá",
     "team.analucia.experience.title": "Experiencia",
     "team.analucia.experience.description":
       "9 años de enseñanza musical y artes escénicas con estudiantes de todas las edades y niveles",
