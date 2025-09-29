@@ -27,6 +27,13 @@ export function ScheduleSection() {
       color: "bg-blue-400",
       textColor: "text-blue-400",
     },
+    {
+      id: "analucia",
+      name: "Ana Lucia Piedrahita",
+      specialties: [t("schedule.professors.analucia.specialty")],
+      color: "bg-pink-400",
+      textColor: "text-pink-400",
+    },
   ]
 
   const generateCesarSchedule = () => {
@@ -394,7 +401,7 @@ export function ScheduleSection() {
                     isSelected
                       ? "bg-yellow-400 text-black"
                       : isToday
-                        ? "bg-gray-700 text-white border-2 border-yellow-400"
+                        ? "bg-gray-700 text-white border-2 border-yellow-400 shadow-lg shadow-yellow-400/50"
                         : hasClassesToday && !hasTwoHoursAvailable
                           ? "bg-red-900/50 text-red-300 hover:bg-red-800/50"
                           : hasTwoHoursAvailable
@@ -405,6 +412,11 @@ export function ScheduleSection() {
                   }`}
                 >
                   <div className="font-semibold">{date.getDate()}</div>
+                  {isToday && (
+                    <div className="text-xs mt-1 font-bold text-yellow-400">
+                      {language === "fr" ? "Aujourd'hui" : "Hoy"}
+                    </div>
+                  )}
                   {hasClassesToday && (
                     <div className="text-xs mt-1">
                       <div className="flex items-center justify-center">
@@ -413,7 +425,7 @@ export function ScheduleSection() {
                       </div>
                     </div>
                   )}
-                  {!hasClassesToday && isWeekdayAvailable && (
+                  {!hasClassesToday && isWeekdayAvailable && !isToday && (
                     <div className="text-xs mt-1 text-green-400">{t("schedule.free")}</div>
                   )}
                 </div>

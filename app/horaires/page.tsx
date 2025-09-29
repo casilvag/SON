@@ -48,9 +48,10 @@ export default function HorairesPage() {
       </nav>
 
       <div className="pt-4">
-        <section className="bg-background border-b border-border py-4">
+        <section className="bg-background border-b border-border py-6">
           <div className="container mx-auto px-4">
-            <h1 className="text-2xl font-bold text-foreground">{t("schedule.title")}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">{t("schedule.title")}</h1>
+            <p className="text-muted-foreground text-lg">Septembre - Novembre 2025</p>
           </div>
         </section>
 

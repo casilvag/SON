@@ -162,6 +162,17 @@ export default function CoursesPage() {
         </div>
       </nav>
 
+      {/* Hero Header Section */}
+      <section className="relative py-16 bg-gradient-to-br from-primary/10 via-background to-accent/10 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/musical-notes-pattern.jpg')] opacity-5"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">{t("courses.title")}</h1>
+            <p className="text-lg md:text-xl text-muted-foreground text-pretty">{t("courses.subtitle")}</p>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Plan Section */}
       <section className="py-16 relative overflow-hidden">
         <div className="absolute inset-0">

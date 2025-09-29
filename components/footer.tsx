@@ -263,6 +263,7 @@ export function Footer() {
 
         <div className="border-t border-border mt-8 pt-8 text-center">
           <p className="text-sm text-muted-foreground">{t("footer.created_with_passion")}</p>
+          <p className="text-xs text-muted-foreground/60 mt-2">v2.1.0 - Actualizado 29/09/2025</p>
         </div>
       </div>
     </footer>

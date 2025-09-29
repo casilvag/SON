@@ -351,6 +351,7 @@ const translations = {
     "schedule.courses.cours_collectif": "Cours Collectif",
     "schedule.types.individuel": "Individuel",
     "schedule.types.groupe": "Groupe",
+    "schedule.professors.analucia.specialty": "Chant",
 
     // Testimonials Section
     "testimonials.title": "Témoignages",
@@ -755,6 +756,7 @@ const translations = {
     "schedule.courses.cours_collectif": "Clase Colectiva",
     "schedule.types.individuel": "Individual",
     "schedule.types.groupe": "Grupo",
+    "schedule.professors.analucia.specialty": "Canto",
 
     // Testimonials Section
     "testimonials.title": "Testimonios",
