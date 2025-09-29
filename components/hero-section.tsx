@@ -1,39 +1,88 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { Play, Music } from "lucide-react"
+import { useState, useEffect } from "react"
+import { useLanguage } from "@/contexts/language-context"
+
+const PlayIcon = () => (
+  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polygon points="5,3 19,12 5,21" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
+
+const MusicIcon = () => (
+  <svg className="w-16 h-16 text-white mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path d="M9 18V5l12-2v13" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="6" cy="18" r="3" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+    <circle cx="18" cy="16" r="3" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+  </svg>
+)
 
 export function HeroSection() {
+  const { t } = useLanguage()
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  const images: string[] = [
+    "/images/slideshow-1.jpeg", // Wooden marimba
+    "/images/slideshow-2.jpeg", // Bass guitar and studio setup
+    "/images/slideshow-3.jpeg", // Complete home studio with drums
+    "/images/slideshow-4.jpeg", // Keyboard with microphone
+    "/images/slideshow-5.jpeg", // Electronic drum pads
+  ]
+
+  useEffect(() => {
+    if (images.length > 0) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))
+      }, 5000)
+
+      return () => clearInterval(interval)
+    }
+  }, [images.length])
+
   return (
     <section id="accueil" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-32 h-32 border border-primary rounded-full"></div>
-        <div className="absolute top-40 right-32 w-24 h-24 border border-accent rounded-full"></div>
-        <div className="absolute bottom-32 left-1/4 w-16 h-16 border border-primary rounded-full"></div>
-        <div className="absolute bottom-20 right-20 w-20 h-20 border border-accent rounded-full"></div>
-      </div>
+      {images.length > 0 && (
+        <div className="absolute inset-0">
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+                index === currentImageIndex ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ backgroundImage: `url(${image})` }}
+            />
+          ))}
+        </div>
+      )}
+
+      {images.length === 0 && <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" />}
+
+      <div className="absolute inset-0 bg-black/20" />
 
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <Music className="w-16 h-16 text-primary mx-auto mb-6" />
-          </div>
+          <div className="bg-gray-900/60 backdrop-blur-sm rounded-2xl p-8 md:p-12">
+            <div className="mb-8">
+              <MusicIcon />
+            </div>
 
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance">
-            <span className="text-primary">SON</span>
-          </h1>
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance text-white">
+              <span className="text-primary">SON</span>
+            </h1>
 
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-balance">
-            Apprenez la Musique à Votre Rythme, avec Passion et Créativité
-          </p>
+            <p className="text-xl md:text-2xl text-gray-100 mb-8 text-balance">{t("hero.subtitle")}</p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="text-lg px-8 py-6">
-              Commencer Maintenant
-            </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6 bg-transparent">
-              <Play className="w-5 h-5 mr-2" />
-              Voir la Démo
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button
+                variant="outline"
+                size="lg"
+                className="text-lg px-8 py-6 bg-white/10 border-white/20 text-white hover:bg-white/20"
+              >
+                <PlayIcon />
+                {t("hero.demoButton")}
+              </Button>
+            </div>
           </div>
         </div>
       </div>

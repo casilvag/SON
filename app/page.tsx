@@ -2,9 +2,14 @@ import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { AboutSection } from "@/components/about-section"
 import { ServicesSection } from "@/components/services-section"
+import { WhyChooseUsSection } from "@/components/why-choose-us-section"
 import { TeamSection } from "@/components/team-section"
 import { GallerySection } from "@/components/gallery-section"
-import { ContactSection } from "@/components/contact-section"
+import { PricingSection } from "@/components/pricing-section"
+import { TestimonialsSection } from "@/components/testimonials-section"
+import { FAQSection } from "@/components/faq-section"
+import { RegistrationSection } from "@/components/registration-section"
+import { ContactInfoSection } from "@/components/contact-info-section"
 import { Footer } from "@/components/footer"
 
 export default function HomePage() {
@@ -14,10 +19,18 @@ export default function HomePage() {
       <HeroSection />
       <AboutSection />
       <ServicesSection />
+      <WhyChooseUsSection />
       <TeamSection />
       <GallerySection />
-      <ContactSection />
+      <PricingSection />
+      <TestimonialsSection />
+      <FAQSection />
+      <RegistrationSection />
+      <ContactInfoSection />
       <Footer />
+      <div className="bg-muted/30 py-2 px-4 text-center">
+        <p className="text-xs text-muted-foreground/60 font-mono">v2.0 - Production</p>
+      </div>
     </main>
   )
 }

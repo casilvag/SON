@@ -1,0 +1,479 @@
+"use client"
+
+import type React from "react"
+import { useState, useEffect } from "react"
+import { UserPlus, Send } from "lucide-react"
+
+const COMPONENT_VERSION = "v1.8.1"
+
+let emailjs: any = null
+
+export function RegistrationSection() {
+  const [formData, setFormData] = useState({
+    nom: "",
+    email: "",
+    telephone: "",
+    age: "",
+    niveau: "",
+    cours: "",
+    duree: "",
+    horaire: "",
+    disponibilite: [] as string[],
+    message: "",
+    consentement: false,
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    const initEmailJS = async () => {
+      try {
+        console.log(`[v0] Registration Section ${COMPONENT_VERSION} - Initializing EmailJS...`)
+        const emailjsModule = await import("@emailjs/browser")
+        emailjs = emailjsModule.default
+        emailjs.init("ZA8Tp_KoAQ9vsWEW6")
+        console.log(`[v0] Registration Section ${COMPONENT_VERSION} - EmailJS initialized successfully`)
+      } catch (error) {
+        console.error(`[v0] Registration Section ${COMPONENT_VERSION} - EmailJS initialization failed:`, error)
+      }
+    }
+
+    initEmailJS()
+  }, [])
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleAvailabilityChange = (day: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      disponibilite: prev.disponibilite.includes(day)
+        ? prev.disponibilite.filter((d) => d !== day)
+        : [...prev.disponibilite, day],
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    console.log(`[v0] ===== FORM SUBMISSION STARTED (${COMPONENT_VERSION}) =====`)
+    console.log("[v0] Form data:", formData)
+
+    if (!formData.nom?.trim() || !formData.email?.trim() || !formData.telephone?.trim()) {
+      alert("Les champs nom, email et téléphone sont requis.")
+      return
+    }
+
+    if (!formData.consentement) {
+      alert("Vous devez accepter le traitement de vos données personnelles pour continuer.")
+      return
+    }
+
+    if (!emailjs) {
+      alert("Service d'envoi en cours de chargement. Veuillez patienter quelques secondes et réessayer.")
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      console.log(`[v0] ${COMPONENT_VERSION} - Preparing email data...`)
+
+      const fullMessage = `
+NOUVELLE DEMANDE D'INSCRIPTION - ACADEMY SON
+============================================
+
+INFORMATIONS PERSONNELLES:
+• Nom: ${formData.nom}
+• Email: ${formData.email}
+• Téléphone: ${formData.telephone}
+• Âge: ${formData.age || "Non spécifié"}
+
+DÉTAILS DU COURS:
+• Niveau musical: ${formData.niveau || "Non spécifié"}
+• Cours souhaité: ${formData.cours || "Non spécifié"}
+• Durée souhaitée: ${formData.duree || "Non spécifié"}
+• Horaire préféré: ${formData.horaire || "Non spécifié"}
+• Disponibilité: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée"}
+
+MESSAGE PERSONNEL:
+${formData.message || "Aucun message spécifique"}
+
+============================================
+Demande envoyée le: ${new Date().toLocaleString("fr-FR")}
+      `.trim()
+
+      const emailData = {
+        from_name: formData.nom,
+        from_email: formData.email,
+        to_name: "Academy SON",
+        message: fullMessage,
+        reply_to: formData.email,
+      }
+
+      console.log(`[v0] ${COMPONENT_VERSION} - Email data prepared:`, emailData)
+      console.log(`[v0] ${COMPONENT_VERSION} - EmailJS Configuration:`)
+      console.log("[v0] - Service ID: service_tzq60em")
+      console.log("[v0] - Template ID: template_yyurn48")
+      console.log("[v0] - Public Key: ZA8Tp_KoAQ9vsWEW6")
+      console.log(`[v0] ${COMPONENT_VERSION} - Sending email via EmailJS...`)
+
+      const result = await emailjs.send("service_tzq60em", "template_yyurn48", emailData)
+
+      console.log(`[v0] ${COMPONENT_VERSION} - SUCCESS - Email sent:`, result)
+      console.log("[v0] Result status:", result.status)
+      console.log("[v0] Result text:", result.text)
+
+      if (result.status === 200) {
+        alert("Votre demande d'inscription a été envoyée avec succès! Nous vous contacterons bientôt.")
+
+        setFormData({
+          nom: "",
+          email: "",
+          telephone: "",
+          age: "",
+          niveau: "",
+          cours: "",
+          duree: "",
+          horaire: "",
+          disponibilite: [],
+          message: "",
+          consentement: false,
+        })
+      } else {
+        throw new Error(`EmailJS returned status: ${result.status}`)
+      }
+    } catch (error) {
+      console.error(`[v0] ===== EMAIL ERROR DETAILS (${COMPONENT_VERSION}) =====`)
+      console.error("[v0] Full error object:", error)
+      console.error("[v0] Error type:", typeof error)
+      console.error("[v0] Error constructor:", error?.constructor?.name)
+
+      if (error instanceof Error) {
+        console.error("[v0] Error message:", error.message)
+        console.error("[v0] Error stack:", error.stack)
+      }
+
+      if (error && typeof error === "object") {
+        console.error("[v0] Error status:", (error as any).status)
+        console.error("[v0] Error text:", (error as any).text)
+        console.error("[v0] Error response:", (error as any).response)
+      }
+
+      let errorMessage = "Une erreur s'est produite lors de l'envoi. "
+
+      if (error instanceof Error) {
+        if (error.message.includes("400")) {
+          errorMessage += "Configuration invalide (Error 400). Vérifiez que tous les champs requis sont remplis."
+          console.error("[v0] Likely cause: Template variables mismatch or invalid service configuration")
+        } else if (error.message.includes("401")) {
+          errorMessage += "Problème d'authentification (Error 401). Clé publique invalide."
+          console.error("[v0] Likely cause: Invalid public key")
+        } else if (error.message.includes("403")) {
+          errorMessage += "Accès refusé (Error 403). Contenu bloqué par les filtres."
+          console.error("[v0] Likely cause: Content blocked by EmailJS filters")
+        } else if (error.message.includes("404")) {
+          errorMessage += "Service ou template introuvable (Error 404)."
+          console.error("[v0] Likely cause: Invalid service ID or template ID")
+        } else if (error.message.includes("network") || error.message.includes("fetch")) {
+          errorMessage += "Problème de connexion internet. Vérifiez votre connexion et réessayez."
+        } else {
+          errorMessage += `Erreur technique: ${error.message}. Contactez-nous directement.`
+        }
+      } else {
+        errorMessage += "Erreur inconnue. Veuillez réessayer ou nous contacter directement."
+      }
+
+      alert(errorMessage)
+    } finally {
+      setIsSubmitting(false)
+      console.log(`[v0] ===== FORM SUBMISSION COMPLETE (${COMPONENT_VERSION}) =====`)
+    }
+  }
+
+  return (
+    <section id="inscription" className="py-20 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
+      {/* Added version display in component */}
+      <div className="absolute top-4 right-4 text-xs text-gray-500 z-20">Registration {COMPONENT_VERSION}</div>
+
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-16 text-yellow-400 opacity-30 text-2xl">♪</div>
+        <div className="absolute top-40 right-24 text-blue-400 opacity-30 text-xl">♫</div>
+        <div className="absolute top-60 left-1/3 text-red-400 opacity-30 text-2xl">♪</div>
+        <div className="absolute bottom-40 right-1/4 text-yellow-400 opacity-30 text-xl">♫</div>
+        <div className="absolute bottom-60 left-20 text-blue-400 opacity-30 text-2xl">♪</div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center">
+            <UserPlus className="w-12 h-12 text-yellow-400 mr-4" />
+            Formulaire d'<span className="text-yellow-400">Inscription</span>
+          </h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Rejoignez Academy SON et commencez votre voyage musical dès aujourd'hui!
+          </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gray-900/80 rounded-2xl p-8 border border-gray-800 backdrop-blur-sm">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Nom */}
+                <div>
+                  <label htmlFor="nom" className="block text-white font-medium mb-2">
+                    Nom complet *
+                  </label>
+                  <input
+                    type="text"
+                    id="nom"
+                    name="nom"
+                    value={formData.nom}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                    placeholder="Votre nom complet"
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label htmlFor="email" className="block text-white font-medium mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                    placeholder="votre@email.com"
+                  />
+                </div>
+
+                {/* Téléphone */}
+                <div>
+                  <label htmlFor="telephone" className="block text-white font-medium mb-2">
+                    Téléphone *
+                  </label>
+                  <input
+                    type="tel"
+                    id="telephone"
+                    name="telephone"
+                    value={formData.telephone}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                    placeholder="Votre numéro de téléphone"
+                  />
+                </div>
+
+                {/* Âge */}
+                <div>
+                  <label htmlFor="age" className="block text-white font-medium mb-2">
+                    Âge
+                  </label>
+                  <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleInputChange}
+                    min="5"
+                    max="99"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                    placeholder="Votre âge"
+                  />
+                </div>
+
+                {/* Niveau */}
+                <div>
+                  <label htmlFor="niveau" className="block text-white font-medium mb-2">
+                    Niveau musical *
+                  </label>
+                  <select
+                    id="niveau"
+                    name="niveau"
+                    value={formData.niveau}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                  >
+                    <option value="">Sélectionnez votre niveau</option>
+                    <option value="debutant">Débutant</option>
+                    <option value="intermediaire">Intermédiaire</option>
+                    <option value="avance">Avancé</option>
+                  </select>
+                </div>
+
+                {/* Cours */}
+                <div>
+                  <label htmlFor="cours" className="block text-white font-medium mb-2">
+                    Cours souhaité *
+                  </label>
+                  <select
+                    id="cours"
+                    name="cours"
+                    value={formData.cours}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                  >
+                    <option value="">Sélectionnez un cours</option>
+                    <option value="bajo-electrico">Basse Électrique</option>
+                    <option value="bateria">Batterie</option>
+                    <option value="dj">DJ</option>
+                    <option value="ensemble-de-groupe">Ensemble de Groupe</option>
+                    <option value="guitare">Guitare</option>
+                    <option value="piano-moderne">Piano Moderne</option>
+                    <option value="production-musicale">Production Musicale</option>
+                    <option value="xilofono">Xylophone</option>
+                  </select>
+                </div>
+
+                {/* Durée souhaitée */}
+                <div>
+                  <label htmlFor="duree" className="block text-white font-medium mb-2">
+                    Durée souhaitée *
+                  </label>
+                  <select
+                    id="duree"
+                    name="duree"
+                    value={formData.duree}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                  >
+                    <option value="">Sélectionnez la durée</option>
+                    <option value="30min">30 minutes</option>
+                    <option value="45min">45 minutes</option>
+                    <option value="60min">60 minutes</option>
+                    <option value="90min">90 minutes</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Horaire préféré */}
+              <div>
+                <label htmlFor="horaire" className="block text-white font-medium mb-2">
+                  Horaire préféré
+                </label>
+                <select
+                  id="horaire"
+                  name="horaire"
+                  value={formData.horaire}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+                >
+                  <option value="">Sélectionnez un horaire</option>
+                  <option value="matin">Matin (9h00 - 12h00)</option>
+                  <option value="apres-midi">Après-midi (12h00 - 17h00)</option>
+                  <option value="soir">Soir (17h00 - 20h00)</option>
+                  <option value="weekend">Weekend</option>
+                  <option value="flexible">Flexible</option>
+                </select>
+              </div>
+
+              {/* Disponibilité dans la semaine */}
+              <div>
+                <label className="block text-white font-medium mb-4">Disponibilité dans la semaine</label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {[
+                    { value: "lundi", label: "Lundi" },
+                    { value: "mardi", label: "Mardi" },
+                    { value: "mercredi", label: "Mercredi" },
+                    { value: "jeudi", label: "Jeudi" },
+                    { value: "vendredi", label: "Vendredi" },
+                    { value: "samedi", label: "Samedi" },
+                    { value: "dimanche", label: "Dimanche" },
+                    { value: "flexible", label: "Flexible" },
+                  ].map((day) => (
+                    <label key={day.value} className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.disponibilite.includes(day.value)}
+                        onChange={() => handleAvailabilityChange(day.value)}
+                        className="w-4 h-4 text-yellow-400 bg-gray-800 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2"
+                      />
+                      <span className="text-gray-300 text-sm">{day.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Message */}
+              <div>
+                <label htmlFor="message" className="block text-white font-medium mb-2">
+                  Message ou questions spécifiques
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={4}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors duration-300 resize-vertical"
+                  placeholder="Parlez-nous de vos objectifs musicaux, expérience précédente, ou toute question..."
+                />
+              </div>
+
+              {/* Consentimiento */}
+              <div className="bg-gray-800/50 rounded-lg p-6 border border-gray-700">
+                <label className="flex items-start space-x-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.consentement}
+                    onChange={(e) => setFormData({ ...formData, consentement: e.target.checked })}
+                    required
+                    className="w-5 h-5 text-yellow-400 bg-gray-800 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2 mt-1 flex-shrink-0"
+                  />
+                  <span className="text-gray-300 text-sm leading-relaxed">
+                    <span className="text-red-400">*</span> J'accepte le traitement de mes données personnelles
+                    conformément à la politique de confidentialité d'Academy SON. Ces informations seront utilisées
+                    uniquement pour traiter ma demande d'inscription et me contacter concernant les cours.
+                  </span>
+                </label>
+              </div>
+
+              {/* Submit Button */}
+              <div className="text-center pt-4">
+                <button
+                  type="submit"
+                  disabled={isSubmitting || !formData.consentement}
+                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-yellow-400 to-red-400 text-black font-bold text-lg rounded-lg hover:from-yellow-300 hover:to-red-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+                >
+                  <Send className="w-5 h-5 mr-2" />
+                  {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande d'inscription"}
+                </button>
+              </div>
+            </form>
+
+            {/* Info supplémentaire */}
+            <div className="mt-8 p-6 bg-gray-800/50 rounded-lg border border-gray-700">
+              <h4 className="text-lg font-semibold text-yellow-400 mb-3">Prochaines étapes:</h4>
+              <ul className="text-gray-300 space-y-2">
+                <li className="flex items-start">
+                  <span className="text-yellow-400 mr-2">1.</span>
+                  Nous examinerons votre demande dans les 24h
+                </li>
+                <li className="flex items-start">
+                  <span className="text-yellow-400 mr-2">2.</span>
+                  Un de nos conseillers vous contactera pour discuter de vos besoins
+                </li>
+                <li className="flex items-start">
+                  <span className="text-yellow-400 mr-2">3.</span>
+                  Nous planifierons votre première séance d'évaluation gratuite
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
