@@ -48,7 +48,7 @@ export function Header() {
                   alt="SON Logo"
                   width={200}
                   height={60}
-                  className="h-full w-auto object-contain"
+                  className="h-full w-auto object-contain rounded-md"
                 />
               </div>
             </a>
