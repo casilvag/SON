@@ -42,18 +42,14 @@ export function Header() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <a href="/" className="flex items-center space-x-3">
-              <div className="w-8 h-8 flex-shrink-0 bg-black rounded-full p-1">
+              <div className="h-12 flex-shrink-0">
                 <Image
                   src="/images/logo.png"
-                  alt="Academy SON Logo"
-                  width={32}
-                  height={32}
-                  className="w-full h-full object-contain"
+                  alt="SON Académie de Musique Logo"
+                  width={180}
+                  height={48}
+                  className="h-full w-auto object-contain"
                 />
-              </div>
-              <div className="flex flex-col">
-                <div className="text-2xl font-bold text-primary">SON</div>
-                <div className="text-xs text-muted-foreground font-medium">{t("nav.academy")}</div>
               </div>
             </a>
           </div>
