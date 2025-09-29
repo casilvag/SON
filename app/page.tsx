@@ -29,7 +29,7 @@ export default function HomePage() {
       <ContactInfoSection />
       <Footer />
       <div className="bg-muted/30 py-2 px-4 text-center">
-        <p className="text-xs text-muted-foreground/60 font-mono">v1.9 - Production</p>
+        <p className="text-xs text-muted-foreground/60 font-mono">v2.0 - Production</p>
       </div>
     </main>
   )
