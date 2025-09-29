@@ -42,12 +42,12 @@ export function Header() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <a href="/" className="flex items-center space-x-3">
-              <div className="h-12 flex-shrink-0">
+              <div className="h-16 flex-shrink-0">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/logos/logo-main.png"
                   alt="SON Académie de Musique Logo"
-                  width={180}
-                  height={48}
+                  width={240}
+                  height={64}
                   className="h-full w-auto object-contain"
                 />
               </div>
