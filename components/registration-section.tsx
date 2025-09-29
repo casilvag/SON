@@ -3,9 +3,10 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { UserPlus, Send } from "lucide-react"
-import emailjs from "@emailjs/browser"
 
-const COMPONENT_VERSION = "v1.5"
+const COMPONENT_VERSION = "v1.8.1"
+
+let emailjs: any = null
 
 export function RegistrationSection() {
   const [formData, setFormData] = useState({
@@ -24,9 +25,19 @@ export function RegistrationSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
-    console.log(`[v0] Registration Section ${COMPONENT_VERSION} - Initializing EmailJS...`)
-    emailjs.init("ZA8Tp_KoAQ9vsWEW6")
-    console.log(`[v0] Registration Section ${COMPONENT_VERSION} - EmailJS initialized successfully`)
+    const initEmailJS = async () => {
+      try {
+        console.log(`[v0] Registration Section ${COMPONENT_VERSION} - Initializing EmailJS...`)
+        const emailjsModule = await import("@emailjs/browser")
+        emailjs = emailjsModule.default
+        emailjs.init("ZA8Tp_KoAQ9vsWEW6")
+        console.log(`[v0] Registration Section ${COMPONENT_VERSION} - EmailJS initialized successfully`)
+      } catch (error) {
+        console.error(`[v0] Registration Section ${COMPONENT_VERSION} - EmailJS initialization failed:`, error)
+      }
+    }
+
+    initEmailJS()
   }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -61,6 +72,11 @@ export function RegistrationSection() {
       return
     }
 
+    if (!emailjs) {
+      alert("Service d'envoi en cours de chargement. Veuillez patienter quelques secondes et réessayer.")
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -79,7 +95,7 @@ INFORMATIONS PERSONNELLES:
 DÉTAILS DU COURS:
 • Niveau musical: ${formData.niveau || "Non spécifié"}
 • Cours souhaité: ${formData.cours || "Non spécifié"}
-• Durée souhaitée: ${formData.duree || "Non spécifiée"}
+• Durée souhaitée: ${formData.duree || "Non spécifié"}
 • Horaire préféré: ${formData.horaire || "Non spécifié"}
 • Disponibilité: ${formData.disponibilite.length > 0 ? formData.disponibilite.join(", ") : "Non spécifiée"}
 
